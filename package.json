@@ -1,0 +1,33 @@
+{
+    "name": "doble9",
+    "version": "0.0.1",
+    "description" : "proper domino",
+    "homepage" : "https://double9.com",
+    "repository" : { "type" : "git", "url" : "https://github.com/limadelic/chipojos.git" },
+    "keywords" : ["game", "html5"],
+    "author" : "limadelic <limadelic@gmail.com>",
+    "contributors" : [
+        "Isel Fernandez <isel_77@hotmail.com>",
+        "JP Erkelens <jperkelens@gmail.com>",
+        "Mike Suarez <mikemps@gmail.com>"
+    ],
+    "licenses" : ["MIT"],
+    "dependencies": {
+        "coffee-script": "latest",
+        "underscore": "latest",
+        "jade": "latest",
+        "restler": "latest",
+        "express": "latest"
+    },
+    "devDependencies": {
+        "mocha": "latest"
+    },
+    "engines": {
+        "node": ">=0.6",
+        "npm": ">=1.1"
+    },
+    "scripts": {
+        "pretest": "coffee -cl -o lib src",
+        "test": "mocha"
+    }
+}
