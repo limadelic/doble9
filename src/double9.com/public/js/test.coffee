@@ -1,4 +1,4 @@
-$(document).ready ->
+draw = ->
 
   canvas = $('canvas')[0]
   canvas.width = window.innerWidth
@@ -11,3 +11,5 @@ $(document).ready ->
     ctx.fillStyle = ctx.createPattern @, 'repeat'
     ctx.fillRect 0, 0, canvas.width, canvas.height
 
+$(document).ready draw
+$(window).resize draw
