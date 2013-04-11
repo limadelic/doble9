@@ -17,6 +17,7 @@
         "underscore": "latest",
         "jade": "latest",
         "restler": "latest",
+        "connect-assets": "latest",
         "express": "latest"
     },
     "devDependencies": {
