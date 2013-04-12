@@ -1,7 +1,19 @@
 extends layout
 
 block content
-    canvas
+    .row
+        .stand.span8.offset2
+            p player 1
+    .row
+        .stand.span2
+            p player 4
+        .span8
+            p game
+        .stand.span2
+            p player 2
+    .row
+        .stand.span8.offset2
+            p player 3
 
     script(src='coffee/test.coffee', type='text/coffeescript')
 
