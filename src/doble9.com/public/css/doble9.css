@@ -2,13 +2,14 @@
     background-color: #808080;
 }
 
-.piece {
+.domino {
     background-image: url(../img/doble_blanco.gif);
     background-size: cover;
-    width: 40px;
-    margin-left: 0px;
+    margin-left: 1px;
+    float: left;
 }
 
-.piece_value {
-    padding: 15%;
+.domino img {
+    margin: 10px;
+    width: 30px;
 }
