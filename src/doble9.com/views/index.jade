@@ -6,9 +6,10 @@ block content
             .row
                 for number in [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
                     .domino
-                        img(src="img/#{number}.gif")
-                        br
-                        img(src="img/1.gif")
+                        .number
+                            img(src="img/#{number}.gif")
+                        .number
+                            img(src="img/#{number}.gif")
     .row
         .stand.span2
             p player 4
@@ -21,9 +22,10 @@ block content
             .row
                 for number in [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
                     .domino
-                        img(src="img/#{number}.gif")
-                        br
-                        img(src="img/3.gif")
+                        .number
+                            img(src="img/#{number}.gif")
+                        .number
+                            img(src="img/3.gif")
 
     script(src='coffee/test.coffee', type='text/coffeescript')
 
