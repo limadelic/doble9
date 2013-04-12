@@ -3,7 +3,13 @@ extends layout
 block content
     .row
         .stand.span8.offset2
-            img(src="img/doble_blanco.gif")
+            .row
+                for number in [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+                    .piece.span1
+                        .piece_value
+                            img(src="img/#{number}.gif")
+                        .piece_value
+                            img(src="img/1.gif")
     .row
         .stand.span2
             p player 4
@@ -13,7 +19,13 @@ block content
             p player 2
     .row
         .stand.span8.offset2
-            p player 3
+            .row
+                for number in [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+                    .piece.span1
+                        .piece_value
+                            img(src="img/#{number}.gif")
+                        .piece_value
+                            img(src="img/3.gif")
 
     script(src='coffee/test.coffee', type='text/coffeescript')
 

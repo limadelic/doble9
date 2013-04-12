@@ -1,3 +1,14 @@
 .stand {
     background-color: #808080;
 }
+
+.piece {
+    background-image: url(../img/doble_blanco.gif);
+    background-size: cover;
+    width: 40px;
+    margin-left: 0px;
+}
+
+.piece_value {
+    padding: 15%;
+}
