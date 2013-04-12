@@ -1,1 +1,1 @@
-require './src/double9.com/app'
+require './src/doble9.com/app'
