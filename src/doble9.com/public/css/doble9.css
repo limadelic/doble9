@@ -9,6 +9,12 @@
     float: left;
 }
 
+.back {
+    background-image: url(../img/domino_back.png);
+    width: 50px;
+    height: 100px;
+}
+
 .number {
     padding: 10px;
     width: 30px;
