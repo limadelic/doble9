@@ -1,6 +1,16 @@
-.dominoes {
+.horizontal {
     width: 510px;
     height: 100px;
+    margin: auto;
+}
+
+.left {
+    float: left;
+}
+
+.vertical {
+    height: 510px;
+    width: 100px;
     margin: auto;
 }
 
@@ -16,6 +26,12 @@
     background-image: url(../img/domino_back.png);
     width: 50px;
     height: 100px;
+}
+
+.vertical .back {
+    background-image: url(../img/domino_back_hor.png);
+    height: 50px;
+    width: 100px;
 }
 
 .number {
