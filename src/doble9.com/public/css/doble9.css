@@ -1,46 +1,61 @@
-.horizontal {
-    width: 510px;
-    height: 100px;
-    margin: auto;
+html, body {
+    height: 100%;
+    margin: 0;
 }
 
-.left {
-    float: left;
+table {
+    min-width: 100%;
+    min-height: 100%;
 }
 
-.vertical {
-    height: 510px;
+td.vertical {
     width: 100px;
+}
+
+.horizontal .dominoes {
     margin: auto;
+    width: 510px;
+}
+
+.vertical .dominoes {
+    margin: auto;
+    height: 510px;
+}
+
+td.horizontal {
+    height: 101px;
+}
+
+.main {
+    width: auto;
+    height: auto;
 }
 
 .domino {
-    background-image: url(../img/doble_blanco.gif);
     background-size: cover;
     background-repeat: no-repeat;
-    margin-left: 1px;
-    float: left;
 }
 
-.back {
+.horizontal .domino {
     background-image: url(../img/domino_back.png);
+    margin-right: 1px;
+    float: left;
     width: 50px;
     height: 100px;
 }
 
-.vertical .back {
+.vertical .domino {
+    margin-bottom: 1px;
     background-image: url(../img/domino_back_hor.png);
     height: 50px;
     width: 100px;
 }
 
+.player .domino {
+    background-image: url(../img/doble_blanco.gif);
+}
+
 .number {
     padding: 10px;
     width: 30px;
-}
-
-.bottom {
-    position: fixed;
-    bottom: 0;
-    width: 100%;
 }
