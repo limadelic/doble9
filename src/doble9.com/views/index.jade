@@ -1,27 +1,17 @@
 extends layout
 
 block content
-    .row
-        .stand.hor.span8.offset2
-            .row
-                for number in [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
-                    .domino.back
-    .row
-        .stand.span2
-            p player 4
-        .span8
-            p game
-        .stand.span2
-            p player 2
-    .row
-        .stand.hor.span8.offset2
-            .row
-                for number in [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
-                    .domino
-                        .number
-                            img(src="img/#{number}.gif")
-                        .number
-                            img(src="img/3.gif")
+    .dominoes
+        for number in [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+            .domino.back
+    .bottom
+        .dominoes
+            for number in [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+                .domino
+                    .number
+                        img(src="img/#{number}.gif")
+                    .number
+                        img(src="img/3.gif")
 
     script(src='coffee/test.coffee', type='text/coffeescript')
 
