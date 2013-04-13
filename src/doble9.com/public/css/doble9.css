@@ -12,6 +12,10 @@ td.vertical {
     width: 100px;
 }
 
+td.horizontal {
+    height: 100px;
+}
+
 .horizontal .dominoes {
     margin: auto;
     width: 510px;
@@ -20,10 +24,6 @@ td.vertical {
 .vertical .dominoes {
     margin: auto;
     height: 510px;
-}
-
-td.horizontal {
-    height: 101px;
 }
 
 .main {
