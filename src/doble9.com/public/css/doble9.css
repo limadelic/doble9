@@ -1,4 +1,4 @@
-html, body {
+html, body, table {
     height: 100%;
     margin: 0;
 }
@@ -8,12 +8,14 @@ table {
     min-height: 100%;
 }
 
-td.vertical {
-    width: 100px;
+td.main {
+    width: auto;
+    height: auto;
 }
 
-td.horizontal {
-    height: 100px;
+td.vertical {
+    width: 100px;
+    height: 100%;
 }
 
 .horizontal .dominoes {
@@ -24,11 +26,6 @@ td.horizontal {
 .vertical .dominoes {
     margin: auto;
     height: 510px;
-}
-
-.main {
-    width: auto;
-    height: auto;
 }
 
 .domino {
@@ -59,3 +56,16 @@ td.horizontal {
     padding: 10px;
     width: 30px;
 }
+
+.top {
+    position: fixed;
+    top: 0;
+    width: 100%;
+}
+
+.bottom {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+}
+

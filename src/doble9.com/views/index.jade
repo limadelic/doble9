@@ -3,13 +3,6 @@ extends layout
 block content
     table
         tr
-            td
-            td.horizontal
-                .dominoes
-                    for number in [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
-                        .domino.back
-            td
-        tr
             td.vertical
                 .dominoes
                     for number in [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
@@ -19,14 +12,17 @@ block content
                 .dominoes
                     for number in [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
                         .domino.back
-        tr
-            td
-            td.horizontal
-                .dominoes.player
-                    for number in [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
-                        .domino
-                            .number
-                                img(src="img/#{number}.gif")
-                            .number
-                                img(src="img/#{number}.gif")
-            td
+
+    .horizontal.top
+        .dominoes
+            for number in [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+                .domino.back
+
+    .horizontal.bottom
+        .dominoes.player
+            for number in [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+                .domino
+                    .number
+                        img(src="img/#{number}.gif")
+                    .number
+                        img(src="img/#{number}.gif")
