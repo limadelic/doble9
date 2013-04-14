@@ -30,9 +30,8 @@
         "npm": ">=1.1"
     },
     "scripts": {
-        "pretest": "coffee -cl -o lib src",
-        "test": "mocha",
-        "autotest": "nodemon -w src -w test node_modules/mocha/bin/mocha",
-        "autorun": "nodemon -w src node_modules/coffee-script/bin/coffee app.coffee"
+        "posttest": "coffee -cl -o lib src",
+        "test": "nodemon -w src -w test node_modules/mocha/bin/mocha",
+        "start": "nodemon -w src node_modules/coffee-script/bin/coffee app.coffee"
     }
 }
