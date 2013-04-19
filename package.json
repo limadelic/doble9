@@ -14,9 +14,11 @@
     "licenses" : ["MIT"],
     "dependencies": {
         "coffee-script": "latest",
+        "requirejs": "latest",
         "underscore": "latest",
         "jade": "latest",
         "restler": "latest",
+        "connect": "latest",
         "connect-assets": "latest",
         "express": "latest"
     },

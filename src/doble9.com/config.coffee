@@ -14,6 +14,8 @@ app.configure ->
 
   @use @router
 
+#  @use '/js/', co
+
   @set 'views', views
   @set 'view engine', 'jade'
 
