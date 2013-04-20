@@ -1,14 +1,15 @@
 require [
+  'underscore'
   'cs!game'
   'cs!Dealer'
-], (Game, Dealer) ->
+], (_, Game, Dealer) ->
 
   game = new Game()
   dealer = new Dealer()
 
   dealer.deal game
 
-  alert JSON.stringify game.players[0].dominoes
+  alert JSON.stringify _.first(game.players).dominoes
 
 
 
