@@ -1,12 +1,12 @@
 require({
     baseUrl: '/coffee/',
     paths: {
-        jquery: '../js/jquery',
-        cs: '../js/cs',
-        text: '../js/text',
-        'coffee-script': '../js/coffee-script',
-        underscore: '../js/underscore',
-        backbone: '../js/backbone'
+        jquery: '/js/jquery',
+        cs: '/js/cs',
+        text: '/js/text',
+        'coffee-script': '/js/coffee-script',
+        underscore: '/js/underscore',
+        backbone: '/js/backbone'
     },
     shim: {
         underscore: {
