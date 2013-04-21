@@ -5,7 +5,7 @@ define ['backbone', 'underscore', 'text!/templates/player.html'],
 
     className: 'dominoes'
 
-    template: _.template 'template'
+    template: _.template template
 
     render: ->
       @$el.html @template
