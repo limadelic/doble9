@@ -1,6 +1,7 @@
-define ['backbone'],
-(Backbone) ->
+define ['backbone', 'cs!models/player'],
+(Backbone, Player) ->
 
   class Game extends Backbone.Model
-    dominoes: []
-    players: []
+
+    constructor: ->
+      @players = (new Player() for x in [1..4])

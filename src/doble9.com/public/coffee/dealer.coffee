@@ -1,6 +1,9 @@
-define [], ->
+define ['cs!models/domino'],
+(Domino) ->
 
   class Dealer
+
+    dominoes: []
 
     deal: (@game) ->
       @load_dominoes()
@@ -9,13 +12,13 @@ define [], ->
     load_dominoes: ->
       for x in [0..9]
         for y in [x..9]
-          @game.dominoes.push [x, y]
+          @dominoes.push [x, y]
 
-    deal_players: -> @deal_player() for x in [0..3]
+    deal_players: -> @deal_player player for player in @game.players
 
-    deal_player: -> @game.players.push
-      dominoes: @deal_dominoes()
+    deal_player: (player) ->
+      player.dominoes = (@pick_domino() for x in [0..9])
 
-    deal_dominoes: -> @deal_domino() for x in [0..9]
-    deal_domino: -> @game.dominoes.splice(@index(), 1)[0]
-    index: -> Math.random() * @game.dominoes.length
+    pick_domino: -> @dominoes.splice(@random_index(), 1)[0]
+
+    random_index: -> Math.random() * @dominoes.length
