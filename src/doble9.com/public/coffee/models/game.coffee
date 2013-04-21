@@ -1,4 +1,4 @@
 define [], ->
-  class Game
+  class Game extends Backbone.model
     dominoes: []
     players: []

@@ -1,8 +1,5 @@
-require [
-  'underscore'
-  'cs!game'
-  'cs!Dealer'
-], (_, Game, Dealer) ->
+require ['underscore', 'cs!game', 'cs!dealer'],
+(_, Game, Dealer) ->
 
   game = new Game()
   dealer = new Dealer()
