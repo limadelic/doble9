@@ -1,15 +1,13 @@
-require ['underscore', 'cs!models/game', 'cs!dealer', 'cs!views/player'],
-(_, Game, Dealer, Player) ->
+require ['underscore', 'cs!models/game', 'cs!dealer', 'cs!views/game'],
+(_, Game, Dealer, View) ->
 
   game = new Game()
   dealer = new Dealer()
-  player = new Player()
+  view = new View
+    model: game
 
   dealer.deal game
-
-  $('#player1').html player.render().el
-
-  alert JSON.stringify _.first(game.players).dominoes
+  view.render()
 
 
 

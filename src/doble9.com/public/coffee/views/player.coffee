@@ -8,6 +8,6 @@ define ['backbone', 'underscore', 'text!/templates/player.html'],
     template: _.template template
 
     render: ->
-      @$el.html @template
+      @$el.html @template @model
       @
 
