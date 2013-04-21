@@ -1,4 +1,6 @@
-define [], ->
-  class Game extends Backbone.model
+define ['backbone'],
+(Backbone) ->
+
+  class Game extends Backbone.Model
     dominoes: []
     players: []

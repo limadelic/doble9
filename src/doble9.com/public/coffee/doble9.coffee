@@ -1,4 +1,4 @@
-require ['underscore', 'cs!game', 'cs!dealer'],
+require ['underscore', 'cs!models/game', 'cs!dealer'],
 (_, Game, Dealer) ->
 
   game = new Game()
