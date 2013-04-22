@@ -3,12 +3,16 @@ define ['backbone', 'underscore', 'cs!views/player'],
 
   class Game extends Backbone.View
 
+    new_players: ->
+      for player in @model.players
+        new Player
+          model: player
+          el: '#' + player.name
+
     initialize: ->
-      @player1 = new Player
-        model: @model.players[0]
-        el: '#player1'
+      @players = @new_players()
 
     render: ->
-      @player1.render()
+      player.render() for player in @players
       @
 

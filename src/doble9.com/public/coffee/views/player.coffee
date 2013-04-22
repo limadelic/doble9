@@ -3,8 +3,6 @@ define ['backbone', 'underscore', 'text!/templates/player.html'],
 
   class Player extends Backbone.View
 
-    className: 'dominoes'
-
     template: _.template template
 
     render: ->

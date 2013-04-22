@@ -1,3 +1,10 @@
 <% _.each(dominoes, function(domino){  %>
-    <%= domino %>
+    <% if (name !== 'player') { %>
+        <div class="domino back" ></div>
+    <% } else { %>
+        <div class="domino">
+            <div class="number"><img src="/img/<%= domino[0] %>.gif"/></div>
+            <div class="number"><img src="/img/<%= domino[1] %>.gif"/></div>
+        </div>
+    <% } %>
 <% }) %>

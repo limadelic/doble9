@@ -4,4 +4,9 @@ define ['backbone', 'cs!models/player'],
   class Game extends Backbone.Model
 
     constructor: ->
-      @players = (new Player() for x in [1..4])
+      @players = [
+        new Player 'player'
+        new Player 'front'
+        new Player 'left'
+        new Player 'right'
+      ]
