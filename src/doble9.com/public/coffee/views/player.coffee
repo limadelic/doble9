@@ -5,6 +5,13 @@ define ['backbone', 'underscore', 'text!/templates/player.html'],
 
     template: _.template template
 
+    events:
+      'click .domino': 'play'
+
+    play: ->
+      alert 'pa fuera'
+      false
+
     render: ->
       @$el.html @template @model
       @
