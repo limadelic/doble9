@@ -10,3 +10,5 @@ define ['backbone', 'cs!models/player'],
         new Player 'left'
         new Player 'right'
       ]
+
+

@@ -8,11 +8,11 @@ define ['backbone', 'underscore', 'text!/templates/player.html'],
     events:
       'click .domino': 'play'
 
-    play: ->
-      alert 'pa fuera'
-      false
-
     render: ->
       @$el.html @template @model
       @
 
+    play: (e) ->
+
+      alert e.target
+      false
