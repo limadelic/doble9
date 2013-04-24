@@ -1,5 +1,5 @@
-define ['backbone', 'cs!models/player'],
-(Backbone, Player) ->
+define ['backbone', 'cs!models/player', 'cs!dealer'],
+(Backbone, Player, Dealer) ->
 
   class Game extends Backbone.Model
 
@@ -10,5 +10,6 @@ define ['backbone', 'cs!models/player'],
         new Player 'left'
         new Player 'right'
       ]
+      new Dealer().deal @
 
 
