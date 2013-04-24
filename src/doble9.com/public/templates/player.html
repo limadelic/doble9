@@ -1,12 +1,19 @@
-<% _.each(dominoes, function(domino){
+<%
+
+    _.each(dominoes, function(domino){
 
         var x = domino[0],
             y = domino[1];
 
         if (name !== 'player') {
 %>
+
         <div class="domino back" ></div>
-    <% } else { %>
+
+<%
+        } else {
+%>
+
         <div class="domino">
             <div class="number">
                 <a href="/#play/<%= x %><%= y %>">
@@ -19,5 +26,8 @@
                 </a>
             </div>
         </div>
-    <% } %>
-<% }) %>
+
+<%
+        }
+    })
+%>
