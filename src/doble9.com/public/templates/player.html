@@ -1,10 +1,23 @@
-<% _.each(dominoes, function(domino){  %>
-    <% if (name !== 'player') { %>
+<% _.each(dominoes, function(domino){
+
+        var x = domino[0],
+            y = domino[1];
+
+        if (name !== 'player') {
+%>
         <div class="domino back" ></div>
     <% } else { %>
         <div class="domino">
-            <div class="number"><img src="/img/<%= domino[0] %>.gif"/></div>
-            <div class="number"><img src="/img/<%= domino[1] %>.gif"/></div>
+            <div class="number">
+                <a href="/#play/<%= x %><%= y %>">
+                    <img src="/img/<%= x %>.gif"/>
+                </a>
+            </div>
+            <div class="number">
+                <a href="/#play/<%= y %><%= x %>">
+                    <img src="/img/<%= y %>.gif"/>
+                </a>
+            </div>
         </div>
     <% } %>
 <% }) %>
