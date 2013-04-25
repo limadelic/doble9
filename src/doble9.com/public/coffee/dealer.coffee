@@ -1,5 +1,5 @@
-define ['cs!models/domino'],
-(Domino) ->
+define ['cs!models/domino', 'cs!sorter'],
+(Domino, Sorter) ->
 
   class Dealer
 
@@ -17,7 +17,8 @@ define ['cs!models/domino'],
     deal_players: -> @deal_player player for player in @game.players
 
     deal_player: (player) ->
-      player.dominoes = (@pick_domino() for x in [0..9])
+      sorter = new Sorter
+      player.dominoes = sorter.sort(@pick_domino() for x in [0..9])
 
     pick_domino: -> @dominoes.splice(@random_index(), 1)[0]
 
