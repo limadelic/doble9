@@ -1,17 +1,11 @@
-define ['underscore', 'cs!heap'],
-(_, Heap) ->
+define ['underscore'],
+(_) ->
   class Sorter
     sort: (dominoes) ->
       sorted_dominoes = []
       key_index = (0 for i in [0..9])
-      heap = new Heap
       total = 0
-      buckets = ({ 
-        val: i, 
-        count: 0, 
-        greater_than: (another) ->
-          @count > another.count or (@count is another.count && @val > another.val)
-      } for i in [0..9])
+      buckets = ({ val: i, count: 0, } for i in [0..9])
 
       counts = _.reduce(dominoes, (memo, d) ->
         memo[d[0]].count++
@@ -20,13 +14,14 @@ define ['underscore', 'cs!heap'],
         memo
       , buckets) 
 
-      heap.push item for item in buckets
+      buckets = _.sortBy(buckets, (b) ->
+        (10*b.count + b.val) * -1
+      )
 
-      ((-> 
-        biggest = heap.pop()
+      ((biggest) -> 
         key_index[biggest.val] = total
-        total += biggest.count)()
-      ) until heap.is_empty()
+        total += biggest.count
+      )(bucket) for bucket in buckets
 
       ((domino) ->
         one_idx = key_index[domino[0]]
