@@ -63,7 +63,7 @@ td.vertical {
 }
 
 .number:hover {
-    background: -webkit-radial-gradient(top center, ellipse cover, rgba(255,128,128,0.2) 0%,rgba(0,0,0,0.5) 100%);
+    background-color: brown;
 }
 
 img {
