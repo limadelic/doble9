@@ -4,22 +4,23 @@ define ['underscore'],
     flip = (domino) ->
       [domino[1], domino[0]]
 
+    build_buckets = (memo, domino) ->
+      memo[domino[0]].count++
+      if (domino[0] isnt domino[1])
+        memo[domino[1]].count++
+      memo
+
+    bucket_weight = (b) ->
+      (10*b.count + b.val) * -1
+
     sort: (dominoes) ->
       sorted_dominoes = []
       key_index = (0 for i in [0..9])
       total = 0
       buckets = ({ val: i, count: 0, } for i in [0..9])
 
-      counts = _.reduce(dominoes, (memo, d) ->
-        memo[d[0]].count++
-        if (d[0] isnt d[1])
-          memo[d[1]].count++
-        memo
-      , buckets) 
-
-      buckets = _.sortBy(buckets, (b) ->
-        (10*b.count + b.val) * -1
-      )
+      _.reduce(dominoes, build_buckets, buckets)
+      buckets = _.sortBy(buckets, bucket_weight)
 
       ((biggest) -> 
         key_index[biggest.val] = total
