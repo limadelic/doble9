@@ -22,4 +22,5 @@ app.configure ->
 routes = require './routes'
 
 app.get '/', routes.index
+app.get '/test', routes.test
 
