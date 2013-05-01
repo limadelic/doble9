@@ -1,13 +1,15 @@
-
 describe 'Chipsort', ->
 
-  sorter = {}
+  chipsort = {}
 
   before (done) ->
-    require ['cs!sorter'], (Sorter) ->
-      sorter = new Sorter
+    require ['cs!sorter'], (Chipsort) ->
+      chipsort = new Chipsort
       done()
 
-  it 'is cool', (done) ->
-    sorter.name.should.equal 'jp'
+  it 'should find the best suit', (done) ->
+
+    chipsort.sort([[1,2],[0,9],[1,3]])
+      .should.eql([[1,2],[1,3],[9,0]])
+
     done()
