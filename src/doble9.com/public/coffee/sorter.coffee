@@ -1,6 +1,9 @@
 define ['underscore'],
 (_) ->
   class Sorter
+
+    name: 'jp'
+
     flip = (domino) ->
       [domino[1], domino[0]]
 

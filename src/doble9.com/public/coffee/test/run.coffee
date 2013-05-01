@@ -1,4 +1,7 @@
-require ['cs!test/chipsort'], () ->
+require [
+  'cs!test/chipsort'
+], () ->
 
+  chai.should()
   mocha.run()
 
