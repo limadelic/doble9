@@ -1,24 +1,25 @@
-define ['underscore'],
-(_) ->
+define ['underscore'], (_) ->
+
   class Sorter
 
     flip = (domino) ->
       [domino[1], domino[0]]
 
-    build_buckets = (memo, domino) ->
-      memo[domino[0]].count++
-      if (domino[0] isnt domino[1])
-        memo[domino[1]].count++
-      memo
+    build_buckets = (buckets, domino) ->
+      buckets[domino[0]].count++
+      buckets[domino[1]].count++ unless domino[0] is domino[1]
+      buckets
 
     bucket_weight = (b) ->
       (10*b.count + b.val) * -1
 
     sort: (dominoes) ->
       sorted_dominoes = []
-      key_index = (0 for i in [0..9])
+      key_index = (0 for [0..9])
       total = 0
-      buckets = ({ val: i, count: 0, } for i in [0..9])
+      buckets = for i in [0..9]
+        val: i
+        count: 0
 
       _.reduce(dominoes, build_buckets, buckets)
       buckets = _.sortBy(buckets, bucket_weight)
