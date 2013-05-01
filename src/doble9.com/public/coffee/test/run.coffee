@@ -1,7 +1,7 @@
+mocha.setup 'bdd'
+chai.should()
+
 require [
   'cs!test/chipsort'
-], () ->
-
-  chai.should()
-  mocha.run()
+], () -> mocha.run()
 
