@@ -1,5 +1,5 @@
-define ['backbone', 'cs!models/game', 'cs!views/game'],
-(Backbone, Model, View) ->
+define ['underscore','backbone', 'cs!models/game', 'cs!views/game'],
+(_, Backbone, Model, View) ->
 
   class Router extends Backbone.Router
 
@@ -17,6 +17,10 @@ define ['backbone', 'cs!models/game', 'cs!views/game'],
       @game.render()
 
     play: (domino) ->
-      @game.model.play domino
+      @game.model.play @parse domino
       @game.render()
+
+    parse: (domino) ->
+      _.map domino.split(''), (x) -> Number x
+
 
