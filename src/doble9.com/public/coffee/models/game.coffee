@@ -4,6 +4,8 @@ define ['backbone', 'underscore', 'cs!models/player', 'cs!dealer'],
   class Game extends Backbone.Model
 
     constructor: ->
+      @table = new Player 'table'
+
       @players = [
         new Player 'player'
         new Player 'front'
@@ -15,4 +17,5 @@ define ['backbone', 'underscore', 'cs!models/player', 'cs!dealer'],
 
     play: (domino) ->
       @players[0].play domino
+      @table.dominoes.push domino
 
