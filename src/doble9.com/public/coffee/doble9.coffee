@@ -1,4 +1,4 @@
-require ['cs!router'], (Router) ->
+require ['cs!router', 'cs!debug'], (Router) ->
 
   new Router
 

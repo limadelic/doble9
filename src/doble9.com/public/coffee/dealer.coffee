@@ -18,7 +18,7 @@ define ['cs!models/domino', 'cs!sorter'],
 
     deal_player: (player) ->
       sorter = new Sorter
-      player.dominoes = sorter.sort(@pick_domino() for x in [0..9])
+      player.dominoes = (@pick_domino() for x in [0..9])
 
     pick_domino: -> @dominoes.splice(@random_index(), 1)[0]
 

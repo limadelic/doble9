@@ -17,5 +17,6 @@ define ['backbone', 'cs!models/game', 'cs!views/game'],
       @game.render()
 
     play: (domino) ->
-      alert domino
+      @game.model.play domino
+      @game.render()
 

@@ -14,5 +14,6 @@ define ['backbone', 'underscore', 'cs!views/player'],
 
     render: ->
       player.render() for player in @players
+#      @table.render()
       @
 
