@@ -2,6 +2,19 @@ define ['underscore'], (_) ->
 
   class Sorter
 
+    sort: (dominoes) ->
+      @sorted_dominoes = []
+      @key_index = (0 for [0..9])
+      @total = 0
+
+      buckets = @build_buckets dominoes
+
+      @biggest bucket for bucket in buckets
+
+      @sort_domino domino for domino in dominoes
+
+      @sorted_dominoes
+
     biggest: (bucket) ->
       @key_index[bucket.val] = @total
       @total += bucket.count
@@ -15,19 +28,6 @@ define ['underscore'], (_) ->
       else
         @sorted_dominoes[another_idx] = flip(domino)
         @key_index[domino[1]]++
-
-    sort: (dominoes) ->
-      @sorted_dominoes = []
-      @key_index = (0 for [0..9])
-      @total = 0
-
-      buckets = @build_buckets dominoes
-
-      @biggest bucket for bucket in buckets
-
-      @sort_domino domino for domino in dominoes
-
-      @sorted_dominoes
 
     flip = (domino) ->
       [domino[1], domino[0]]
