@@ -6,4 +6,5 @@ define [], () ->
 
       for head in table.heads()
         for domino in dominoes
-          return [domino, head] if head in domino
+          return domino if head is domino[0]
+          return domino.reverse() if head is domino[1]

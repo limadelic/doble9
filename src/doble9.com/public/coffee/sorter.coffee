@@ -13,7 +13,7 @@ define ['underscore'], (_) ->
 
       @sort_domino domino for domino in dominoes
 
-      @sorted_dominoes
+      _.compact @sorted_dominoes
 
     biggest: (bucket) ->
       @key_index[bucket.val] = @total
