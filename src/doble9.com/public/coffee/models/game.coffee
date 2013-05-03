@@ -15,8 +15,8 @@ define [
 
       @players = [
         new Player 'player'
-        new Player 'front'
         new Player 'left'
+        new Player 'front'
         new Player 'right'
       ]
 
