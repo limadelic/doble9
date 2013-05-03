@@ -53,7 +53,8 @@ td.vertical {
     width: 100px;
 }
 
-#player .domino {
+#player .domino,
+#table .domino {
     background-image: url(../img/doble_blanco.gif);
 }
 

@@ -5,27 +5,28 @@
         var x = domino[0],
             y = domino[1];
 
-        if (name !== 'player') {
+        if (_.contains(['player', 'table'], name)) {
 %>
 
-        <div class="domino back" ></div>
+
+            <div class="domino">
+                <div class="number">
+                    <a href="/#play/<%= x %><%= y %>">
+                        <img src="/img/<%= x %>.gif"/>
+                    </a>
+                </div>
+                <div class="number">
+                    <a href="/#play/<%= y %><%= x %>">
+                        <img src="/img/<%= y %>.gif"/>
+                    </a>
+                </div>
+            </div>
 
 <%
         } else {
 %>
 
-        <div class="domino">
-            <div class="number">
-                <a href="/#play/<%= x %><%= y %>">
-                    <img src="/img/<%= x %>.gif"/>
-                </a>
-            </div>
-            <div class="number">
-                <a href="/#play/<%= y %><%= x %>">
-                    <img src="/img/<%= y %>.gif"/>
-                </a>
-            </div>
-        </div>
+            <div class="domino back" ></div>
 
 <%
         }
