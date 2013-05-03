@@ -3,8 +3,6 @@ define ['backbone', 'underscore'],
 
   class Player extends Backbone.Model
 
-    dominoes: []
-
     constructor: (@name) ->
 
     play: (domino) -> @dominoes =
