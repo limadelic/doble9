@@ -7,7 +7,7 @@ window.new_sut = (file) ->
 window.setup = (game) ->
   sut.table.dominoes = game.table ? []
   sut.player.dominoes = game.player ? []
-  p game.oponents ?= [[],[],[]]
+  game.oponents ?= [[],[],[]]
   _.each _.zip(sut.oponents, game.oponents),
     (x) -> x[0].dominoes = x[1]
 

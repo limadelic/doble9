@@ -11,7 +11,7 @@ describe 'Play', ->
   it 'doesnt allow forros', (done) ->
 
     setup table: [[0,0]]
-    sut.play [9,0]
+    sut.player_plays [9,9]
     verify done, table: [[0,0]]
 
   it 'against computer', (done) ->
@@ -24,6 +24,6 @@ describe 'Play', ->
         [[8,7]]
       ]
 
-    sut.play [9,9]
+    sut.player_plays [9,9]
 
     verify done, table: [[9,9],[9,8],[8,8],[8,7]]
