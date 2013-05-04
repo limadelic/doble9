@@ -1,5 +1,6 @@
 mocha.setup 'bdd'
 chai.should()
+window.fail = chai.assert.fail
 
 require [
   'cs!debug'
