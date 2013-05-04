@@ -3,7 +3,7 @@ define ['backbone', 'underscore'],
 
   class Player extends Backbone.Model
 
-    constructor: (@name) ->
+    initialize: (@name) ->
 
     play: (domino) ->
       reverse = domino.reverse()

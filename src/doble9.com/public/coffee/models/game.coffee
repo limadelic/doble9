@@ -6,15 +6,15 @@ define [
   'cs!dealer'
   'cs!players/bob'
 ], (Backbone, _, Player, Table, Dealer, Bob) ->
-
   class Game extends Backbone.Model
 
-    constructor: ->
-      @bob = new Bob
-      @table = new Table 'table'
+    initialize: ->
+      @computer = new Bob
 
-      @players = [
-        new Player 'player'
+      @table = new Table 'table'
+      @player = new Player 'player'
+
+      @oponents = [
         new Player 'left'
         new Player 'front'
         new Player 'right'
@@ -22,18 +22,24 @@ define [
 
       new Dealer().deal @
 
-    play: (domino) ->
+    players: -> @oponents.concat @player
 
-      @make_play domino, 0
+    player_plays: (domino) ->
+      return if @is_forro domino
 
-      for i in [1..3]
-        domino = @bob.play @table, @players[i].dominoes
-        @make_play domino, i
+      @play @player, domino
+      @computer_plays()
 
-    make_play: (domino, player) ->
+    play: (player, domino) ->
       return unless domino?
 
-      @players[player].play domino
+      player.play domino
       @table.play domino
 
+    computer_plays: ->
+      _.each @oponents, (oponent) ->
+        @play oponent, @computer.play @table, oponent.dominoes
+
+    is_forro: (domino) ->
+      _.isEmpty _.intersection @table.heads(), domino
 

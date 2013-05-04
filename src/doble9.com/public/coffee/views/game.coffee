@@ -4,7 +4,7 @@ define ['backbone', 'underscore', 'cs!views/player'],
   class Game extends Backbone.View
 
     initialize: ->
-      @players = _.map @model.players, @new_player
+      @players = _.map @model.players(), @new_player
       @table = @new_player @model.table
 
     new_player: (player) -> new Player
@@ -17,7 +17,7 @@ define ['backbone', 'underscore', 'cs!views/player'],
       @
 
     play: (domino) ->
-      @model.play @parse domino
+      @model.player_plays @parse domino
       @render()
 
     parse: (domino) ->
