@@ -6,10 +6,22 @@ define ['backbone', 'underscore'],
     dominoes: []
     name: 'table'
 
-    heads: -> [
-      _.first _.first @dominoes
-      _.last _.last @dominoes
-    ]
+    head: -> _.first _.first @dominoes
+    tail: -> _.last _.last @dominoes
+    heads: -> [@head(), @tail()]
 
-    play: (domino) ->
-      @dominoes.push domino
+    play: (@domino) -> @start() or @play_tail()
+
+    start: ->
+      return unless _.isEmpty @dominoes
+      @dominoes.push @domino
+
+
+    play_tail:  ->
+      return unless _.contains @domino, @tail()
+      @domino = @domino.reverse() unless @domino[0] is @tail()
+      @dominoes.push @domino
+
+    play_head: ->
+
+
