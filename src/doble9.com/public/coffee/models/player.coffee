@@ -5,8 +5,10 @@ define ['backbone', 'underscore'],
 
     constructor: (@name) ->
 
-    play: (domino) -> @dominoes =
-      _.filter @dominoes, (x) -> not (
+    play: (domino) ->
+      reverse = domino.reverse()
+
+      @dominoes = _.filter @dominoes, (x) -> not (
         _.isEqual(x, domino) or
-        _.isEqual(x, domino.reverse())
+        _.isEqual(x, reverse)
       )

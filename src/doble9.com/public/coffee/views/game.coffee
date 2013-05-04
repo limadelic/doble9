@@ -16,3 +16,9 @@ define ['backbone', 'underscore', 'cs!views/player'],
       @table.render()
       @
 
+    play: (domino) ->
+      @model.play @parse domino
+      @render()
+
+    parse: (domino) ->
+      _.map domino.split(''), (x) -> Number x

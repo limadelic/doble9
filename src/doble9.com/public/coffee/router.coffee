@@ -13,14 +13,8 @@ define ['underscore','backbone', 'cs!models/game', 'cs!views/game'],
       '': 'index'
       'play/:domino': 'play'
 
-    index: ->
-      @game.render()
+    index: -> @game.render()
+    play: (domino) -> @game.play domino
 
-    play: (domino) ->
-      @game.model.play @parse domino
-      @game.render()
-
-    parse: (domino) ->
-      _.map domino.split(''), (x) -> Number x
 
 
