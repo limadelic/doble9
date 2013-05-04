@@ -37,11 +37,11 @@ define [
       @table.play domino
 
     computer_plays: ->
-      _.each @oponents, (oponent) =>
-        @play oponent, @computer.play @table, oponent.dominoes
+      _.each @oponents, (x) => @play x,
+        @computer.play @table, x.dominoes
 
-    is_forro: (domino) -> not @is_salida() and
+    is_forro: (domino) -> not @on_salida() and
       _.isEmpty _.intersection @table.heads(), domino
 
-    is_salida: -> _.isEmpty @table.dominoes
+    on_salida: -> _.isEmpty @table.dominoes
 

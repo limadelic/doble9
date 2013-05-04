@@ -1,12 +1,11 @@
 describe 'Play', ->
 
-  before (done) ->
-    new_sut 'models/game', done
+  new_sut 'models/game'
 
   it 'can start game', (done) ->
-    sut.is_salida().should.be.true
+    sut.on_salida().should.be.true
     sut.player_plays sut.player.dominoes[0]
-    sut.is_salida().should.be.false
+    sut.on_salida().should.be.false
     done()
 
   it 'doesnt allow forros', (done) ->
@@ -24,5 +23,7 @@ describe 'Play', ->
         [[8,8]]
         [[8,7]]
       ]
+
     sut.play [9,9]
+
     verify done, table: [[9,9],[9,8],[8,8],[8,7]]

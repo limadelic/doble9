@@ -1,14 +1,15 @@
-window.new_sut = (file, done) ->
-  require ["cs!#{file}"], (Sut) ->
-    window.sut = new Sut
-    done()
+window.new_sut = (file) ->
+  before (done) ->
+    require ["cs!#{file}"], (Sut) ->
+      window.sut = new Sut
+      done()
 
 window.setup = (game) ->
-  sut.table.dominoes = game.table if game.table?
-  sut.player.dominoes = game.player if game.player?
-  if game.oponents?
-    _.each _.zip(sut.oponents, game.oponents), (x, y) ->
-      x.dominoes = y
+  sut.table.dominoes = game.table ? []
+  sut.player.dominoes = game.player ? []
+  p game.oponents ?= [[],[],[]]
+  _.each _.zip(sut.oponents, game.oponents),
+    (x) -> x[0].dominoes = x[1]
 
 window.verify = (done, game) ->
   verify_arrays sut.table.dominoes, game.table if game.table?
