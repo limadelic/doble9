@@ -3,10 +3,10 @@ describe 'Play', ->
   new_sut 'models/game'
 
   it 'can start game', (done) ->
-    sut.on_salida().should.be.true
-    sut.player_plays sut.player.dominoes[0]
-    sut.on_salida().should.be.false
-    done()
+
+    setup player: [[9,9]]
+    sut.player_plays [9,9]
+    verify done, table: [[9,9]]
 
   it 'doesnt allow forros', (done) ->
 
