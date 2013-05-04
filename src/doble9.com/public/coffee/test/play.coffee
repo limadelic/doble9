@@ -21,9 +21,9 @@ describe 'Play', ->
       oponents: [
         [[9,8]]
         [[8,8]]
-        [[8,7]]
+        [[9,7]]
       ]
 
     sut.player_plays [9,9]
 
-    verify done, table: [[9,9],[9,8],[8,8],[8,7]]
+    verify done, table: [[7,9],[9,9],[9,8],[8,8]]

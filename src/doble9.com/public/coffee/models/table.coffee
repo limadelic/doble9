@@ -10,7 +10,7 @@ define ['backbone', 'underscore'],
     tail: -> _.last _.last @dominoes
     heads: -> [@head(), @tail()]
 
-    play: (@domino) -> @start() or @play_tail()
+    play: (@domino) -> @start() or @play_tail() or @play_head()
 
     start: ->
       return unless _.isEmpty @dominoes
@@ -19,9 +19,11 @@ define ['backbone', 'underscore'],
 
     play_tail:  ->
       return unless _.contains @domino, @tail()
-      @domino = @domino.reverse() unless @domino[0] is @tail()
+      @domino = @domino.reverse() if @domino[1] is @tail()
       @dominoes.push @domino
 
     play_head: ->
+      @domino = @domino.reverse() if @domino[0] is @head()
+      @dominoes.unshift @domino
 
 
