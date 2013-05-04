@@ -28,7 +28,7 @@ define [
       return if @is_forro domino
 
       @play @player, domino
-      @computer_plays()
+#      @computer_plays()
 
     play: (player, domino) ->
       return unless domino?
@@ -40,6 +40,8 @@ define [
       _.each @oponents, (oponent) ->
         @play oponent, @computer.play @table, oponent.dominoes
 
-    is_forro: (domino) ->
+    is_forro: (domino) -> not @is_salida() and
       _.isEmpty _.intersection @table.heads(), domino
+
+    is_salida: -> _.isEmpty @table.dominoes
 
