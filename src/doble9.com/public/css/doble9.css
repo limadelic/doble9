@@ -95,7 +95,7 @@ td.vertical {
     border-radius: 5px;
 }
 
-#table img {
+#table .default img {
     -webkit-transform: rotate(-90deg);
     -moz-transform: rotate(-90deg);
 }

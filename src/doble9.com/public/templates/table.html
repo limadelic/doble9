@@ -4,13 +4,13 @@
 
         var x = domino[0],
             y = domino[1],
-            type = '';
+            type = 'default';
 
-        if (x === y) { type = ' double'; }
+        if (x === y) { type = 'double'; }
 %>
 
 
-        <div class="domino<%=type%>">
+        <div class="domino <%=type%>">
             <div class="number">
                 <img src="/img/<%= x %>.gif"/>
             </div>
