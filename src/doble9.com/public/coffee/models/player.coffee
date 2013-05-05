@@ -6,7 +6,7 @@ define ['backbone', 'underscore'],
     initialize: (@name) ->
 
     play: (domino) ->
-      reverse = domino.reverse()
+      reverse = domino.slice().reverse()
 
       @dominoes = _.filter @dominoes, (x) -> not (
         _.isEqual(x, domino) or

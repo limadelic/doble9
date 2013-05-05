@@ -40,8 +40,9 @@ define [
       _.each @oponents, (x) => @play x,
         @computer.play @table, x.dominoes
 
-    is_forro: (domino) -> not @on_salida() and
-      _.isEmpty _.intersection @table.heads(), domino
+    is_forro: (domino) ->
+      domino? and not @on_salida() and
+        _.isEmpty _.intersection @table.heads(), domino
 
     on_salida: -> _.isEmpty @table.dominoes
 
