@@ -3,6 +3,11 @@ define ['backbone', 'underscore', 'cs!views/player'],
 
   class Game extends Backbone.View
 
+    el: 'body'
+
+    events:
+      'dblclick': 'knock'
+
     initialize: ->
       @players = _.map @model.players(), @new_player
       @table = @new_player @model.table
@@ -18,6 +23,10 @@ define ['backbone', 'underscore', 'cs!views/player'],
 
     play: (domino) ->
       @model.player_plays @parse domino
+      @render()
+
+    knock: ->
+      @model.knock()
       @render()
 
     parse: (domino) ->

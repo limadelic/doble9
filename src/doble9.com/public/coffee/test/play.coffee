@@ -49,6 +49,6 @@ describe 'Play', ->
         [[9,8]]
       ]
 
-    sut.player_plays()
+    sut.knock()
 
     verify done, table: [[9,9],[9,8]]

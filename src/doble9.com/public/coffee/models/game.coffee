@@ -24,6 +24,8 @@ define [
 
     players: -> @oponents.concat @player
 
+    knock: -> @player_plays()
+
     player_plays: (domino) ->
       return if @is_forro domino
 
