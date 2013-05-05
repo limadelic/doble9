@@ -87,6 +87,11 @@ td.vertical {
     border-radius: 5px;
 }
 
+#table img {
+    -webkit-transform: rotate(-90deg);
+    -moz-transform: rotate(-90deg);
+}
+
 img {
     max-width: 100%;
     vertical-align: middle;
