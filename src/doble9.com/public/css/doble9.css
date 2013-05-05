@@ -50,10 +50,17 @@ br {clear: both;}
 
 #table .domino {
     margin: 50px 0;
-    float: left;
     height: 50px;
     width: 100px;
     background-image: url(../img/back_hor.gif);
+}
+
+.left {
+    float: left;
+}
+
+.right {
+    float: right;
 }
 
 #table .double {
@@ -61,6 +68,14 @@ br {clear: both;}
     background-image: url(../img/back_ver.gif);
     height: 100px;
     width: 50px;
+}
+
+#table .down {
+    margin: 50px 0 0 0;
+}
+
+#table .up {
+    margin: 0 0 50px 0;
 }
 
 .horizontal .domino {

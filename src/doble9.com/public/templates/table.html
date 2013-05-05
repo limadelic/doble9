@@ -1,12 +1,23 @@
 <%
-    var row = 0,
-        edge = 0;
+    var x, y,
+        row = 0,
+        edge = 0,
+        float = 'left';
+
+    var swap = function() {
+        var z = x;
+        x = y;
+        y = z;
+    }
 
     _.each(dominoes, function(domino){
 
-        var x = domino[0],
-            y = domino[1],
-            type = 'default',
+        x = domino[0];
+        y = domino[1];
+        if (float === 'right') { swap(); }
+
+        var type = 'default',
+            style = '',
             d_width = 100;
 
         if (x === y) {
@@ -15,16 +26,19 @@
         }
 
         if (row > 0 && edge === 0) {
-            type = 'double';
+            type = 'double up';
             d_width = 50;
+            float = float === 'left' ? 'right' : 'left';
             %><br /><%
+            if (float === 'left') { swap(); }
         }
 
         if (width - (edge + d_width) < 50) {
 
-            type = 'double';
+            type = 'double down';
             edge = 0;
             row++;
+            if (float === 'right') { swap(); }
 
         } else {
             edge += d_width;
@@ -32,7 +46,7 @@
 
 %>
 
-        <div class="domino <%=type%>">
+        <div class="domino <%=float%> <%=type%>">
             <div class="number">
                 <img src="/img/<%= x %>.gif"/>
             </div>
