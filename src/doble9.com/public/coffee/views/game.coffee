@@ -25,7 +25,7 @@ define ['backbone', 'underscore', 'cs!views/player'],
       @model.player_plays @parse domino
       @render()
 
-    knock: ->
+    knock: (e) ->
       @model.knock()
       @render()
 
