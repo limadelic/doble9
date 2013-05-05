@@ -37,6 +37,8 @@ td.vertical {
     padding: 20px;
 }
 
+br {clear: both;}
+
 #table.dominoes {
     margin: auto;
 }

@@ -1,14 +1,36 @@
 <%
+    var row = 0,
+        edge = 0;
 
     _.each(dominoes, function(domino){
 
         var x = domino[0],
             y = domino[1],
-            type = 'default';
+            type = 'default',
+            d_width = 100;
 
-        if (x === y) { type = 'double'; }
+        if (x === y) {
+            type = 'double';
+            d_width = 50;
+        }
+
+        if (row > 0 && edge === 0) {
+            type = 'double';
+            d_width = 50;
+            %><br /><%
+        }
+
+        if (width - (edge + d_width) < 50) {
+
+            type = 'double';
+            edge = 0;
+            row++;
+
+        } else {
+            edge += d_width;
+        }
+
 %>
-
 
         <div class="domino <%=type%>">
             <div class="number">

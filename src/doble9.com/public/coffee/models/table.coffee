@@ -5,6 +5,7 @@ define ['backbone', 'underscore'],
 
     dominoes: []
     name: 'table'
+    width: 42
 
     head: -> _.first _.first @dominoes
     tail: -> _.last _.last @dominoes
