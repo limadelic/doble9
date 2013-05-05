@@ -1,0 +1,21 @@
+<%
+
+    _.each(dominoes, function(domino){
+
+        var x = domino[0],
+            y = domino[1];
+%>
+
+
+        <div class="domino">
+            <div class="number">
+                <img src="/img/<%= x %>.gif"/>
+            </div>
+            <div class="number">
+                <img src="/img/<%= y %>.gif"/>
+            </div>
+        </div>
+
+<%
+    })
+%>
