@@ -3,11 +3,14 @@
     _.each(dominoes, function(domino){
 
         var x = domino[0],
-            y = domino[1];
+            y = domino[1],
+            type = '';
+
+        if (x === y) { type = ' double'; }
 %>
 
 
-        <div class="domino">
+        <div class="domino<%=type%>">
             <div class="number">
                 <img src="/img/<%= x %>.gif"/>
             </div>
