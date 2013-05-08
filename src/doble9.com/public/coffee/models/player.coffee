@@ -4,6 +4,7 @@ define ['backbone', 'underscore'],
   class Player extends Backbone.Model
 
     initialize: (@name) ->
+      @pass = false
 
     play: (domino) ->
       reverse = domino.slice().reverse()
@@ -12,3 +13,8 @@ define ['backbone', 'underscore'],
         _.isEqual(x, domino) or
         _.isEqual(x, reverse)
       )
+
+    check_if_can_play: (heads) -> @pass = not
+      _.find(@dominoes, (x) ->
+        _.intersection(x, heads).length > 0
+      )?

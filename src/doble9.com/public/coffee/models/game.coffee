@@ -31,6 +31,7 @@ define [
 
       @play @player, domino
       @computer_plays()
+      @player.check_if_can_play @table.heads()
 
     play: (player, domino) ->
       return unless domino?
@@ -41,6 +42,9 @@ define [
     computer_plays: ->
       _.each @oponents, (x) => @play x,
         @computer.play @table, x.dominoes
+
+    check_if_can_play: -> @pass =
+      not @computer.play(@table, @player.dominoes)?
 
     is_forro: (domino) ->
       domino? and not @on_salida() and
