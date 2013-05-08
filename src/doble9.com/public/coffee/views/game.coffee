@@ -15,6 +15,7 @@ define ['backbone', 'underscore', 'cs!views/player', 'cs!views/table'],
     new_player: (player) -> new Player
       model: player
       el: '#' + player.name
+      game: @
 
     render: ->
       player.render() for player in @players

@@ -5,6 +5,11 @@ define ['backbone', 'underscore', 'text!/templates/player.html'],
 
     template: _.template template
 
+    events:
+      'click #pass': 'pass'
+
     render: ->
       @$el.html @template @model
       @
+
+    pass: (e) -> @game.knock e
