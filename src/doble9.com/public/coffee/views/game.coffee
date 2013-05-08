@@ -11,6 +11,7 @@ define ['backbone', 'underscore', 'cs!views/player', 'cs!views/table'],
     initialize: ->
       @players = _.map @model.players(), @new_player
       @table = new Table model: @model.table
+      window.game = @
 
     new_player: (player) -> new Player
       model: player

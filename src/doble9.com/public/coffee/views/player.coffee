@@ -12,4 +12,4 @@ define ['backbone', 'underscore', 'text!/templates/player.html'],
       @$el.html @template @model
       @
 
-    pass: (e) -> @game.knock e
+    pass: (e) -> game.knock e
