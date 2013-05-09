@@ -134,3 +134,24 @@ img {
     width: 100%;
 }
 
+#pass {
+    color: #d8c29e;
+    font-family: "Century Gothic", "Helvetica", sans-serif;
+    font-size: 18px;
+    font-weight: bolder;
+    text-shadow: 0 1px 0 rgba(255,255,255,.5);
+
+    width: 130px;
+    height: 40px;
+    margin: 0 0 5px 10px;
+    border-radius: 5px;
+    border: 2px solid maroon;
+    background-color: maroon;
+    cursor: hand;
+    cursor: pointer;
+}
+
+#pass:hover {
+    background-color: #a02020;
+}
+
