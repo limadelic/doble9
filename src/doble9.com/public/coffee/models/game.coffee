@@ -32,7 +32,15 @@ define [
 
       @play @player, domino
       @computer_plays()
+      @check_status()
+
+    check_status: ->
       @player.check_if_can_play @table.heads()
+
+      @stucked = @player.pass and not
+        _.find(@oponents, (x) =>
+          x.check_if_can_play @table.heads()
+        )?
 
     play: (player, domino) ->
       return unless domino?
@@ -43,6 +51,3 @@ define [
     computer_plays: ->
       _.each @oponents, (x) => @play x,
         @computer.play @table, x.dominoes
-
-    check_if_can_play: -> @pass =
-      not @computer.play(@table, @player.dominoes)?

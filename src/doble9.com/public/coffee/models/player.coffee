@@ -20,3 +20,5 @@ define ['backbone', 'underscore'],
       @pass = not _.find(@dominoes, (x) ->
         _.intersection(x, heads).length > 0
       )?
+
+      not @pass

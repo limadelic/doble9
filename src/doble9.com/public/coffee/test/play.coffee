@@ -68,4 +68,3 @@ describe 'Play', ->
 
     sut.stucked.should.be.true
     verify done, table: [[9,9]]
-
