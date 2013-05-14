@@ -1,5 +1,5 @@
 <%
-    if (pass) {
+    if (pass && !game.model.stucked) {
 %>
         <button type="button" id="pass">pass</button>
         <br/>
@@ -12,7 +12,7 @@
         var x = domino[0],
             y = domino[1];
 
-        if (_.contains(['player', 'table'], name)) {
+        if (game.model.stucked || _.contains(['player', 'table'], name)) {
 %>
 
 

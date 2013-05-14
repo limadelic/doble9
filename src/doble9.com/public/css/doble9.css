@@ -79,7 +79,7 @@ br {clear: both;}
 }
 
 .horizontal .domino {
-    background-image: url(../img/domino_back.png);
+    background-image: url(../img/back_ver.gif);
     margin-right: 1px;
     width: 50px;
     height: 100px;
@@ -88,9 +88,17 @@ br {clear: both;}
 
 .vertical .domino {
     margin-bottom: 1px;
-    background-image: url(../img/domino_back_hor.png);
+    background-image: url(../img/back_hor.gif);
     height: 50px;
     width: 100px;
+}
+
+.horizontal .domino.back {
+    background-image: url(../img/domino_back.png);
+}
+
+.vertical .domino.back {
+    background-image: url(../img/domino_back_hor.png);
 }
 
 #player .domino {
@@ -112,7 +120,8 @@ br {clear: both;}
     border-radius: 5px;
 }
 
-#table .default img {
+#table .default img,
+.vertical .number {
     -webkit-transform: rotate(-90deg);
     -moz-transform: rotate(-90deg);
 }
