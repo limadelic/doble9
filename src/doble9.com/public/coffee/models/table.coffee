@@ -11,6 +11,12 @@ define ['backbone', 'underscore'],
     tail: -> _.last _.last @dominoes
     heads: -> [@head(), @tail()]
 
+    is_forro: (domino) ->
+      domino? and not @on_salida() and
+      _.isEmpty _.intersection @heads(), domino
+
+    on_salida: -> _.isEmpty @dominoes
+
     play: (@domino) ->
       @start() or @play_number(0) or @play_number(1)
 

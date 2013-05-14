@@ -20,6 +20,7 @@ define [
         new Player 'right'
       ]
 
+      @stucked = false
       new Dealer().deal @
 
     players: -> @oponents.concat @player
@@ -27,7 +28,7 @@ define [
     knock: -> @player_plays()
 
     player_plays: (domino) ->
-      return if @is_forro domino
+      return if @table.is_forro domino
 
       @play @player, domino
       @computer_plays()
@@ -45,10 +46,3 @@ define [
 
     check_if_can_play: -> @pass =
       not @computer.play(@table, @player.dominoes)?
-
-    is_forro: (domino) ->
-      domino? and not @on_salida() and
-        _.isEmpty _.intersection @table.heads(), domino
-
-    on_salida: -> _.isEmpty @table.dominoes
-

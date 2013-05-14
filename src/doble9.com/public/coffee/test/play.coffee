@@ -52,3 +52,20 @@ describe 'Play', ->
     sut.knock()
 
     verify done, table: [[9,9],[9,8]]
+
+  it 'se tranco!!', (done) ->
+
+    setup
+      table: [[9,9]]
+      player: [[0,0]]
+      oponents: [
+        [[8,8]]
+        [[7,7]]
+        [[6,6]]
+      ]
+
+    sut.knock()
+
+    sut.stucked.should.be.true
+    verify done, table: [[9,9]]
+
