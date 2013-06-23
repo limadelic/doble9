@@ -27,11 +27,11 @@ describe 'Play', ->
   it 'computer responds', (done) ->
 
     setup
-      player: [[9,9]]
+      player: [[9,9],[0,0]]
       oponents: [
-        [[9,8]]
-        [[8,8]]
-        [[9,7]]
+        [[9,8],[1,1]]
+        [[8,8],[2,2]]
+        [[9,7],[3,3]]
       ]
 
     sut.player_plays [9,9]
@@ -66,5 +66,23 @@ describe 'Play', ->
 
     sut.knock()
 
+    sut.done().should.be.true
     sut.stucked.should.be.true
     verify done, table: [[9,9]]
+
+  it 'me pegue!!', (done) ->
+
+    setup
+      table: [[9,9]]
+      player: [[9,0]]
+      oponents: [
+        [[9,8]]
+        [[7,7]]
+        [[6,6]]
+      ]
+
+    sut.knock()
+
+    sut.done().should.be.true
+    sut.winner.should.be sut.player
+    verify done, table: [[9,9],[9,0]]

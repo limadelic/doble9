@@ -15,10 +15,12 @@ define ['backbone', 'underscore'],
       )
 
     check_if_can_play: (heads) ->
-      return if _.isEmpty @dominoes
+      return if @won()
 
       @pass = not _.find(@dominoes, (x) ->
         _.intersection(x, heads).length > 0
       )?
 
       not @pass
+
+    won: () -> _.isEmpty @dominoes

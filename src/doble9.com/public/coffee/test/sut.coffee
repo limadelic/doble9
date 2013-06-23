@@ -1,5 +1,5 @@
 window.new_sut = (file) ->
-  before (done) ->
+  beforeEach (done) ->
     require ["cs!#{file}"], (Sut) ->
       window.sut = new Sut
       done()

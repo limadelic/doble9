@@ -23,6 +23,8 @@ define [
       @stucked = false
       new Dealer().deal @
 
+    done: -> @stucked or @winner?
+
     players: -> @oponents.concat @player
 
     knock: -> @player_plays()
@@ -43,10 +45,12 @@ define [
         )?
 
     play: (player, domino) ->
-      return unless domino?
+      return unless domino? and not @done()
 
       player.play domino
       @table.play domino
+
+      @winner = player if player.won()
 
     computer_plays: ->
       _.each @oponents, (x) => @play x,
