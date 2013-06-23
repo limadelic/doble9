@@ -1,7 +1,14 @@
 <%
-    if (name === 'player' && pass && !game.model.stucked) {
+    if (name === 'player' && pass && !game.model.done()) {
 %>
-        <button type="button" id="pass">pass</button>
+        <button type="button" id="pass" class="btn btn-danger">pass</button>
+        <br/>
+<% } %>
+
+<%
+    if (won) {
+%>
+        <span class="label label-success">winner</span>
         <br/>
 <% } %>
 
@@ -12,7 +19,7 @@
         var x = domino[0],
             y = domino[1];
 
-        if (game.model.stucked || _.contains(['player', 'table'], name)) {
+        if (game.model.done() || _.contains(['player', 'table'], name)) {
 %>
 
 

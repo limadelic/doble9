@@ -50,7 +50,7 @@ define [
       player.play domino
       @table.play domino
 
-      @winner = player if player.won()
+      @winner = player if player.won
 
     computer_plays: ->
       _.each @oponents, (x) => @play x,

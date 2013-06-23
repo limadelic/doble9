@@ -6,6 +6,7 @@ window.requirejs_config = {
         text: '/js/text',
         'coffee-script': '/js/coffee-script',
         underscore: '/js/underscore',
+        bootstrap: '/js/bootstrap.min',
         backbone: '/js/backbone'
     },
     shim: {

@@ -81,8 +81,8 @@ describe 'Play', ->
         [[6,6]]
       ]
 
-    sut.knock()
+    sut.player_plays [9,0]
 
     sut.done().should.be.true
-    sut.winner.should.be sut.player
+    sut.winner.should.equal sut.player
     verify done, table: [[9,9],[9,0]]
