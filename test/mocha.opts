@@ -3,4 +3,5 @@
 --require should
 --require test/test_helper.coffee
 --reporter spec
+--globals sut
 -t 130000
