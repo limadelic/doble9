@@ -142,3 +142,12 @@ img {
     bottom: 0;
     width: 100%;
 }
+
+a.refresh {
+    float: right;
+    margin: 20px 25px;
+}
+
+.refresh img {
+    height: 50px;
+}

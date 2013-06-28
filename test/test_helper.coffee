@@ -7,5 +7,4 @@ requirejs.config
   nodeRequire: require
   paths:
     cs: '../js/cs'
-    text: '../js/text'
     'coffee-script': '../js/coffee-script'
