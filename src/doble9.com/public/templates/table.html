@@ -1,65 +1,17 @@
 <%
-    var x, y,
-        row = 0,
-        edge = 0,
-        margin = 0,
-        float = 'left';
+    _.each(_.map(dominoes, place_in_table), function(x){
 
-    var swap = function() {
-        var z = x;
-        x = y;
-        y = z;
-    }
-
-    _.each(dominoes, function(domino){
-
-        x = domino[0];
-        y = domino[1];
-        if (float === 'right') swap();
-
-        var type = 'default',
-            style = '',
-            d_width = 100;
-
-        if (x === y) {
-            type = 'double';
-            d_width = 50;
-        }
-
-        if (row === 0 && edge === 0) {
-            edge = width / 2
-            style = 'margin-left: 50%;'
-        }
-
-        if (row > 0 && edge === 0) {
-
-            type = 'double up';
-            d_width = 50;
-            float = float === 'left' ? 'right' : 'left';
+        if (x.first_in_row) {
             %><br /><%
-            if (float === 'left') swap();
-            style = 'margin-' + float + ': ' + margin + 'px;'
-            edge = margin
         }
-
-        if (width - (edge + d_width) < 50) {
-
-            type = 'double down';
-            margin = width - (edge + 50)
-            edge = 0;
-            row++;
-            if (float === 'right') swap();
-
-        } else edge += d_width;
-
 %>
 
-        <div class="domino <%=float%> <%=type%>" style="<%=style%>">
+        <div class="domino <%=x.float%> <%=x.type%>" style="<%=x.style%>">
             <div class="number">
-                <img src="/img/<%= x %>.gif"/>
+                <img src="/img/<%= x[0] %>.gif"/>
             </div>
             <div class="number">
-                <img src="/img/<%= y %>.gif"/>
+                <img src="/img/<%= x[1] %>.gif"/>
             </div>
         </div>
 

@@ -1,5 +1,10 @@
-define ['backbone', 'underscore'],
-(Backbone, _) ->
+define [
+  'underscore'
+  'backbone'
+  'cs!staff/orderer'
+],
+
+(_, Backbone, Orderer) ->
 
   class Table extends Backbone.Model
 
@@ -36,4 +41,6 @@ define ['backbone', 'underscore'],
       @domino.reverse() if @domino[0] is @head()
       @dominoes.unshift @domino
 
-
+    place_in_table: (domino) =>
+      @orderer = new Orderer(@) if domino is _.first @dominoes
+      @orderer.place domino.slice()
