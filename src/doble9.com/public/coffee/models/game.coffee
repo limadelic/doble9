@@ -36,7 +36,7 @@ define [
       return if @table.is_forro domino
 
       @play @player, domino
-      @computer_plays()
+#      @computer_plays()
       @check_status()
 
     check_status: ->

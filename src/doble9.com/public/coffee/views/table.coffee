@@ -7,6 +7,6 @@ define ['backbone', 'underscore', 'text!/templates/table.html'],
     template: _.template table_html
 
     render: ->
-      @model.width = @$el.width()
+      @model.box = @$el
       @$el.html @template @model
       @
