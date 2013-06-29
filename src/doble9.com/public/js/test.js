@@ -1,1 +1,0 @@
-require(requirejs_config, ['cs!test/run']);

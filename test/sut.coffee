@@ -1,5 +1,7 @@
+_ = require 'underscore'
+
 global.new_sut = (file) ->
-  before (done) ->
+  beforeEach (done) ->
     requirejs ["cs!#{file}"], (Sut) ->
       global.sut = new Sut
       done()
@@ -15,6 +17,6 @@ global.verify = (done, game) ->
   verify_arrays sut.table.dominoes, game.table if game.table?
   done()
 
-global.verify_arrays = (x, y) -> if not _.isEqual x, y then fail x, y,
-  "Expected #{JSON.stringify x} to be #{JSON.stringify y}"
+global.verify_arrays = (x, y) -> if not _.isEqual x, y
+  throw new Error "Expected #{JSON.stringify x} to be #{JSON.stringify y}"
 

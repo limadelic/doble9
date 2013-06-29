@@ -1,6 +1,6 @@
 describe 'Chipsort', ->
 
-  new_sut 'sorter'
+  new_sut 'staff/sorter'
 
   it 'should find the best suit', (done) ->
 

@@ -8,3 +8,7 @@ requirejs.config
   paths:
     cs: '../js/cs'
     'coffee-script': '../js/coffee-script'
+
+global.p = (x) -> console.log JSON.stringify x
+global.m = (x) -> p (name for name of x)
+
