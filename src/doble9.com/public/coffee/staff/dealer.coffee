@@ -1,4 +1,9 @@
-define ['underscore', 'cs!models/domino', 'cs!sorter'],
+define [
+  'underscore'
+  'cs!models/domino'
+  'cs!staff/sorter'
+],
+
 (_, Domino, Sorter) ->
 
   class Dealer

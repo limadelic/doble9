@@ -1,4 +1,10 @@
-define ['underscore','backbone', 'cs!models/game', 'cs!views/game'],
+define [
+  'underscore'
+  'backbone'
+  'cs!models/game'
+  'cs!views/game'
+],
+
 (_, Backbone, Model, View) ->
 
   class Router extends Backbone.Router

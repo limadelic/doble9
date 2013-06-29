@@ -1,11 +1,14 @@
 define [
-  'backbone'
   'underscore'
+  'backbone'
   'cs!models/player'
   'cs!models/table'
-  'cs!dealer'
+  'cs!staff/dealer'
   'cs!players/bob'
-], (Backbone, _, Player, Table, Dealer, Bob) ->
+],
+
+(_, Backbone, Player, Table, Dealer, Bob) ->
+
   class Game extends Backbone.Model
 
     initialize: ->
