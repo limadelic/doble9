@@ -4,15 +4,32 @@ define [], () ->
 
     constructor: (@table) ->
 
-    place: (domino) ->
+    place: (@domino) ->
+      @default_properties()
+      @check_if_double()
+      @position()
+      @apply_properties()
 
-      opt @table.box
+    default_properties: ->
+      @width = 100
+      @height = 50
+      @type = 'default'
 
-      domino.top = @table.box.innerHeight() / 2
-      domino.left = @table.box.innerWidth() / 2
-      domino.style = """
-        top: #{domino.top}px;
-        left: #{domino.left}px;
+    check_if_double: ->
+      return unless @domino[0] is @domino[1]
+      @type = 'double'
+      [@width, @height] = [@height, @width]
+
+    position: ->
+      @top = @table.box.height() / 2 - @height / 2
+      @left = 100 + @table.box.width() / 2 - @width / 2
+
+    apply_properties: ->
+      @domino.style = """
+        top: #{@top}px;
+        left: #{@left}px;
       """
-      domino.type = 'default'
-      domino
+      @domino.type = @type
+      @domino
+
+
