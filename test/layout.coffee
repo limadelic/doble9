@@ -1,3 +1,5 @@
+_ = require 'underscore'
+
 describe 'Layout', ->
 
   new_sut 'staff/orderer'
@@ -8,19 +10,36 @@ describe 'Layout', ->
         height: -> 1000
         width: -> 1000
 
+  setup = (dominoes) ->
+    _.each dominoes, (x) -> sut.place x
+
+  verify = (domino, values) ->
+    for key, value of values
+      domino[key].should.eql value
+
   it 'puts the start on the center', ->
 
-    sut.place [9,9]
+    start = sut.place [9,9]
 
-    sut.top.should.eql 450
-    sut.left.should.eql 575
-    sut.type.should.eql 'double'
+    verify start,
+      top: 450
+      left: 575
+      type: 'double'
 
   it 'places is horizontally if its capicua', ->
 
-    sut.place [9,8]
+    start = sut.place [9,8]
 
-    sut.top.should.eql 475
-    sut.left.should.eql 550
-    sut.type.should.eql 'default'
+    verify start,
+      top: 475
+      left: 550
+      type: 'default'
 
+  it 'both sides of a double', ->
+
+    sut.place [9,9]
+
+    right = sut.place [9,8]
+    verify right,
+      top: 475
+      left: 650

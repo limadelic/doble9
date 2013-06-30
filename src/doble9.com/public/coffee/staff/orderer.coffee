@@ -5,31 +5,36 @@ define [], () ->
     constructor: (@table) ->
 
     place: (@domino) ->
-      @default_properties()
-      @check_if_double()
+      @defaults()
+      @start()
+      @double()
       @position()
-      @apply_properties()
+      @style()
 
-    default_properties: ->
-      @width = 100
-      @height = 50
-      @type = 'default'
+    defaults: ->
+      @domino.width = 100
+      @domino.height = 50
+      @domino.type = 'default'
 
-    check_if_double: ->
+    start: ->
+      return unless @right?
+      @right = @left = @domino
+
+    double: ->
       return unless @domino[0] is @domino[1]
-      @type = 'double'
-      [@width, @height] = [@height, @width]
+      @domino.type = 'double'
+      [@domino.width, @domino.height] =
+        [@domino.height, @domino.width]
 
     position: ->
-      @top = @table.box.height() / 2 - @height / 2
-      @left = 100 + @table.box.width() / 2 - @width / 2
+      @domino.top = @table.box.height() / 2 - @domino.height / 2
+      @domino.left = 100 + @table.box.width() / 2 - @domino.width / 2
 
-    apply_properties: ->
+    style: ->
       @domino.style = """
-        top: #{@top}px;
-        left: #{@left}px;
+        top: #{@domino.top}px;
+        left: #{@domino.left}px;
       """
-      @domino.type = @type
       @domino
 
 
