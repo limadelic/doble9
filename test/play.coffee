@@ -2,19 +2,19 @@ describe 'Play', ->
 
   new_sut 'models/game'
 
-  it 'salida', (done) ->
+  it 'salida', ->
 
     setup player: [[9,9]]
     sut.player_plays [9,9]
-    verify done, table: [[9,9]]
+    verify table: [[9,9]]
 
-  it 'dont allow forros', (done) ->
+  it 'dont allow forros', ->
 
     setup table: [[0,0]]
     sut.player_plays [9,9]
-    verify done, table: [[0,0]]
+    verify table: [[0,0]]
 
-  it 'use first number', (done) ->
+  it 'use first number', ->
 
     setup
       table: [[1,9],[9,0]]
@@ -22,9 +22,9 @@ describe 'Play', ->
 
     sut.player_plays [0,1]
 
-    verify done, table: [[1,9],[9,0],[0,1]]
+    verify table: [[1,9],[9,0],[0,1]]
 
-  it 'computer responds', (done) ->
+  it 'computer responds', ->
 
     setup
       player: [[9,9],[0,0]]
@@ -36,9 +36,9 @@ describe 'Play', ->
 
     sut.player_plays [9,9]
 
-    verify done, table: [[7,9],[9,9],[9,8],[8,8]]
+    verify table: [[7,9],[9,9],[9,8],[8,8]]
 
-  it 'knock on table', (done) ->
+  it 'knock on table', ->
 
     setup
       table: [[9,9]]
@@ -51,9 +51,9 @@ describe 'Play', ->
 
     sut.knock()
 
-    verify done, table: [[9,9],[9,8]]
+    verify table: [[9,9],[9,8]]
 
-  it 'se tranco!!', (done) ->
+  it 'se tranco!!', ->
 
     setup
       table: [[9,9]]
@@ -68,9 +68,9 @@ describe 'Play', ->
 
     sut.done().should.be.true
     sut.stucked.should.be.true
-    verify done, table: [[9,9]]
+    verify table: [[9,9]]
 
-  it 'me pegue!!', (done) ->
+  it 'me pegue!!', ->
 
     setup
       table: [[9,9]]
@@ -85,4 +85,4 @@ describe 'Play', ->
 
     sut.done().should.be.true
     sut.winner.should.equal sut.player
-    verify done, table: [[9,9],[9,0]]
+    verify table: [[9,9],[9,0]]

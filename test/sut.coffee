@@ -13,9 +13,8 @@ global.setup = (game) ->
   _.each _.zip(sut.oponents, game.oponents),
     (x) -> x[0].dominoes = x[1]
 
-global.verify = (done, game) ->
+global.verify = (game) ->
   verify_arrays sut.table.dominoes, game.table if game.table?
-  done()
 
 global.verify_arrays = (x, y) -> if not _.isEqual x, y
   throw new Error "Expected #{JSON.stringify x} to be #{JSON.stringify y}"
