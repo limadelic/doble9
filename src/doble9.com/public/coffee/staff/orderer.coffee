@@ -1,40 +1,43 @@
-define [], () ->
+define ['underscore'], (_) ->
 
   class Orderer
 
     constructor: (@table) ->
 
-    place: (@domino) ->
-      @defaults()
-      @start()
-      @double()
-      @position()
-      @style()
+    place: (domino) ->
+      _.each [
+        @start
+        @setup
+        @double
+        @center
+        @style
+      ],
 
-    defaults: ->
-      @domino.width = 100
-      @domino.height = 50
-      @domino.type = 'default'
+      (f) => f.apply domino, [@]
+      domino
 
-    start: ->
-      return unless @right?
-      @right = @left = @domino
+    setup: ->
+      @width = 100
+      @height = 50
+      @type = 'default'
+
+    start: (_this) ->
+      return unless _this.right?
+      _this.right = _this.left = @
 
     double: ->
-      return unless @domino[0] is @domino[1]
-      @domino.type = 'double'
-      [@domino.width, @domino.height] =
-        [@domino.height, @domino.width]
+      return unless @[0] is @[1]
+      @type = 'double'
+      [@width, @height] = [@height, @width]
 
-    position: ->
-      @domino.top = @table.box.height() / 2 - @domino.height / 2
-      @domino.left = 100 + @table.box.width() / 2 - @domino.width / 2
+    center: (_this) ->
+      @top = _this.table.box.height() / 2 - @height / 2
+      @left = 100 + _this.table.box.width() / 2 - @width / 2
 
     style: ->
-      @domino.style = """
-        top: #{@domino.top}px;
-        left: #{@domino.left}px;
+      @style = """
+        top: #{@top}px;
+        left: #{@left}px;
       """
-      @domino
 
 
