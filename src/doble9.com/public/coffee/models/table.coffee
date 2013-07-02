@@ -1,32 +1,33 @@
 define [
   'underscore'
   'backbone'
-  'cs!staff/orderer'
+  'cs!staff/place'
 ],
 
-(_, Backbone, Orderer) ->
+(_, Backbone, Place) ->
 
   class Table extends Backbone.Model
 
-    dominoes: []
-    name: 'table'
-    width: 42
+    constructor: (@name) ->
+      @dominoes = []
+      @place = new Place
 
     head: -> _.first _.first @dominoes
     tail: -> _.last _.last @dominoes
     heads: -> [@head(), @tail()]
 
     is_forro: (domino) ->
-      domino? and not @on_salida() and
+      domino? and not @starting() and
       _.isEmpty _.intersection @heads(), domino
 
-    on_salida: -> _.isEmpty @dominoes
+    starting: -> _.isEmpty @dominoes
 
     play: (@domino) ->
-      @start() or @play_number(0) or @play_number(1)
+      @play_start() or @play_number(0) or @play_number(1)
 
-    start: ->
-      return unless _.isEmpty @dominoes
+    play_start: ->
+      return unless @starting()
+      @place.start @box, @domino
       @dominoes.push @domino
 
     play_number: (x) ->
@@ -35,12 +36,10 @@ define [
 
     play_tail:  ->
       @domino.reverse() if @domino[1] is @tail()
+      @place.after _.last(@dominoes), @domino
       @dominoes.push @domino
 
     play_head: ->
       @domino.reverse() if @domino[0] is @head()
+      @place.before _.first(@dominoes), @domino
       @dominoes.unshift @domino
-
-    place_in_table: (domino) =>
-      @orderer = new Orderer(@) if domino is _.first @dominoes
-      @orderer.place domino.slice()

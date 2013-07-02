@@ -2,16 +2,11 @@ _ = require 'underscore'
 
 describe 'Layout', ->
 
-  new_sut 'staff/orderer'
+  new_sut 'staff/place'
 
-  beforeEach ->
-    sut.table =
-      box:
-        height: -> 1000
-        width: -> 1000
-
-  setup = (dominoes) ->
-    _.each dominoes, (x) -> sut.place x
+  box =
+    height: -> 1000
+    width: -> 1000
 
   verify = (domino, values) ->
     for key, value of values
@@ -19,7 +14,7 @@ describe 'Layout', ->
 
   it 'puts the start on the center', ->
 
-    start = sut.place [9,9]
+    start = sut.start box, [9,9]
 
     verify start,
       top: 450
@@ -28,7 +23,7 @@ describe 'Layout', ->
 
   it 'places is horizontally if its capicua', ->
 
-    start = sut.place [9,8]
+    start = sut.start box, [9,8]
 
     verify start,
       top: 475
@@ -37,9 +32,9 @@ describe 'Layout', ->
 
   it 'both sides of a double', ->
 
-    sut.place [9,9]
+    start = sut.start box, [9,9]
 
-    right = sut.place [9,8]
-    verify right,
-      top: 475
-      left: 650
+#    right = sut.tail start [9,8]
+#    verify right,
+#      top: 475
+#      left: 650
