@@ -35,9 +35,11 @@ define ['underscore'], (_) ->
       @top = from.height() / 2 - @height / 2
       @left = 100 + from.width() / 2 - @width / 2
 
-    head: ->
+    head: (from) ->
+      @top = from.top + from.height / 2 - @height / 2
+      @left = from.left - @width
 
-    tail: (from)->
+    tail: (from) ->
       @top = from.top + from.height / 2 - @height / 2
       @left = from.left + from.width
 

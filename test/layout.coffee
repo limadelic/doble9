@@ -39,5 +39,10 @@ describe 'Layout', ->
       top: 475
       left: 625
 
+    left = sut.before start, [9,7]
+    verify left,
+      top: 475
+      left: 475
+
   it 'the head grows left up', ->
   it 'the tail grows right down', ->
