@@ -4,7 +4,7 @@ describe 'Layout', ->
 
   new_sut 'staff/place'
 
-  box =
+  table =
     height: -> 1000
     width: -> 1000
 
@@ -14,7 +14,7 @@ describe 'Layout', ->
 
   it 'puts the start on the center', ->
 
-    start = sut.start box, [9,9]
+    start = sut.start table, [9,9]
 
     verify start,
       top: 450
@@ -23,7 +23,7 @@ describe 'Layout', ->
 
   it 'places is horizontally if its capicua', ->
 
-    start = sut.start box, [9,8]
+    start = sut.start table, [9,8]
 
     verify start,
       top: 475
@@ -32,9 +32,12 @@ describe 'Layout', ->
 
   it 'both sides of a double', ->
 
-    start = sut.start box, [9,9]
+    start = sut.start table, [9,9]
 
-#    right = sut.tail start [9,8]
-#    verify right,
-#      top: 475
-#      left: 650
+    right = sut.after start, [9,8]
+    verify right,
+      top: 475
+      left: 625
+
+  it 'the head grows left up', ->
+  it 'the tail grows right down', ->

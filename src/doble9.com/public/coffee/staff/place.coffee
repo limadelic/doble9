@@ -2,13 +2,13 @@ define ['underscore'], (_) ->
 
   class Place
 
-    set: (f) -> f.apply @domino, [@]
+    set: (f) -> f.apply @domino, [@from]
 
-    start: (@box, @domino)-> @place @center
+    start: (@from, @domino)-> @place @center
 
-    before: (@prev, @domino) -> @place @head
+    before: (@from, @domino) -> @place @head
 
-    after: (@prev, @domino) -> @place @tail
+    after: (@from, @domino) -> @place @tail
 
     place: (position) ->
 
@@ -31,12 +31,15 @@ define ['underscore'], (_) ->
       @type = 'double'
       [@width, @height] = [@height, @width]
 
-    center: (_this) ->
-      @top = _this.box.height() / 2 - @height / 2
-      @left = 100 + _this.box.width() / 2 - @width / 2
+    center: (from) ->
+      @top = from.height() / 2 - @height / 2
+      @left = 100 + from.width() / 2 - @width / 2
 
     head: ->
-    tail: ->
+
+    tail: (from)->
+      @top = from.top + from.height / 2 - @height / 2
+      @left = from.left + from.width
 
     style: ->
       @style = """
