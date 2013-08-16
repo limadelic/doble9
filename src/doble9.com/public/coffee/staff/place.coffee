@@ -2,9 +2,12 @@ define ['underscore'], (_) ->
 
   class Place
 
+    DOMINO_WIDTH = 100
+    DOMINO_HEIGHT = 50
+
     set: (f) -> f.apply @domino, [@from]
 
-    start: (@from, @domino)-> @place @center
+    start: (@from, @domino)-> @place => @set @center
 
     before: (@from, @domino) -> @place @head
 
@@ -15,15 +18,15 @@ define ['underscore'], (_) ->
       @set @defaults
       @set @double
 
-      @set position
+      position()
 
       @set @style
 
       @domino
 
     defaults: ->
-      @width = 100
-      @height = 50
+      @width = DOMINO_WIDTH
+      @height = DOMINO_HEIGHT
       @type = 'default'
 
     double: ->
@@ -35,11 +38,32 @@ define ['underscore'], (_) ->
       @top = from.height() / 2 - @height / 2
       @left = 100 + from.width() / 2 - @width / 2
 
-    head: (from) ->
+    head: =>
+      if @from.left < DOMINO_HEIGHT
+      then @set @up
+      else if @from.left < DOMINO_WIDTH
+      then @set @left_up
+      else @set @left
+
+    tail: => @set @right
+
+    left_up: (from) ->
+      @type = 'double'
+      [@width, @height] = [@height, @width]
+      @top = from.top - @height / 2
+      @left = from.left - @width
+
+    up: (from) ->
+      @type = 'double'
+      [@width, @height] = [@height, @width]
+      @top = from.top - @height
+      @left = from.left
+
+    left: (from) ->
       @top = from.top + from.height / 2 - @height / 2
       @left = from.left - @width
 
-    tail: (from) ->
+    right: (from) ->
       @top = from.top + from.height / 2 - @height / 2
       @left = from.left + from.width
 
