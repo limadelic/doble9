@@ -12,6 +12,11 @@ describe 'Layout', ->
     for key, value of values
       domino[key].should.eql value
 
+  domino = (opt) ->
+    result = sut.start table, [9,8]
+    result[key] = value for key, value of opt
+    result
+
   it 'puts the start on the center', ->
 
     start = sut.start table, [9,9]
@@ -46,21 +51,34 @@ describe 'Layout', ->
 
   it 'the head grows left up', ->
 
-    head = sut.start table, [9,8]
-    head.top = 475
-    head.left = 49
+    up = domino
+      top: 475
+      left: 49
 
-    head = sut.before head, [9,8]
+    head = sut.before up, [9,8]
     verify head,
       top: 375
       left: 49
 
-    head.top = 475
-    head.left = 99
+    left_up = domino
+      top: 475
+      left: 99
 
-    head = sut.before head, [9,8]
+    head = sut.before left_up, [9,8]
     verify head,
       top: 425
       left: 49
+
+  it.skip 'the head switches on next row', ->
+
+    up = domino
+      top: 375
+      left: 49
+
+    head = sut.before up, [9,8]
+    verify head,
+      top: 375
+      left: 49
+
 
   it 'the tail grows right down', ->
