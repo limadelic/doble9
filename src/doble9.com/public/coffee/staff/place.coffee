@@ -1,6 +1,7 @@
 define [
+  'underscore'
   'cs!staff/arranger'
-], (Arranger) ->
+], (_, Arranger) ->
 
   DOMINO_WIDTH = 100
   DOMINO_HEIGHT = 50
@@ -12,7 +13,7 @@ define [
 
     set: (f) -> @at[f].apply @domino, [@from]
 
-    start: (@from, @domino) -> @place => @set 'center'
+    start: (@from, @domino) -> @place @center
 
     before: (@from, @domino) -> @place @head
 
@@ -29,12 +30,28 @@ define [
 
       @domino
 
+    center: => @set 'center'
+    head: => @set @next_in @head_path
+    tail: => @set @next_in @tail_path
 
-    head: =>
-      if @from.left < DOMINO_HEIGHT
-      then @set 'up'
-      else if @from.left < DOMINO_WIDTH
-      then @set 'left_up'
-      else @set 'left'
+    next_in: (path) ->
+      _.find _.keys(path), (x) =>
+        @is_next path[x]
 
-    tail: => @set 'right'
+    is_next: (dir) -> dir.apply @from
+
+    head_path:
+      up: ->
+        @left < DOMINO_HEIGHT and
+        @dir is 'left'
+      up_right: ->
+        @left < DOMINO_HEIGHT and
+        @dir is 'up'
+      left_up: ->
+        @left < DOMINO_WIDTH and
+        @dir is 'left'
+      right: -> @dir is 'right'
+      left: -> true
+
+    tail_path:
+      right: -> true

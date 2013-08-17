@@ -43,33 +43,37 @@ describe 'Layout', ->
     verify right,
       top: 475
       left: 625
+      dir: 'right'
 
     left = sut.before start, [9,7]
     verify left,
       top: 475
       left: 475
+      dir: 'left'
 
   it 'the head grows left up', ->
 
     up = domino
       top: 475
       left: 49
+      dir: 'left'
 
     head = sut.before up, [9,8]
     verify head,
       top: 375
       left: 49
-      going: 'up'
+      dir: 'up'
 
     left_up = domino
       top: 475
       left: 99
+      dir: 'left'
 
     head = sut.before left_up, [9,8]
     verify head,
       top: 425
       left: 49
-      going: 'up'
+      dir: 'up'
 
   it.skip 'the head switches on next row', ->
 

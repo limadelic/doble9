@@ -27,21 +27,23 @@ define [], () ->
     left: (from) ->
       @top = from.top + from.height / 2 - @height / 2
       @left = from.left - @width
+      @dir = 'left'
 
     right: (from) ->
       @top = from.top + from.height / 2 - @height / 2
       @left = from.left + from.width
+      @dir = 'right'
 
     left_up: (from) ->
       @type = 'double'
-      @going = 'up'
       [@width, @height] = [@height, @width]
       @top = from.top - @height / 2
       @left = from.left - @width
+      @dir = 'up'
 
     up: (from) ->
       @type = 'double'
-      @going = 'up'
       [@width, @height] = [@height, @width]
       @top = from.top - @height
       @left = from.left
+      @dir = 'up'
