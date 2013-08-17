@@ -59,6 +59,7 @@ describe 'Layout', ->
     verify head,
       top: 375
       left: 49
+      going: 'up'
 
     left_up = domino
       top: 475
@@ -68,6 +69,7 @@ describe 'Layout', ->
     verify head,
       top: 425
       left: 49
+      going: 'up'
 
   it.skip 'the head switches on next row', ->
 
