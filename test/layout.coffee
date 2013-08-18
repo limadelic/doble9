@@ -60,7 +60,7 @@ describe 'Layout', ->
       head = sut.before head, [0,1]
       verify head, pos
 
-    it 'turns up when cannot fit height', ->
+    it 'turns up left when cannot fit height', ->
 
       head = domino
         top: 475
@@ -84,7 +84,7 @@ describe 'Layout', ->
         pos: 'right'
         inverted: true
 
-    it 'turns up when cannot fit width', ->
+    it 'turns left up when cannot fit width', ->
 
       head = domino
         top: 475
@@ -107,5 +107,19 @@ describe 'Layout', ->
         left: 149
         pos: 'right'
         inverted: true
+
+    it.skip 'turns up right when cannot fit height', ->
+
+      head = domino
+        top: 375
+        left: 951
+        pos: 'right'
+        inverted: true
+
+      verify_next
+        top: 275
+        left: 951
+        pos: 'up right'
+
 
   describe 'the tail grows right down', ->

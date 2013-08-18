@@ -12,6 +12,7 @@ define [
       @at = new Arranger
 
     set: (f) -> @at[f].apply @domino, [@from]
+    layout: (f) -> @at[@from.layout][f].apply @domino, [@from]
 
     start: (@from, @domino) -> @place @center
 
@@ -28,12 +29,13 @@ define [
 
       @set 'style'
       @set 'inverted'
+      @set 'layout'
 
       @domino
 
     center: => @set 'center'
-    head: => @set @next_in @head_path
-    tail: => @set @next_in @tail_path
+    head: => @layout @next_in @head_path
+    tail: => @layout @next_in @tail_path
 
     next_in: (path) ->
       _.find _.keys(path), (pos) =>

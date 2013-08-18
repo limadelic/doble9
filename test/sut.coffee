@@ -8,6 +8,10 @@ global.new_sut = (file) ->
 
 global.setup = (game) ->
   sut.table.dominoes = game.table ? []
+  sut.table.place =
+    before: ->
+    after: ->
+    start: ->
   sut.table.box =
     height: -> 1000
     width: -> 1000

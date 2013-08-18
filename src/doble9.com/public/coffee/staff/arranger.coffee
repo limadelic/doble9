@@ -5,10 +5,15 @@ define [], () ->
 
   class Arranger
 
+    constructor: ->
+      @horizontal.left = @vertical.left = @left
+      @horizontal.right = @vertical.right = @right
+
     defaults: ->
       @width = DOMINO_WIDTH
       @height = DOMINO_HEIGHT
       @type = 'default'
+      @layout = 'horizontal'
 
     style: -> @style = """
       top: #{@top}px;
@@ -19,6 +24,12 @@ define [], () ->
       return unless @[0] is @[1]
       @type = 'double'
       [@width, @height] = [@height, @width]
+
+    layout: (from) ->
+      return unless from.layout is 'horizontal' and
+        @pos.match /up|down/
+      @layout = 'vertical'
+      @type = 'double'
 
     inverted: (from) -> @inverted = from.inverted or
       from.pos in ['left up', 'up left']
@@ -38,26 +49,26 @@ define [], () ->
       @left = from.left + from.width
       @pos = 'right'
 
-    left_up: (from) ->
-      @type = 'double'
-      [@width, @height] = [@height, @width]
-      @top = from.top - @height / 2
-      @left = from.left - @width
-      @pos = 'left up'
+    horizontal:
 
-    up_left: (from) ->
-      @type = 'double'
-      [@width, @height] = [@height, @width]
-      @top = from.top - @height
-      @left = from.left
-      @pos = 'up left'
+      left_up: (from) ->
+        @top = from.top - DOMINO_HEIGHT
+        @left = from.left - DOMINO_HEIGHT
+        @pos = 'left up'
 
-    right_up: (from) ->
-      @top = from.top
-      @left = from.left + from.width
-      @pos = 'right up'
+      up_left: (from) ->
+        @top = from.top - DOMINO_WIDTH
+        @left = from.left
+        @pos = 'up left'
 
-    up_right: (from) ->
-      @top = from.top - @height
-      @left = from.left
-      @pos = 'up right'
+    vertical:
+
+      right_up: (from) ->
+        @top = from.top
+        @left = from.left + DOMINO_HEIGHT
+        @pos = 'right up'
+
+      up_right: (from) ->
+        @top = from.top - DOMINO_HEIGHT
+        @left = from.left
+        @pos = 'up right'
