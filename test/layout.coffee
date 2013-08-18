@@ -25,6 +25,7 @@ describe 'Layout', ->
       top: 450
       left: 575
       type: 'double'
+      pos: 'center'
 
   it 'places is horizontally if its capicua', ->
 
@@ -34,6 +35,7 @@ describe 'Layout', ->
       top: 475
       left: 550
       type: 'default'
+      pos: 'center'
 
   it 'both sides of a double', ->
 
@@ -43,48 +45,54 @@ describe 'Layout', ->
     verify right,
       top: 475
       left: 625
-      dir: 'right'
+      pos: 'right'
 
     left = sut.before start, [9,7]
     verify left,
       top: 475
       left: 475
-      dir: 'left'
+      pos: 'left'
 
-  it 'the head grows left up', ->
+  describe 'the head grows left up', ->
 
-    up = domino
-      top: 475
-      left: 49
-      dir: 'left'
+    head = {}
+    verify_next = (pos) ->
+      head = sut.before head, [0,1]
+      verify head, pos
 
-    head = sut.before up, [9,8]
-    verify head,
-      top: 375
-      left: 49
-      dir: 'up'
+    it 'turns up when cannot fit height', ->
 
-    left_up = domino
-      top: 475
-      left: 99
-      dir: 'left'
+      head = domino
+        top: 475
+        left: 49
+        pos: 'left'
 
-    head = sut.before left_up, [9,8]
-    verify head,
-      top: 425
-      left: 49
-      dir: 'up'
+      verify_next
+        top: 375
+        left: 49
+        pos: 'up left'
 
-  it.skip 'the head switches on next row', ->
+      verify_next
+        top: 375
+        left: 99
+        pos: 'right up'
 
-    up = domino
-      top: 375
-      left: 49
+      verify_next
+        top: 375
+        left: 199
+        pos: 'right'
 
-    head = sut.before up, [9,8]
-    verify head,
-      top: 375
-      left: 49
+    it 'turns up when cannot fit width', ->
 
+      head = domino
+        top: 475
+        left: 99
+        pos: 'left'
 
-  it 'the tail grows right down', ->
+      head = sut.before head, [9,8]
+      verify head,
+        top: 425
+        left: 49
+        pos: 'left up'
+
+  describe 'the tail grows right down', ->

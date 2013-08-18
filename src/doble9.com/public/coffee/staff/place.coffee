@@ -35,23 +35,17 @@ define [
     tail: => @set @next_in @tail_path
 
     next_in: (path) ->
-      _.find _.keys(path), (x) =>
-        @is_next path[x]
+      _.find _.keys(path), (pos) =>
+        @is_next path[pos]
 
-    is_next: (dir) -> dir.apply @from
+    is_next: (pos) -> pos.apply @from
 
     head_path:
-      up: ->
-        @left < DOMINO_HEIGHT and
-        @dir is 'left'
-      up_right: ->
-        @left < DOMINO_HEIGHT and
-        @dir is 'up'
-      left_up: ->
-        @left < DOMINO_WIDTH and
-        @dir is 'left'
-      right: -> @dir is 'right'
-      left: -> true
+      up_left: -> @pos is 'left' and @left < DOMINO_HEIGHT
+      left_up: -> @pos is 'left' and @left < DOMINO_WIDTH
+      right_up: -> @pos is 'up left'
+      left: -> @pos in ['center', 'left', 'up right']
+      right: -> @pos in ['right', 'right up']
 
     tail_path:
       right: -> true

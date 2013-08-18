@@ -23,27 +23,33 @@ define [], () ->
     center: (from) ->
       @top = from.height() / 2 - @height / 2
       @left = 100 + from.width() / 2 - @width / 2
+      @pos = 'center'
 
     left: (from) ->
       @top = from.top + from.height / 2 - @height / 2
       @left = from.left - @width
-      @dir = 'left'
+      @pos = 'left'
 
     right: (from) ->
       @top = from.top + from.height / 2 - @height / 2
       @left = from.left + from.width
-      @dir = 'right'
+      @pos = 'right'
 
     left_up: (from) ->
       @type = 'double'
       [@width, @height] = [@height, @width]
       @top = from.top - @height / 2
       @left = from.left - @width
-      @dir = 'up'
+      @pos = 'left up'
 
-    up: (from) ->
+    up_left: (from) ->
       @type = 'double'
       [@width, @height] = [@height, @width]
       @top = from.top - @height
       @left = from.left
-      @dir = 'up'
+      @pos = 'up left'
+
+    right_up: (from) ->
+      @top = from.top
+      @left = from.left + from.width
+      @pos = 'right up'
