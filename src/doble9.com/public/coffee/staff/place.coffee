@@ -27,6 +27,7 @@ define [
       position()
 
       @set 'style'
+      @set 'inverted'
 
       @domino
 
@@ -44,8 +45,9 @@ define [
       up_left: -> @pos is 'left' and @left < DOMINO_HEIGHT
       left_up: -> @pos is 'left' and @left < DOMINO_WIDTH
       right_up: -> @pos is 'up left'
-      left: -> @pos in ['center', 'left', 'up right']
-      right: -> @pos in ['right', 'right up']
+      up_right: -> @pos is 'left up'
+      left: -> @pos in ['center', 'left']
+      right: -> @pos in ['right', 'right up', 'up right']
 
     tail_path:
       right: -> true

@@ -20,6 +20,9 @@ define [], () ->
       @type = 'double'
       [@width, @height] = [@height, @width]
 
+    inverted: (from) -> @inverted = from.inverted or
+      from.pos in ['left up', 'up left']
+
     center: (from) ->
       @top = from.height() / 2 - @height / 2
       @left = 100 + from.width() / 2 - @width / 2
@@ -53,3 +56,8 @@ define [], () ->
       @top = from.top
       @left = from.left + from.width
       @pos = 'right up'
+
+    up_right: (from) ->
+      @top = from.top - @height
+      @left = from.left
+      @pos = 'up right'

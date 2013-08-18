@@ -76,11 +76,13 @@ describe 'Layout', ->
         top: 375
         left: 99
         pos: 'right up'
+        inverted: true
 
       verify_next
         top: 375
         left: 199
         pos: 'right'
+        inverted: true
 
     it 'turns up when cannot fit width', ->
 
@@ -89,10 +91,21 @@ describe 'Layout', ->
         left: 99
         pos: 'left'
 
-      head = sut.before head, [9,8]
-      verify head,
+      verify_next
         top: 425
         left: 49
         pos: 'left up'
+
+      verify_next
+        top: 375
+        left: 49
+        pos: 'up right'
+        inverted: true
+
+      verify_next
+        top: 375
+        left: 149
+        pos: 'right'
+        inverted: true
 
   describe 'the tail grows right down', ->
