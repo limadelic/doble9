@@ -122,6 +122,7 @@ describe 'Layout', ->
         left: 901
         pos: 'up right'
         layout: 'vertical'
+        inverted: false
 
       verify_next
         top: 275
@@ -148,6 +149,7 @@ describe 'Layout', ->
         left: 901
         pos: 'right up'
         layout: 'vertical'
+        inverted: false
 
       verify_next
         top: 275

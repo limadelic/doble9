@@ -17,9 +17,8 @@ define [
     layout: (f) -> @at[@from.layout][f].apply @domino, [@from]
 
     start: (@from, @domino) ->
-      @table =
-        height: @from.height()
-        width: @from.width()
+      TABLE_HEIGHT = @from.height()
+      TABLE_WIDTH  = @from.width()
       @place @center
 
     before: (@from, @domino) -> @place @head
@@ -34,8 +33,8 @@ define [
       position()
 
       @set 'style'
-      @set 'inverted'
       @set 'layout'
+      @set 'inverted'
 
       @domino
 

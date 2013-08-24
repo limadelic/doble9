@@ -11,11 +11,12 @@ define [], () ->
       @horizontal.left = @vertical.left = @left
       @horizontal.right = @vertical.right = @right
 
-    defaults: ->
+    defaults: (from) ->
       @width = DOMINO_WIDTH
       @height = DOMINO_HEIGHT
       @type = 'default'
       @layout = 'horizontal'
+      @inverted = from.inverted ? false
 
     style: -> @style = """
       top: #{@top}px;
@@ -33,8 +34,10 @@ define [], () ->
       @layout = 'vertical'
       @type = 'double'
 
-    inverted: (from) -> @inverted = from.inverted or
-      from.pos in ['left up', 'up left']
+    inverted: (from) -> @inverted = not @inverted if (
+      (@layout is 'vertical' and from.pos is 'right') or
+      (from.layout is 'vertical' and @pos.match /right/)
+    )
 
     center: (from) ->
       TABLE_HEIGHT = from.height()
