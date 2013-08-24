@@ -108,18 +108,31 @@ describe 'Layout', ->
         pos: 'right'
         inverted: true
 
-    it.skip 'turns up right when cannot fit height', ->
+    it 'turns up right when cannot fit height', ->
 
       head = domino
         top: 375
-        left: 951
+        left: 851
+        width: 100
         pos: 'right'
         inverted: true
 
       verify_next
         top: 275
-        left: 951
+        left: 901
         pos: 'up right'
+        layout: 'vertical'
+
+      verify_next
+        top: 275
+        left: 801
+        pos: 'left up'
+        layout: 'horizontal'
+
+      verify_next
+        top: 275
+        left: 701
+        pos: 'left'
 
 
   describe 'the tail grows right down', ->

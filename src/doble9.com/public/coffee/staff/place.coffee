@@ -5,6 +5,8 @@ define [
 
   DOMINO_WIDTH = 100
   DOMINO_HEIGHT = 50
+  TABLE_HEIGHT = 1000
+  TABLE_WIDTH = 1000
 
   class Place
 
@@ -14,7 +16,11 @@ define [
     set: (f) -> @at[f].apply @domino, [@from]
     layout: (f) -> @at[@from.layout][f].apply @domino, [@from]
 
-    start: (@from, @domino) -> @place @center
+    start: (@from, @domino) ->
+      @table =
+        height: @from.height()
+        width: @from.width()
+      @place @center
 
     before: (@from, @domino) -> @place @head
 
@@ -45,10 +51,14 @@ define [
 
     head_path:
       up_left: -> @pos is 'left' and @left < DOMINO_HEIGHT
-      left_up: -> @pos is 'left' and @left < DOMINO_WIDTH
+      left_up: ->
+        (@pos is 'up right' and @layout is 'vertical') or
+        (@pos is 'left' and @left < DOMINO_WIDTH)
       right_up: -> @pos is 'up left'
-      up_right: -> @pos is 'left up'
-      left: -> @pos in ['center', 'left']
+      up_right: ->
+        (@pos is 'left up' and @layout is 'vertical') or
+        (@pos is 'right' and @left + @width > TABLE_WIDTH - DOMINO_HEIGHT)
+      left: -> @pos in ['center', 'left', 'left up']
       right: -> @pos in ['right', 'right up', 'up right']
 
     tail_path:
