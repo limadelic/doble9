@@ -134,5 +134,30 @@ describe 'Layout', ->
         left: 701
         pos: 'left'
 
+    it 'turns right up when cannot fit width', ->
+
+      head = domino
+        top: 375
+        left: 801
+        width: 100
+        pos: 'right'
+        inverted: true
+
+      verify_next
+        top: 325
+        left: 901
+        pos: 'right up'
+        layout: 'vertical'
+
+      verify_next
+        top: 275
+        left: 851
+        pos: 'up left'
+        layout: 'horizontal'
+
+      verify_next
+        top: 275
+        left: 751
+        pos: 'left'
 
   describe 'the tail grows right down', ->

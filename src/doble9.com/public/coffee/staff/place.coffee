@@ -50,15 +50,19 @@ define [
     is_next: (pos) -> pos.apply @from
 
     head_path:
-      up_left: -> @pos is 'left' and @left < DOMINO_HEIGHT
+      up_left: ->
+        (@pos is 'right up' and @layout is 'vertical') or
+        (@pos is 'left' and @left < DOMINO_HEIGHT)
       left_up: ->
         (@pos is 'up right' and @layout is 'vertical') or
         (@pos is 'left' and @left < DOMINO_WIDTH)
-      right_up: -> @pos is 'up left'
       up_right: ->
         (@pos is 'left up' and @layout is 'vertical') or
         (@pos is 'right' and @left + @width > TABLE_WIDTH - DOMINO_HEIGHT)
-      left: -> @pos in ['center', 'left', 'left up']
+      right_up: ->
+        (@pos is 'up left' and @layout is 'vertical') or
+        (@pos is 'right' and @left + @width > TABLE_WIDTH - DOMINO_WIDTH)
+      left: -> @pos in ['center', 'left', 'left up', 'up left']
       right: -> @pos in ['right', 'right up', 'up right']
 
     tail_path:

@@ -65,6 +65,11 @@ define [], () ->
         @left = from.left
         @pos = 'up left'
 
+      right_up: (from) ->
+        @top = from.top - DOMINO_HEIGHT
+        @left = from.left + DOMINO_WIDTH
+        @pos = 'right up'
+
       up_right: (from) ->
         @top = from.top - DOMINO_WIDTH
         @left = from.left + DOMINO_HEIGHT
@@ -76,6 +81,11 @@ define [], () ->
         @top = from.top
         @left = from.left - DOMINO_WIDTH
         @pos = 'left up'
+
+      up_left: (from) ->
+        @top = from.top - DOMINO_HEIGHT
+        @left = from.left - DOMINO_HEIGHT
+        @pos = 'up left'
 
       right_up: (from) ->
         @top = from.top
