@@ -20,7 +20,7 @@ define [], () ->
 
     style: -> @style = """
       top: #{@top}px;
-      left: #{@left + DOMINO_WIDTH}px;
+      left: #{@left + 125}px;
     """
 
     double: ->
@@ -35,8 +35,9 @@ define [], () ->
       @type = 'double'
 
     inverted: (from) -> @inverted = not @inverted if (
-      (@layout is 'vertical' and from.pos is 'right') or
-      (from.layout is 'vertical' and @pos.match /right/)
+      (from.layout is 'vertical' and @pos in ['up right', 'right up', 'down left', 'left down']) or
+      (from.pos is 'right'  and @pos.match(/up/)) or
+      (from.pos is 'left'  and @pos.match(/down/))
     )
 
     center: (from) ->

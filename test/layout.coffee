@@ -172,74 +172,79 @@ describe 'Layout', ->
     it 'turns down right when cannot fit height', ->
 
       tail = domino
+        pos: 'right'
         top: 475
         left: 851
         width: 100
-        pos: 'right'
 
       verify_next
+        pos: 'down right'
         top: 525
         left: 901
-        pos: 'down right'
         layout: 'vertical'
+        inverted: false
 
       verify_next
+        pos: 'left down'
         top: 575
         left: 801
-        pos: 'left down'
+        inverted: true
 
       verify_next
+        pos: 'left'
         top: 575
         left: 701
-        pos: 'left'
 
     it 'turns right down when cannot fit width', ->
 
       tail = domino
+        pos: 'right'
         top: 475
         left: 801
         width: 100
-        pos: 'right'
 
       verify_next
+        pos: 'right down'
         top: 475
         left: 901
-        pos: 'right down'
         layout: 'vertical'
+        inverted: false
 
       verify_next
+        pos: 'down left'
         top: 575
         left: 851
-        pos: 'down left'
+        inverted: true
 
       verify_next
+        pos: 'left'
         top: 575
         left: 751
-        pos: 'left'
 
     it 'turns down left when cannot fit height', ->
 
       tail = domino
+        pos: 'left'
         top: 575
         left: 49
-        pos: 'left'
+        inverted: true
 
       verify_next
+        pos: 'down left'
         top: 625
         left: 49
-        pos: 'down left'
+        inverted: false
 
       verify_next
+        pos: 'right down'
         top: 675
         left: 99
-        pos: 'right down'
-        inverted: true
+        inverted: false
 
       verify_next
+        pos: 'right'
         top: 675
         left: 199
-        pos: 'right'
-        inverted: true
 
     it 'turns left down when cannot fit width', ->
 
@@ -257,10 +262,8 @@ describe 'Layout', ->
         pos: 'down right'
         top: 675
         left: 49
-        inverted: true
 
       verify_next
         pos: 'right'
         top: 675
         left: 149
-        inverted: true
