@@ -216,3 +216,51 @@ describe 'Layout', ->
         top: 575
         left: 751
         pos: 'left'
+
+    it 'turns down left when cannot fit height', ->
+
+      tail = domino
+        top: 575
+        left: 49
+        pos: 'left'
+
+      verify_next
+        top: 625
+        left: 49
+        pos: 'down left'
+
+      verify_next
+        top: 675
+        left: 99
+        pos: 'right down'
+        inverted: true
+
+      verify_next
+        top: 675
+        left: 199
+        pos: 'right'
+        inverted: true
+
+    it 'turns left down when cannot fit width', ->
+
+      tail = domino
+        pos: 'left'
+        top: 575
+        left: 99
+
+      verify_next
+        pos: 'left down'
+        top: 575
+        left: 49
+
+      verify_next
+        pos: 'down right'
+        top: 675
+        left: 49
+        inverted: true
+
+      verify_next
+        pos: 'right'
+        top: 675
+        left: 149
+        inverted: true

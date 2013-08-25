@@ -66,12 +66,16 @@ define [
 
     tail_path:
       down_left: ->
-        (@pos is 'right down' and @layout is 'vertical')
-      down_right: ->
-        (@pos is 'right' and @left + @width > TABLE_WIDTH - DOMINO_HEIGHT)
+        (@pos is 'right down' and @layout is 'vertical') or
+        (@pos is 'left' and @left < DOMINO_HEIGHT)
       left_down: ->
-        (@pos is 'down right' and @layout is 'vertical')
+        (@pos is 'down right' and @layout is 'vertical') or
+        (@pos is 'left' and @left < DOMINO_WIDTH)
+      down_right: ->
+        (@pos is 'left down' and @layout is 'vertical') or
+        (@pos is 'right' and @left + @width > TABLE_WIDTH - DOMINO_HEIGHT)
       right_down: ->
+        (@pos is 'down left' and @layout is 'vertical') or
         (@pos is 'right' and @left + @width > TABLE_WIDTH - DOMINO_WIDTH)
       left: -> @pos in ['left', 'left down', 'down left']
       right: -> @pos in ['center', 'right', 'right down', 'down right']
