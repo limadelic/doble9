@@ -65,4 +65,13 @@ define [
       right: -> @pos in ['right', 'right up', 'up right']
 
     tail_path:
-      right: -> true
+      down_left: ->
+        (@pos is 'right down' and @layout is 'vertical')
+      down_right: ->
+        (@pos is 'right' and @left + @width > TABLE_WIDTH - DOMINO_HEIGHT)
+      left_down: ->
+        (@pos is 'down right' and @layout is 'vertical')
+      right_down: ->
+        (@pos is 'right' and @left + @width > TABLE_WIDTH - DOMINO_WIDTH)
+      left: -> @pos in ['left', 'left down', 'down left']
+      right: -> @pos in ['center', 'right', 'right down', 'down right']

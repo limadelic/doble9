@@ -23,7 +23,7 @@ describe 'Layout', ->
 
     verify start,
       top: 450
-      left: 575
+      left: 475
       type: 'double'
       pos: 'center'
 
@@ -33,7 +33,7 @@ describe 'Layout', ->
 
     verify start,
       top: 475
-      left: 550
+      left: 450
       type: 'default'
       pos: 'center'
 
@@ -44,13 +44,13 @@ describe 'Layout', ->
     right = sut.after start, [9,8]
     verify right,
       top: 475
-      left: 625
+      left: 525
       pos: 'right'
 
     left = sut.before start, [9,7]
     verify left,
       top: 475
-      left: 475
+      left: 375
       pos: 'left'
 
   describe 'the head grows left up', ->
@@ -163,3 +163,56 @@ describe 'Layout', ->
         pos: 'left'
 
   describe 'the tail grows right down', ->
+
+    tail = {}
+    verify_next = (expected_values) ->
+      tail = sut.after tail, [0,1]
+      verify tail, expected_values
+
+    it 'turns down right when cannot fit height', ->
+
+      tail = domino
+        top: 475
+        left: 851
+        width: 100
+        pos: 'right'
+
+      verify_next
+        top: 525
+        left: 901
+        pos: 'down right'
+        layout: 'vertical'
+
+      verify_next
+        top: 575
+        left: 801
+        pos: 'left down'
+
+      verify_next
+        top: 575
+        left: 701
+        pos: 'left'
+
+    it 'turns right down when cannot fit width', ->
+
+      tail = domino
+        top: 475
+        left: 801
+        width: 100
+        pos: 'right'
+
+      verify_next
+        top: 475
+        left: 901
+        pos: 'right down'
+        layout: 'vertical'
+
+      verify_next
+        top: 575
+        left: 851
+        pos: 'down left'
+
+      verify_next
+        top: 575
+        left: 751
+        pos: 'left'

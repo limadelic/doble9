@@ -20,7 +20,7 @@ define [], () ->
 
     style: -> @style = """
       top: #{@top}px;
-      left: #{@left}px;
+      left: #{@left + DOMINO_WIDTH}px;
     """
 
     double: ->
@@ -43,7 +43,7 @@ define [], () ->
       TABLE_HEIGHT = from.height()
       TABLE_WIDTH = from.width()
       @top = TABLE_HEIGHT / 2 - @height / 2
-      @left = 100 + TABLE_WIDTH / 2 - @width / 2
+      @left = TABLE_WIDTH / 2 - @width / 2
       @pos = 'center'
 
     left: (from) ->
@@ -73,10 +73,20 @@ define [], () ->
         @left = from.left + DOMINO_WIDTH
         @pos = 'right up'
 
+      right_down: (from) ->
+        @top = from.top
+        @left = from.left + DOMINO_WIDTH
+        @pos = 'right down'
+
       up_right: (from) ->
         @top = from.top - DOMINO_WIDTH
         @left = from.left + DOMINO_HEIGHT
         @pos = 'up right'
+
+      down_right: (from) ->
+        @top = from.top + DOMINO_HEIGHT
+        @left = from.left + DOMINO_HEIGHT
+        @pos = 'down right'
 
     vertical:
 
@@ -85,10 +95,20 @@ define [], () ->
         @left = from.left - DOMINO_WIDTH
         @pos = 'left up'
 
+      left_down: (from) ->
+        @top = from.top + DOMINO_HEIGHT
+        @left = from.left - DOMINO_WIDTH
+        @pos = 'left down'
+
       up_left: (from) ->
         @top = from.top - DOMINO_HEIGHT
         @left = from.left - DOMINO_HEIGHT
         @pos = 'up left'
+
+      down_left: (from) ->
+        @top = from.top + DOMINO_WIDTH
+        @left = from.left - DOMINO_HEIGHT
+        @pos = 'down left'
 
       right_up: (from) ->
         @top = from.top
