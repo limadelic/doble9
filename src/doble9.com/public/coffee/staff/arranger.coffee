@@ -28,7 +28,7 @@ define [], () ->
         return false unless from.layout?
         from.layout is 'vertical' or
         (from.pos is 'left' and from.left - DOMINO_HEIGHT < DOMINO_WIDTH) or
-        (from.pos is 'right' and from.left + DOMINO_WIDTH + DOMINO_HEIGHT < TABLE_WIDTH - DOMINO_WIDTH)
+        (from.pos is 'right' and from.left + DOMINO_WIDTH + DOMINO_HEIGHT > TABLE_WIDTH - DOMINO_WIDTH)
 
       return if @[0] isnt @[1] or around_corner()
       @type = 'double'
