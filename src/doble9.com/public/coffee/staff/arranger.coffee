@@ -23,8 +23,14 @@ define [], () ->
       left: #{@left + 125}px;
     """
 
-    double: ->
-      return unless @[0] is @[1]
+    double: (from) ->
+      around_corner = ->
+        return false unless from.layout?
+        from.layout is 'vertical' or
+        (from.pos is 'left' and from.left - DOMINO_HEIGHT < DOMINO_WIDTH) or
+        (from.pos is 'right' and from.left + DOMINO_WIDTH + DOMINO_HEIGHT < TABLE_WIDTH - DOMINO_WIDTH)
+
+      return if @[0] isnt @[1] or around_corner()
       @type = 'double'
       [@width, @height] = [@height, @width]
 
@@ -36,8 +42,8 @@ define [], () ->
 
     inverted: (from) -> @inverted = not @inverted if (
       (from.layout is 'vertical' and @pos in ['up right', 'right up', 'down left', 'left down']) or
-      (from.pos is 'right'  and @pos.match(/up/)) or
-      (from.pos is 'left'  and @pos.match(/down/))
+      (from.pos is 'right' and @pos.match(/up/)) or
+      (from.pos is 'left' and @pos.match(/down/))
     )
 
     center: (from) ->
