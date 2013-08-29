@@ -16,6 +16,8 @@ global.setup = (game) ->
     height: -> 1000
     width: -> 1000
 
+  sut.show = ->
+
   sut.player.dominoes = game.player ? []
   game.oponents ?= [[],[],[]]
   _.each _.zip(sut.oponents, game.oponents),

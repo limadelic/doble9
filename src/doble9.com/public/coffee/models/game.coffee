@@ -34,7 +34,7 @@ define [
 
     player_plays: (domino) ->
       return if @table.is_forro domino
-
+      @plays = 0
       @play @player, domino
       @computer_plays()
       @check_status()
@@ -52,8 +52,19 @@ define [
 
       player.play domino
       @table.play domino
+      @show domino, @plays++
 
       @winner = player if player.won
+
+    show: (domino, play) ->
+#      setTimeout -> $(domino.selector).hide()
+      domino.display = 'none'
+      setTimeout(
+        ->
+          $(domino.selector).fadeIn()
+          domino.display = 'block'
+        500 * play
+      )
 
     computer_plays: ->
       _.each @oponents, (x) => @play x,

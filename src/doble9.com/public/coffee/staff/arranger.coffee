@@ -12,15 +12,18 @@ define [], () ->
       @horizontal.right = @vertical.right = @right
 
     defaults: (from) ->
+      @id = "domino#{@join ''}"
+      @selector = "##{@id}"
       @width = DOMINO_WIDTH
       @height = DOMINO_HEIGHT
       @type = 'default'
       @layout = 'horizontal'
       @inverted = from.inverted ? false
 
-    style: -> @style = """
+    style: -> @style = => """
       top: #{@top}px;
       left: #{@left + 125}px;
+      display: #{@display};
     """
 
     double: (from) ->
