@@ -48,6 +48,7 @@ define [
         )?
 
     play: (player, domino) ->
+      player.played = false
       return unless domino? and not @done()
 
       player.play domino

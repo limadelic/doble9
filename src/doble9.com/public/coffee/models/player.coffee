@@ -20,7 +20,6 @@ define ['backbone', 'underscore'],
 
     check_if_can_play: (heads) ->
       return if @won
-      @played = false
 
       @pass = not _.find(@dominoes, (x) ->
         _.intersection(x, heads).length > 0
