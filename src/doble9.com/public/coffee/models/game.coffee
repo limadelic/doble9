@@ -52,18 +52,24 @@ define [
 
       player.play domino
       @table.play domino
-      @show domino, @plays++
+      @show @plays++, player, domino
 
       @winner = player if player.won
 
-    show: (domino, play) ->
-#      setTimeout -> $(domino.selector).hide()
+    show: (play, player, domino) ->
+      delay = 500 * play
+
+      setTimeout(
+        -> $("##{player.play_id}").fadeOut()
+        delay
+      )
+
       domino.display = 'none'
       setTimeout(
         ->
           $(domino.selector).fadeIn()
           domino.display = 'block'
-        500 * play
+        delay + 200
       )
 
     computer_plays: ->

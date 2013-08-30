@@ -1,48 +1,49 @@
-<%
-    if (name === 'player' && pass && !game.model.done()) {
-%>
-        <button type="button" id="pass" class="btn btn-danger">pass</button>
-        <br/>
+<% if (name === 'player' && pass && !game.model.done()) { %>
+<button type="button" id="pass" class="btn btn-danger">pass</button>
+<br/>
 <% } %>
 
-<%
-    if (won) {
-%>
-        <span class="label label-success">winner</span>
-        <br/>
+<% if (won) { %>
+<span class="label label-success">winner</span>
+<br/>
 <% } %>
 
 <%
 
-    _.each(dominoes, function(domino){
+_.each(dominoes, function(domino){
 
-        var x = domino[0],
-            y = domino[1];
+var x = domino[0],
+y = domino[1];
 
-        if (game.model.done() || _.contains(['player', 'table'], name)) {
+if (game.model.done() || _.contains(['player', 'table'], name)) {
 %>
 
 
-            <div class="domino">
-                <div class="number">
-                    <a href="/#play/<%= x %><%= y %>">
-                        <img src="/img/<%= x %>.gif"/>
-                    </a>
-                </div>
-                <div class="number">
-                    <a href="/#play/<%= y %><%= x %>">
-                        <img src="/img/<%= y %>.gif"/>
-                    </a>
-                </div>
-            </div>
+<div class="domino">
+    <div class="number">
+        <a href="/#play/<%= x %><%= y %>">
+            <img src="/img/<%= x %>.gif"/>
+        </a>
+    </div>
+    <div class="number">
+        <a href="/#play/<%= y %><%= x %>">
+            <img src="/img/<%= y %>.gif"/>
+        </a>
+    </div>
+</div>
 
 <%
-        } else {
+} else {
 %>
 
-            <div class="domino back" ></div>
+<div class="domino back"></div>
 
 <%
-        }
-    })
+}
+})
 %>
+
+<% if (played) { %>
+<div id="<%= play_id %>" class="domino back"></div>
+<% } %>
+

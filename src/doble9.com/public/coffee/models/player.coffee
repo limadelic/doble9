@@ -5,6 +5,8 @@ define ['backbone', 'underscore'],
 
     initialize: (@name) ->
       @won = @pass = false
+      @play_id = "play#{@name}"
+      @played = false
 
     play: (domino) ->
       reverse = domino.slice().reverse()
@@ -14,9 +16,11 @@ define ['backbone', 'underscore'],
         _.isEqual(x, reverse)
 
       @won = _.isEmpty @dominoes
+      @played = @name isnt 'player'
 
     check_if_can_play: (heads) ->
       return if @won
+      @played = false
 
       @pass = not _.find(@dominoes, (x) ->
         _.intersection(x, heads).length > 0
