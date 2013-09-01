@@ -12,7 +12,7 @@ define [
 
   class Game extends Backbone.Model
 
-    initialize: ->
+    constructor: ->
       @computer = new Bob
 
       @dash = new Dash 'dash'

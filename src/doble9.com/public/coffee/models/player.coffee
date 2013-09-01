@@ -3,7 +3,7 @@ define ['backbone', 'underscore'],
 
   class Player extends Backbone.Model
 
-    initialize: (@name) ->
+    constructor: (@name) ->
       @won = @pass = false
       @play_id = "play#{@name}"
       @played = false

@@ -8,7 +8,8 @@ define [
 
   class Dealer
 
-    dominoes: []
+    constructor: ->
+      @dominoes = []
 
     deal: (@game) ->
       @load_dominoes()

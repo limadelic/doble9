@@ -1,10 +1,10 @@
-define ['backbone', 'underscore', 'text!/templates/dash.html'],
-(Backbone, _, dash_html) ->
+define ['backbone', 'underscore', 'text!/templates/button.html'],
+(Backbone, _, btn_html) ->
 
   class Dash extends Backbone.View
 
     el: 'body'
-    template: _.template dash_html
+    btn_template: _.template btn_html
 
     events:
       'click #refresh': 'refresh'
@@ -12,14 +12,20 @@ define ['backbone', 'underscore', 'text!/templates/dash.html'],
 
     render: ->
       @model.box = @$el
-      @$el.append @template @model
+      @render_btns()
       @
+
+    render_btns: ->
+      for btn in @model.buttons()
+        if not @$("##{btn.name}").length
+        then @$el.append @btn_template btn
 
     knock: ->
       $('#knock').hide()
       game.knock()
 
     refresh: ->
+      $('#knock').hide()
       new_game()
       game.render()
 
