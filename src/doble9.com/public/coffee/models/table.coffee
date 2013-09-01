@@ -10,6 +10,7 @@ define [
 
     constructor: (@name) ->
       @dominoes = []
+      @new_dominoes = []
       @place = new Place
 
     head: -> _.first _.first @dominoes
@@ -23,6 +24,7 @@ define [
     starting: -> _.isEmpty @dominoes
 
     play: (@domino) ->
+      @new_dominoes.push @domino
       @play_start() or @play_number(0) or @play_number(1)
 
     play_start: ->

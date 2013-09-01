@@ -8,5 +8,6 @@ define ['backbone', 'underscore', 'text!/templates/table.html'],
 
     render: ->
       @model.box = @$el
-      @$el.html @template @model
+      @$el.append @template @model
+      @model.new_dominoes = []
       @
