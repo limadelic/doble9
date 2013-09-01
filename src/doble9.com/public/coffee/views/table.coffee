@@ -6,6 +6,9 @@ define ['backbone', 'underscore', 'text!/templates/table.html'],
     el: '#table'
     template: _.template table_html
 
+    initialize: ->
+      @$el.empty()
+
     render: ->
       @model.box = @$el
       @$el.append @template @model
