@@ -16,7 +16,7 @@ define [
     initialize: ->
       new_game()
       Backbone.history.start()
-      @
+      window.router = @
 
     routes:
       '': 'index'

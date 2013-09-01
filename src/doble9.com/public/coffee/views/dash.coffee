@@ -7,7 +7,6 @@ define ['backbone', 'underscore', 'text!/templates/button.html'],
     btn_template: _.template btn_html
 
     events:
-      'click #refresh': 'refresh'
       'click #knock': 'knock'
 
     render: ->
@@ -23,9 +22,3 @@ define ['backbone', 'underscore', 'text!/templates/button.html'],
     knock: ->
       $('#knock').hide()
       game.knock()
-
-    refresh: ->
-      $('#knock').hide()
-      new_game()
-      game.render()
-

@@ -24,6 +24,7 @@ define [
       left: @box.width() - 75
       img: '/img/refresh.png'
       display: 'block'
+      href: '/'
 
     knock: ->
       name: 'knock'
@@ -31,3 +32,4 @@ define [
       left: 25
       img: '/img/knock.png'
       display: 'none'
+      href: '#knock'
