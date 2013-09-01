@@ -1,19 +1,21 @@
 define [
   'underscore'
   'backbone'
+  'cs!models/dash'
   'cs!models/player'
   'cs!models/table'
   'cs!staff/dealer'
   'cs!players/bob'
 ],
 
-(_, Backbone, Player, Table, Dealer, Bob) ->
+(_, Backbone, Dash, Player, Table, Dealer, Bob) ->
 
   class Game extends Backbone.Model
 
     initialize: ->
       @computer = new Bob
 
+      @dash = new Dash 'dash'
       @table = new Table 'table'
       @player = new Player 'player'
 
@@ -47,6 +49,8 @@ define [
           x.check_if_can_play @table.heads()
         )?
 
+      @enable '#knock' if @player.should_knock()
+
     play: (player, domino) ->
       player.played = false
       return unless domino? and not @done()
@@ -57,12 +61,19 @@ define [
 
       @winner = player if player.won
 
+    delay: -> 500 * (@plays - 1)
+
+    enable: (btn) ->
+      setTimeout(
+        -> $(btn).fadeIn()
+        @delay() + 200
+      )
+
     show: (play, player, domino) ->
-      delay = 500 * play
 
       setTimeout(
         -> $("##{player.play_id}").fadeOut()
-        delay
+        @delay()
       )
 
       domino.display = 'none'
@@ -70,7 +81,7 @@ define [
         ->
           $(domino.selector).fadeIn()
           domino.display = 'block'
-        delay + 200
+        @delay() + 200
       )
 
     computer_plays: ->

@@ -147,6 +147,10 @@ a.refresh {
     margin: 20px 25px;
 }
 
-.refresh img {
+.button {
+    position: absolute;
+}
+
+.button img {
     height: 50px;
 }

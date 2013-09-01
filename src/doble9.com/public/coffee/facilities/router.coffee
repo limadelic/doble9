@@ -7,11 +7,14 @@ define [
 
 (_, Backbone, Model, View) ->
 
+  window.new_game = ->
+    window.game = new View
+      model: new Model
+
   class Router extends Backbone.Router
 
     initialize: ->
-      @game = new View
-        model: new Model
+      new_game()
       Backbone.history.start()
       @
 
@@ -19,8 +22,8 @@ define [
       '': 'index'
       'play/:domino': 'play'
 
-    index: -> @game.render()
-    play: (domino) -> @game.play domino
+    index: -> game.render()
+    play: (domino) -> game.play domino
 
 
 

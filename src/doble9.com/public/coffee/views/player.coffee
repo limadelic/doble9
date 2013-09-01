@@ -10,11 +10,6 @@ define [
 
     template: _.template template
 
-    events:
-      'click #pass': 'pass'
-
     render: ->
       @$el.html @template @model
       @
-
-    pass: -> game.knock()

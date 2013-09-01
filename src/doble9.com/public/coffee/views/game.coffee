@@ -1,5 +1,5 @@
-define ['backbone', 'underscore', 'cs!views/player', 'cs!views/table'],
-(Backbone, _, Player, Table) ->
+define ['backbone', 'underscore', 'cs!views/player', 'cs!views/table', 'cs!views/dash'],
+(Backbone, _, Player, Table, Dash) ->
 
   class Game extends Backbone.View
 
@@ -11,7 +11,7 @@ define ['backbone', 'underscore', 'cs!views/player', 'cs!views/table'],
     initialize: ->
       @players = _.map @model.players(), @new_player
       @table = new Table model: @model.table
-      window.game = @
+      @dash = new Dash model: @model.dash
 
     new_player: (player) -> new Player
       model: player
@@ -21,6 +21,7 @@ define ['backbone', 'underscore', 'cs!views/player', 'cs!views/table'],
     render: ->
       player.render() for player in @players
       @table.render()
+      @dash.render()
       @
 
     play: (domino) ->

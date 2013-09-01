@@ -26,3 +26,5 @@ define ['backbone', 'underscore'],
       )?
 
       not @pass
+
+    should_knock: -> @pass and !game.model.done()
