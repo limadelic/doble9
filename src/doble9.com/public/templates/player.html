@@ -42,3 +42,7 @@ if (game.model.done() || _.contains(['player', 'table'], name)) {
 <div id="<%= play_id %>" class="domino back"></div>
 <% } %>
 
+<% if (game.model.done()) { %>
+<span class="badge pull-left"><%= count() %></span>
+<% } %>
+

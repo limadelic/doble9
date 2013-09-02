@@ -8,6 +8,12 @@ define ['backbone', 'underscore'],
       @play_id = "play#{@name}"
       @played = false
 
+    count: -> _.reduce(
+      _.flatten @dominoes
+      (x, sum) -> x + sum
+      0
+    )
+
     play: (domino) ->
       reverse = domino.slice().reverse()
 
