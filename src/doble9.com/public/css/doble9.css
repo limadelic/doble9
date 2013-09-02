@@ -37,7 +37,9 @@ td.vertical {
     padding: 20px;
 }
 
-br {clear: both;}
+br {
+    clear: both;
+}
 
 #table.dominoes {
     margin: auto;
@@ -46,6 +48,11 @@ br {clear: both;}
 .domino {
     background-size: cover;
     background-repeat: no-repeat;
+}
+
+*, *:before, *:after {
+    -webkit-box-sizing: content-box;
+    box-sizing: content-box;
 }
 
 #table .domino {
