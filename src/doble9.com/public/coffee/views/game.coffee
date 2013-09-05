@@ -5,9 +5,6 @@ define ['backbone', 'underscore', 'cs!views/player', 'cs!views/table', 'cs!views
 
     el: 'body'
 
-    events:
-      'dblclick': 'knock'
-
     initialize: ->
       @players = _.map @model.players(), @new_player
       @table = new Table model: @model.table

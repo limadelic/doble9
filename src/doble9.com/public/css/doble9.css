@@ -162,6 +162,18 @@ a.refresh {
     height: 50px;
 }
 
+.winner {
+    font-size: medium;
+    padding: 10px;
+    position: absolute;
+}
+
+.winner .badge {
+    color: #5cb85c;
+    background-color: white;
+    /*margin-left: 10px;*/
+}
+
 /*.badge {*/
     /*position: absolute;*/
 /*}*/

@@ -30,6 +30,8 @@ define [
 
     done: -> @stucked or @winner?
 
+    loot: -> 99
+
     players: -> @oponents.concat @player
 
     knock: -> @player_plays()
@@ -49,7 +51,14 @@ define [
           x.check_if_can_play @table.heads()
         )?
 
+      @pick_winner() if @stucked
       @enable '#knock' if @player.should_knock()
+
+    pick_winner: ->
+      _.sortBy(
+        @players()
+        (x) -> x.count()
+      )[0].won = true
 
     play: (player, domino) ->
       player.played = false

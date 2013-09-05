@@ -1,8 +1,3 @@
-<% if (won) { %>
-<span class="label label-success">winner</span>
-<br/>
-<% } %>
-
 <%
 
 _.each(dominoes, function(domino){
@@ -42,7 +37,7 @@ if (game.model.done() || _.contains(['player', 'table'], name)) {
 <div id="<%= play_id %>" class="domino back"></div>
 <% } %>
 
-<% if (game.model.done()) { %>
+<% if (game.model.done() && !won) { %>
 <span class="badge pull-left"><%= count() %></span>
 <% } %>
 
