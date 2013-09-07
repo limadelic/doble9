@@ -30,31 +30,32 @@ define [
       $('#knock').hide()
       game.knock()
 
+    winner: -> game.model.winner
+
     render_winner: ->
-      return unless game.model.done()
-      for player in game.model.players() when player.won
-        @$el.append @win_template
-          style: @winner_style player.name
-          count: player.count()
+      return unless @winner()?
+      @$el.append @win_template
+        style: @winner_style()
+        count: @winner().count()
 
-    delta =
-      left:
-        top: -25
-        left: 25
-      front:
-        top: 75
-        left: -25
-      right:
-        top: -25
-        left: -25
-      player:
-        top: -25
-        left: -25
+    winner_style: ->
+      el = @$("##{@winner().name}").offset()
+      pos =
+        left:
+          top: el.top - 25
+          left: 25
+        front:
+          top: 75
+          left: el.left - 25
+        right:
+          top: el.top - 25
+          left: @$el.width() - 125
+        player:
+          top: @$el.height() - 125
+          left: el.left - 25
 
-    winner_style: (player) ->
-      el = @$("##{player}").offset()
       """
-      top: #{el.top + delta[player].top}px;
-      left: #{el.left + delta[player].left}px;
+      top: #{pos[@winner().name].top}px;
+      left: #{pos[@winner().name].left}px;
       """
 

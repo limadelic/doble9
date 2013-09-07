@@ -1,179 +1,183 @@
 html, body, table {
-    height: 100%;
-    margin: 0;
+  height: 100%;
+  margin: 0;
 }
 
 body {
-    background-image: url(../img/table.jpg);
-    background-repeat: repeat;
+  background-image: url(../img/table.jpg);
+  background-repeat: repeat;
 }
 
 table {
-    min-width: 100%;
-    min-height: 100%;
+  min-width: 100%;
+  min-height: 100%;
 }
 
 td.main {
-    width: auto;
-    height: auto;
+  width: auto;
+  height: auto;
 }
 
 td.vertical {
-    width: 100px;
-    height: 100%;
+  width: 100px;
+  height: 100%;
 }
 
 .horizontal .dominoes {
-    margin: auto;
-    width: 510px;
+  margin: auto;
+  width: 510px;
 }
 
 .vertical .dominoes {
-    margin: auto;
-    height: 510px;
+  margin: auto;
+  height: 510px;
 }
 
 #table {
-    padding: 20px;
+  padding: 20px;
 }
 
 br {
-    clear: both;
+  clear: both;
 }
 
 #table.dominoes {
-    margin: auto;
+  margin: auto;
 }
 
 .domino {
-    background-size: cover;
-    background-repeat: no-repeat;
+  background-size: cover;
+  background-repeat: no-repeat;
 }
 
 *, *:before, *:after {
-    -webkit-box-sizing: content-box;
-    box-sizing: content-box;
+  -webkit-box-sizing: content-box;
+  box-sizing: content-box;
 }
 
 #table .domino {
-    position: absolute;
-    height: 50px;
-    width: 100px;
-    background-image: url(../img/back_hor.gif);
+  position: absolute;
+  height: 50px;
+  width: 100px;
+  background-image: url(../img/back_hor.gif);
 }
 
 .left {
-    float: left;
+  float: left;
 }
 
 .right {
-    float: right;
+  float: right;
 }
 
 #table .double {
-    height: 100px;
-    width: 50px;
-    background-image: url(../img/back_ver.gif);
+  height: 100px;
+  width: 50px;
+  background-image: url(../img/back_ver.gif);
 }
 
 #table .down {
-    margin: 50px 0 0 0;
+  margin: 50px 0 0 0;
 }
 
 #table .up {
-    margin: 0 0 50px 0;
+  margin: 0 0 50px 0;
 }
 
 .horizontal .domino {
-    background-image: url(../img/back_ver.gif);
-    margin-right: 1px;
-    width: 50px;
-    height: 100px;
-    float: left;
+  background-image: url(../img/back_ver.gif);
+  margin-right: 1px;
+  width: 50px;
+  height: 100px;
+  float: left;
 }
 
 .vertical .domino {
-    margin-bottom: 1px;
-    background-image: url(../img/back_hor.gif);
-    height: 50px;
-    width: 100px;
+  margin-bottom: 1px;
+  background-image: url(../img/back_hor.gif);
+  height: 50px;
+  width: 100px;
 }
 
 .horizontal .domino.back {
-    background-image: url(../img/domino_back.png);
+  background-image: url(../img/domino_back.png);
 }
 
 .vertical .domino.back {
-    background-image: url(../img/domino_back_hor.png);
+  background-image: url(../img/domino_back_hor.png);
 }
 
 #player .domino {
-    background-image: url(../img/back_ver.gif);
+  background-image: url(../img/back_ver.gif);
 }
 
 .number {
-    padding: 10px;
-    width: 30px;
+  padding: 10px;
+  width: 30px;
 }
 
 #table .number,
 .vertical .number {
-    float: left;
+  float: left;
 }
 
 .number:hover {
-    background-color: brown;
-    border-radius: 5px;
+  background-color: brown;
+  border-radius: 5px;
 }
 
 #table .default img,
 .vertical .number {
-    -webkit-transform: rotate(-90deg);
-    -moz-transform: rotate(-90deg);
+  -webkit-transform: rotate(-90deg);
+  -moz-transform: rotate(-90deg);
 }
 
 img {
-    max-width: 100%;
-    vertical-align: middle;
+  max-width: 100%;
+  vertical-align: middle;
 }
 
 .top {
-    position: fixed;
-    top: 0;
-    width: 100%;
+  position: fixed;
+  top: 0;
+  width: 100%;
 }
 
 .bottom {
-    position: fixed;
-    bottom: 0;
-    width: 100%;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
 }
 
 a.refresh {
-    float: right;
-    margin: 20px 25px;
+  float: right;
+  margin: 20px 25px;
 }
 
 .button {
-    position: absolute;
+  position: absolute;
 }
 
 .button img {
-    height: 50px;
+  height: 50px;
 }
 
 .winner {
-    font-size: medium;
-    padding: 10px;
-    position: absolute;
+  font-size: medium;
+  padding: 10px;
+  position: absolute;
+}
+
+.badge {
+  font-size: medium;
 }
 
 .winner .badge {
-    color: #5cb85c;
-    background-color: white;
-    /*margin-left: 10px;*/
+  color: #5cb85c;
+  background-color: white;
+  /*margin-left: 10px;*/
 }
 
 /*.badge {*/
-    /*position: absolute;*/
+/*position: absolute;*/
 /*}*/

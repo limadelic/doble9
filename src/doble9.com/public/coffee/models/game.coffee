@@ -55,10 +55,11 @@ define [
       @enable '#knock' if @player.should_knock()
 
     pick_winner: ->
-      _.sortBy(
+      @winner = _.sortBy(
         @players()
         (x) -> x.count()
-      )[0].won = true
+      )[0]
+      @winner.won = true
 
     play: (player, domino) ->
       player.played = false
