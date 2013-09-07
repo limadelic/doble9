@@ -1,5 +1,10 @@
-define ['backbone', 'underscore', 'cs!views/player', 'cs!views/table', 'cs!views/dash'],
-(Backbone, _, Player, Table, Dash) ->
+define [
+  'backbone'
+  'underscore'
+  'cs!views/player'
+  'cs!views/table'
+  'cs!views/dash'
+], (Backbone, _, Player, Table, Dash) ->
 
   class Game extends Backbone.View
 
@@ -19,6 +24,7 @@ define ['backbone', 'underscore', 'cs!views/player', 'cs!views/table', 'cs!views
       player.render() for player in @players
       @table.render()
       @dash.render()
+      @disable_hover_on_ipad()
       @
 
     play: (domino) ->
@@ -31,3 +37,7 @@ define ['backbone', 'underscore', 'cs!views/player', 'cs!views/table', 'cs!views
 
     parse: (domino) ->
       _.map domino.split(''), (x) -> Number x
+
+    disable_hover_on_ipad: ->
+      return unless navigator.platform is 'iPad'
+      $('.number').css 'background-color', 'transparent'
