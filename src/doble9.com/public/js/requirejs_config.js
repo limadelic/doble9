@@ -18,4 +18,4 @@ window.requirejs_config = {
             exports: 'Backbone'
         }
     }
-}
+};

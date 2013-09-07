@@ -7,6 +7,8 @@ global.new_sut = (file) ->
       done()
 
 global.setup = (game) ->
+  global.game =
+    model: sut
   sut.table.dominoes = game.table ? []
   sut.table.place =
     before: ->
