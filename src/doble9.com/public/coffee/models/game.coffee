@@ -31,11 +31,8 @@ define [
       new Dealer().deal @
 
     done: -> @stucked or @winner?
-
     loot: -> 99
-
     players: -> @oponents.concat @player
-
     knock: -> @player_plays()
 
     player_plays: (domino) ->
@@ -45,22 +42,16 @@ define [
       @computer_plays()
       @check_status()
 
+    is_stucked: -> @stucked = not _.find(@players(),
+      (x) => x.check_if_can_play @table.heads()
+    )?
+
     check_status: ->
-      @player.check_if_can_play @table.heads()
-
-      @stucked = @player.pass and not
-        _.find(@oponents, (x) =>
-          x.check_if_can_play @table.heads()
-        )?
-
-      @pick_winner() if @stucked
+      @pick_winner() if @is_stucked()
       @fx.enable '#knock' if @player.should_knock()
 
     pick_winner: ->
-      @winner = _.sortBy(
-        @players()
-        (x) -> x.count()
-      )[0]
+      @winner = _.sortBy(@players(), (x) -> x.count())[0]
       @winner.won = true
 
     play: (player, domino) ->
@@ -75,5 +66,6 @@ define [
       @plays++
 
     computer_plays: ->
-      _.each @oponents, (x) => @play x,
-        @computer.play @table, x.dominoes
+      _.each @oponents, (x) =>
+        @play x,
+          @computer.play @table, x.dominoes
