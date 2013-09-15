@@ -6,14 +6,16 @@ define [
   'cs!models/table'
   'cs!staff/dealer'
   'cs!players/bob'
+  'cs!staff/fx'
 ],
 
-(_, Backbone, Dash, Player, Table, Dealer, Bob) ->
+(_, Backbone, Dash, Player, Table, Dealer, Bob, Fx) ->
 
   class Game extends Backbone.Model
 
     constructor: ->
       @computer = new Bob
+      @fx = new Fx @
 
       @dash = new Dash 'dash'
       @table = new Table 'table'
@@ -52,7 +54,7 @@ define [
         )?
 
       @pick_winner() if @stucked
-      @enable '#knock' if @player.should_knock()
+      @fx.enable '#knock' if @player.should_knock()
 
     pick_winner: ->
       @winner = _.sortBy(
@@ -67,32 +69,10 @@ define [
 
       player.play domino
       @table.play domino
-      @show @plays++, player, domino
+      @fx.show player, domino
 
       @winner = player if player.won
-
-    delay: -> 500 * (@plays - 1)
-
-    enable: (btn) ->
-      setTimeout(
-        -> $(btn).fadeIn()
-        @delay() + 200
-      )
-
-    show: (play, player, domino) ->
-
-      setTimeout(
-        -> $("##{player.play_id}").fadeOut()
-        @delay()
-      )
-
-      domino.display = 'none'
-      setTimeout(
-        ->
-          $(domino.selector).fadeIn()
-          domino.display = 'block'
-        @delay() + 200
-      )
+      @plays++
 
     computer_plays: ->
       _.each @oponents, (x) => @play x,
