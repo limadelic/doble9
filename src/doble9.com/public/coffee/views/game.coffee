@@ -4,7 +4,9 @@ define [
   'cs!views/player'
   'cs!views/table'
   'cs!views/dash'
-], (Backbone, _, Player, Table, Dash) ->
+],
+
+(Backbone, _, Player, Table, Dash) ->
 
   class Game extends Backbone.View
 
@@ -28,8 +30,7 @@ define [
       @
 
     play: (domino) ->
-      @model.player_plays @parse domino
-      @render()
+      @render() if @model.player_plays @parse domino
 
     knock: (e) ->
       @model.knock()

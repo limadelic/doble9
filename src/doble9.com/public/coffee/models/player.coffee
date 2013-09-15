@@ -24,7 +24,8 @@ define ['backbone', 'underscore'],
       @won = _.isEmpty @dominoes
       @played = @name isnt 'player'
 
-    check_if_can_play: (heads) ->
+    can_play: (heads) ->
+      @played = false
       return if @won
 
       @pass = not _.find(@dominoes, (x) ->

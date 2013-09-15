@@ -32,30 +32,18 @@ define [
 
     done: -> @stucked or @winner?
     loot: -> 99
-    players: -> @oponents.concat @player
+    players: -> [@player].concat @oponents
     knock: -> @player_plays()
 
     player_plays: (domino) ->
       return if @table.is_forro domino
-      @plays = 0
+
       @play @player, domino
       @computer_plays()
-      @check_status()
-
-    is_stucked: -> @stucked = not _.find(@players(),
-      (x) => x.check_if_can_play @table.heads()
-    )?
-
-    check_status: ->
-      @pick_winner() if @is_stucked()
-      @fx.enable '#knock' if @player.should_knock()
-
-    pick_winner: ->
-      @winner = _.sortBy(@players(), (x) -> x.count())[0]
-      @winner.won = true
+      @update_status()
+      true
 
     play: (player, domino) ->
-      player.played = false
       return unless domino? and not @done()
 
       player.play domino
@@ -63,9 +51,19 @@ define [
       @fx.show player, domino
 
       @winner = player if player.won
-      @plays++
 
-    computer_plays: ->
-      _.each @oponents, (x) =>
-        @play x,
-          @computer.play @table, x.dominoes
+    computer_plays: -> for x in @oponents when @can_play x
+      @play x, @computer.play @table, x.dominoes
+
+    can_play: (player) -> player.can_play @table.heads()
+
+    update_status: ->
+      @pick_winner() if @is_stucked()
+      @fx.enable '#knock' if @player.should_knock()
+
+    is_stucked: -> @stucked =
+      not _.find(@players(), (x) => @can_play x)?
+
+    pick_winner: ->
+      @winner = _.sortBy(@players(), (x) -> x.count())[0]
+      @winner.won = true

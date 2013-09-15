@@ -5,17 +5,17 @@ define [
 
   class Fx
 
-    constructor: (@game) ->
-
-    delay: -> 500 * (@game.plays - 1)
+    delay: -> 500 * (@plays - 1)
 
     enable: (btn) ->
       setTimeout(
         -> $(btn).fadeIn()
         @delay() + 200
       )
+      @plays = 0
 
     show: (player, domino) ->
+      @update_plays player
 
       setTimeout(
         -> $("##{player.play_id}").fadeOut()
@@ -30,3 +30,7 @@ define [
         @delay() + 200
       )
 
+    update_plays: (player) ->
+      if player is game.model.player
+      then @plays = 0
+      else @plays++
