@@ -1,36 +1,48 @@
 {
-    "name": "doble9",
-    "version": "0.0.1",
-    "description" : "proper domino",
-    "homepage" : "https://double9.com",
-    "repository" : { "type" : "git", "url" : "https://github.com/limadelic/chipojos.git" },
-    "keywords" : ["game", "html5"],
-    "author" : "limadelic <limadelic@gmail.com>",
-    "contributors" : [
-        "Isel Fernandez <isel_77@hotmail.com>",
-        "JP Erkelens <jperkelens@gmail.com>",
-        "Mike Suarez <mikemps@gmail.com>"
-    ],
-    "licenses" : ["MIT"],
-    "dependencies": {
-        "coffee-script": "latest",
-        "underscore": "latest",
-        "jade": "latest",
-        "connect-assets": "latest",
-        "express": "latest"
-    },
-    "devDependencies": {
-        "mocha": "latest",
-        "nodemon": "latest",
-        "should": "latest"
-    },
-    "engines": {
-        "node": ">=0.6",
-        "npm": ">=1.1"
-    },
-    "scripts": {
-        "posttest": "coffee -cl -o lib src",
-        "test": "nodemon -w src -w test node_modules/mocha/bin/mocha",
-        "start": "nodemon -w src node_modules/coffee-script/bin/coffee app.coffee"
-    }
+  "name": "doble9",
+  "version": "0.0.1",
+  "description": "proper domino",
+  "homepage": "https://double9.com",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/limadelic/chipojos.git"
+  },
+  "keywords": [
+    "game",
+    "html5"
+  ],
+  "author": "limadelic <limadelic@gmail.com>",
+  "contributors": [
+    "Isel Fernandez <isel_77@hotmail.com>",
+    "JP Erkelens <jperkelens@gmail.com>",
+    "Mike Suarez <mikemps@gmail.com>"
+  ],
+  "licenses": [
+    "MIT"
+  ],
+  "dependencies": {
+    "coffee-script": "latest",
+    "underscore": "latest",
+    "jade": "latest",
+    "connect-assets": "latest",
+    "express": "latest"
+  },
+  "devDependencies": {
+    "grunt": "^0.4.5",
+    "grunt-coffee": "0.0.6",
+    "grunt-contrib-coffee": "^0.12.0",
+    "grunt-contrib-watch": "^0.6.1",
+    "mocha": "latest",
+    "nodemon": "latest",
+    "should": "latest"
+  },
+  "engines": {
+    "node": ">=0.6",
+    "npm": ">=1.1"
+  },
+  "scripts": {
+    "posttest": "coffee -cl -o lib src",
+    "test": "nodemon -w src -w test node_modules/mocha/bin/mocha",
+    "start": "nodemon -w src node_modules/coffee-script/bin/coffee app.coffee"
+  }
 }
