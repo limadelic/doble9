@@ -48,7 +48,7 @@ define [
 
       player.play domino
       @table.play domino
-      @fx.show player, domino
+#      @fx.show player, domino
 
       @winner = player if player.won
 
@@ -59,7 +59,7 @@ define [
 
     update_status: ->
       @pick_winner() if @is_stucked()
-      @fx.enable '#knock' if @player.should_knock()
+#      @fx.enable '#knock' if @player.should_knock()
 
     is_stucked: -> @stucked =
       not _.find(@players(), (x) => @can_play x)?

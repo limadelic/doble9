@@ -22,19 +22,21 @@
   ],
   "dependencies": {
     "coffee-script": "latest",
-    "underscore": "latest",
-    "jade": "latest",
-    "connect-assets": "latest",
-    "express": "latest"
+    "express": "latest",
+    "jade": "latest"
   },
   "devDependencies": {
-    "grunt": "^0.4.5",
+    "backbone": "latest",
+    "grunt": "latest",
     "grunt-coffee": "0.0.6",
     "grunt-contrib-coffee": "^0.12.0",
     "grunt-contrib-watch": "^0.6.1",
+    "jquery": "latest",
     "mocha": "latest",
     "nodemon": "latest",
-    "should": "latest"
+    "requirejs": "latest",
+    "should": "latest",
+    "underscore": "latest"
   },
   "engines": {
     "node": ">=0.6",

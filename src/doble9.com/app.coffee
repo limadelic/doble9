@@ -1,8 +1,14 @@
-global.express = require 'express'
-global.app = express()
+express = require 'express'
 
-require './config'
+app = express()
 
-app.listen settings.port
+app.set 'port', process.env.PORT || 3000
+app.set 'views', __dirname + '/views'
+app.set 'view engine', 'jade'
 
-console.log "Running on #{settings.port}"
+app.use express.static __dirname + '/public'
+
+app.get '/', (_, res) -> res.render 'index'
+
+app.listen app.get('port'), ->
+  console.log "Running on #{app.get 'port'}"
