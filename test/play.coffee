@@ -2,6 +2,11 @@ describe 'Play', ->
 
   new_sut 'models/game'
 
+  beforeEach ->
+    sut.fx =
+      show: ->
+      enable: ->
+
   it 'salida', ->
 
     setup player: [[9,9]]
