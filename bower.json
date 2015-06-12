@@ -1,0 +1,8 @@
+{
+  "name": "ultistylekit-pkg",
+  "version": "0.0.1",
+  "dependencies": {
+    "ultistylekit": " http://devgit.dev.us.corp:7990/scm/usk/ultistylekit.git"
+  },
+  "private": true
+}

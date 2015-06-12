@@ -18,7 +18,7 @@ define [
       @update_plays player
 
       setTimeout(
-        -> $("##{player.play_id}").fadeOut()
+        -> $('#' + player.play_id).fadeOut()
         @delay()
       )
 
