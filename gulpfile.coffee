@@ -39,7 +39,7 @@ g.task 'test', shell.task 'mocha'
 g.task 'tdd', ['test'], -> g.watch [src, specs], ['test']
 
 g.task 'serve', ['default'], serve 'dist'
-g.task 'watch', ['serve'], -> g.watch src, ['serve']
+g.task 'watch', ['serve'], -> g.watch src, ['default']
 
 g.task 'default', ->
   runSequence 'clean', 'coffee', 'copy', 'browserify'
