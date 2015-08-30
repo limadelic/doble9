@@ -1,9 +1,18 @@
-module.exports = (grunt) ->
+module.exports = (g) ->
 
-  grunt.loadNpmTasks 'grunt-contrib-watch'
-  grunt.loadNpmTasks 'grunt-contrib-coffee'
+  static_files = [
+    'index.html'
+    'css/**'
+    'img/**'
+  ]
 
-  grunt.initConfig
+  g.initConfig
+
+    config:
+      package: g.file.readJSON 'package.json'
+
+    clean: [ 'dist' ]
+
     watch:
       coffee:
         files: 'src/*.coffee'
@@ -14,10 +23,25 @@ module.exports = (grunt) ->
         expand: true
         options:
           sourceMap: true
-        cwd: 'src/'
+          bare: true
+        cwd: 'src'
         src: ['**/*.coffee']
-        dest: 'lib/'
+        dest: 'dist/js'
         ext: '.js'
 
-  grunt.registerTask('build', ['coffee'])
-  grunt.registerTask('default', ['build', 'watch'])
+    browserify:
+      all:
+        src: ['dist/js/app.js']
+        dest: 'dist/doble9.js'
+
+    copy:
+      static:
+        expand: true
+        cwd: 'src'
+        src: static_files
+        dest: 'dist/'
+
+  require('load-grunt-tasks') g
+
+  g.registerTask('build', ['clean', 'coffee', 'browserify', 'copy'])
+  g.registerTask('default', ['build', 'watch'])
