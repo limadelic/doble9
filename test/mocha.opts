@@ -2,6 +2,7 @@
 --require coffee-script
 --require should
 --require test/test_helper.coffee
---reporter spec
+--reporter Nyan
 --globals sut,game
 -t 130000
+-c

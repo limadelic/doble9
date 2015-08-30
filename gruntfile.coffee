@@ -14,9 +14,15 @@ module.exports = (g) ->
     clean: [ 'dist' ]
 
     watch:
-      coffee:
-        files: 'src/*.coffee'
-        tasks: ['coffee:compile']
+      build:
+        files: 'src/**'
+        tasks: ['build']
+      tdd:
+        files: [
+          'src/**/*.coffee'
+          'test/**/*.coffee'
+        ]
+        tasks: ['tdd']
 
     coffee:
       compile:
@@ -44,12 +50,17 @@ module.exports = (g) ->
     connect:
       doble9:
         options:
-          port: 99,
-          base: 'dist',
-          keepalive: true
+          port: 99
+          base: 'dist'
+
+    shell:
+      mocha: command: 'mocha'
 
   require('load-grunt-tasks') g
 
+  g.option 'force', true
+
   g.registerTask('build', ['clean', 'coffee', 'browserify', 'copy'])
-  g.registerTask('server', ['build', 'connect'])
-  g.registerTask('default', ['build', 'watch'])
+  g.registerTask('tdd', ['shell:mocha', 'watch:tdd'])
+  g.registerTask('server', ['build', 'connect', 'watch:build'])
+  g.registerTask('default', ['server'])
