@@ -41,7 +41,15 @@ module.exports = (g) ->
         src: static_files
         dest: 'dist/'
 
+    connect:
+      doble9:
+        options:
+          port: 99,
+          base: 'dist',
+          keepalive: true
+
   require('load-grunt-tasks') g
 
   g.registerTask('build', ['clean', 'coffee', 'browserify', 'copy'])
+  g.registerTask('server', ['build', 'connect'])
   g.registerTask('default', ['build', 'watch'])
