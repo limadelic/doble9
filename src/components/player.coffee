@@ -3,7 +3,7 @@ React = require 'react'
 
 { component } = require '../helpers/react'
 
-{ div, table, tr, td } = React.DOM
+{ div, table, tr, td, a, img } = React.DOM
 
 players =
   front:
@@ -36,7 +36,14 @@ module.exports = component
   key: (domino) -> Number domino.join ''
 
   front: (domino) ->
-    div key: @key(domino), className: 'domino back'
+    [x, y] = domino
+    div key: @key(domino), className: 'domino',
+      div className: 'number',
+        a href: "/#play/#{x}#{y}",
+          img src: "img/#{x}.gif"
+      div className: 'number',
+        a href: "/#play/#{y}#{x}",
+          img src: "img/#{y}.gif"
 
   back: (domino) ->
     div key: @key(domino), className: 'domino back'
