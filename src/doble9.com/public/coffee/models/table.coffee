@@ -1,12 +1,11 @@
 define [
   'underscore'
-  'backbone'
   'cs!staff/place'
 ],
 
-(_, Backbone, Place) ->
+(_, Place) ->
 
-  class Table extends Backbone.Model
+  class Table
 
     constructor: (@name) ->
       @dominoes = []

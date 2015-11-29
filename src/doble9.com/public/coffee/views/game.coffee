@@ -1,14 +1,13 @@
 define [
-  'backbone'
   'underscore'
   'cs!views/player'
   'cs!views/table'
   'cs!views/dash'
 ],
 
-(Backbone, _, Player, Table, Dash) ->
+(_, Player, Table, Dash) ->
 
-  class Game extends Backbone.View
+  class Game
 
     el: 'body'
 

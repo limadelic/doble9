@@ -1,11 +1,10 @@
 define [
   'underscore'
-  'backbone'
 ],
 
-(_, Backbone) ->
+(_) ->
 
-  class Dash extends Backbone.Model
+  class Dash
 
     style: (el) -> """
       top: #{el.top}px;

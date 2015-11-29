@@ -1,21 +1,19 @@
 define [
   'underscore'
-  'backbone'
   'cs!models/game'
   'cs!views/game'
 ],
 
-(_, Backbone, Model, View) ->
+(_, Model, View) ->
 
   window.new_game = ->
     window.game = new View
       model: new Model
 
-  class Router extends Backbone.Router
+  class Router
 
     initialize: ->
       new_game()
-      Backbone.history.start()
       window.router = @
 
     routes:

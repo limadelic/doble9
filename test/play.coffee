@@ -1,4 +1,4 @@
-describe 'Play', ->
+describe.skip 'Play', ->
 
   new_sut 'models/game'
 

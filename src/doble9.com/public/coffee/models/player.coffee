@@ -1,7 +1,7 @@
-define ['backbone', 'underscore'],
-(Backbone, _) ->
+define [ 'underscore'],
+(_) ->
 
-  class Player extends Backbone.Model
+  class Player
 
     constructor: (@name) ->
       @won = @pass = false

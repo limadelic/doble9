@@ -1,12 +1,11 @@
 define [
-  'backbone'
   'underscore'
   'text!/templates/button.html'
   'text!/templates/winner.html'
 ],
-(Backbone, _, btn_html, win_html) ->
+(_, btn_html, win_html) ->
 
-  class Dash extends Backbone.View
+  class Dash
 
     el: 'body'
     btn_template: _.template btn_html

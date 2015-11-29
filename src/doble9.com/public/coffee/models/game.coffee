@@ -1,6 +1,5 @@
 define [
   'underscore'
-  'backbone'
   'cs!models/dash'
   'cs!models/player'
   'cs!models/table'
@@ -9,9 +8,9 @@ define [
   'cs!staff/fx'
 ],
 
-(_, Backbone, Dash, Player, Table, Dealer, Bob, Fx) ->
+(_, Dash, Player, Table, Dealer, Bob, Fx) ->
 
-  class Game extends Backbone.Model
+  class Game
 
     constructor: ->
       @computer = new Bob

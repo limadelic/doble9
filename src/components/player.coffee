@@ -1,3 +1,4 @@
+_ = require 'lodash'
 React = require 'react'
 
 { component } = require '../helpers/react'
@@ -20,8 +21,23 @@ players =
 
 module.exports = component
 
-  render: ->
-    player = players[@props.id]
+  getInitialState: ->
+    dominoes: _.zip [0..9], [0..9]
 
-    player.root className: player.layout,
-      div id: @props.id, className: 'dominoes', @props.id
+  componentWillMount: ->
+    @player = players[@props.id]
+    @render_domino = @props.id is 'player' and @front or @back
+
+  render: ->
+    @player.root className: @player.layout,
+      div id: @props.id, className: 'dominoes',
+        _.map @state.dominoes, @render_domino
+
+  key: (domino) -> Number domino.join ''
+
+  front: (domino) ->
+    div key: @key(domino), className: 'domino back'
+
+  back: (domino) ->
+    div key: @key(domino), className: 'domino back'
+
