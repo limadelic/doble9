@@ -1,11 +1,13 @@
-_ = require 'lodash'
 React = require 'react'
+_ = require 'lodash'
 
 { component } = require '../helpers/react'
 
-{ div, table, tr, td, a, img } = React.DOM
+Domino = require './domino'
 
-players =
+{ div, table, tr, td } = React.DOM
+
+players_layout =
   front:
     root: div
     layout: 'horizontal top'
@@ -24,27 +26,13 @@ module.exports = component
   getInitialState: ->
     dominoes: _.zip [0..9], [0..9]
 
-  componentWillMount: ->
-    @player = players[@props.id]
-    @render_domino = @props.id is 'player' and @front or @back
+  show_dominoes: -> @props.id is 'player'
 
-  render: ->
-    @player.root className: @player.layout,
-      div id: @props.id, className: 'dominoes',
-        _.map @state.dominoes, @render_domino
+  layout: -> players_layout[@props.id]
 
   key: (domino) -> Number domino.join ''
 
-  front: (domino) ->
-    [x, y] = domino
-    div key: @key(domino), className: 'domino',
-      div className: 'number',
-        a href: "/#play/#{x}#{y}",
-          img src: "img/#{x}.gif"
-      div className: 'number',
-        a href: "/#play/#{y}#{x}",
-          img src: "img/#{y}.gif"
-
-  back: (domino) ->
-    div key: @key(domino), className: 'domino back'
-
+  render: ->
+    @layout().root className: @layout().layout,
+      div id: @props.id, className: 'dominoes', @state.dominoes.map (x) =>
+        Domino key: @key(x), domino: x, visible: @show_dominoes()
