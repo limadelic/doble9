@@ -3,7 +3,7 @@ _ = require 'lodash'
 
 module.exports =
 
-  dispatch: (name, opts={}) ->
-    dispatcher.dispatch _.assign opts, action: name
+  dispatch: (action, opts={}) ->
+    dispatcher.dispatch _.assign opts, { action }
 
 

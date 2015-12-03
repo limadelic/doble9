@@ -1,11 +1,10 @@
-dominoes = require './actions/dominoes'
 players = require './players'
+{ dispatch } = require './helpers/actions'
 
 class Game
 
   start: ->
-    dominoes.flush()
-    for player of players
-      dominoes.pick player, 10
+    dispatch 'flush'
+    dispatch 'pick', { player, count: 10 } for player of players
 
 module.exports = new Game
