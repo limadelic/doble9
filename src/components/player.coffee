@@ -29,7 +29,8 @@ module.exports = component
 
   key: (domino) -> Number domino.join ''
 
-  play: (opts) -> dispatch 'play', _.assign opts, player: @props.id
+  play: ({domino, head}) ->
+    dispatch 'play', { player: @props.id, domino, head }
 
   render: ->
     @layout().root className: @layout().style,

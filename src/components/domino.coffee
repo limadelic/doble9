@@ -11,7 +11,9 @@ module.exports = component
 
   render: -> if @props.visible then @front() else @back()
 
-  play: (opts) -> @props.onPlay _.assign opts, @props
+  play: ({head}) ->
+    { onPlay, domino } = @props
+    onPlay { domino, head }
 
   front: ->
     div className: 'domino',
