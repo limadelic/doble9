@@ -8,8 +8,9 @@ Domino = require './domino'
 { div } = React.DOM
 
 players = require '../players'
-dominoes = require '../stores/dominoes'
 
+dominoes = require '../stores/dominoes'
+{ dispatch } = require '../helpers/actions'
 
 module.exports = component
 
@@ -28,10 +29,12 @@ module.exports = component
 
   key: (domino) -> Number domino.join ''
 
+  play: (opts) -> dispatch 'play', _.assign opts, player: @props.id
+
   render: ->
     @layout().root className: @layout().style,
       div id: @props.id, className: 'dominoes', @dominoes()
 
   dominoes: -> @state.dominoes.map (x) =>
-    Domino key: @key(x), domino: x, visible: @show_dominoes()
+    Domino key: @key(x), domino: x, visible: @show_dominoes(), onPlay: @play
 

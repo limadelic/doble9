@@ -6,9 +6,7 @@ class Dominoes extends EventEmitter
   for: (location) -> @dominoes[location]
 
   empty: ->
-    @dominoes =
-      all: []
-      table: []
+    @dominoes = all: [], table: []
     @dominoes[player] = [] for player of players
 
   fill: ->
@@ -25,6 +23,9 @@ class Dominoes extends EventEmitter
     @emit 'change'
 
   random_index: -> Math.random() * @dominoes.all.length
+
+  play: ({player, domino, head}) ->
+    p [player, domino, head]
 
 dominoes = new Dominoes
 dispatcher = require '../helpers/dispatcher'

@@ -1,8 +1,9 @@
 React = require 'react'
+_ = require 'lodash'
 
 { component } = require '../helpers/react'
 
-Number = require './number'
+Head = require './head'
 
 { div } = React.DOM
 
@@ -10,10 +11,11 @@ module.exports = component
 
   render: -> if @props.visible then @front() else @back()
 
+  play: (opts) -> @props.onPlay _.assign opts, @props
+
   front: ->
-    [x, y] = @props.domino
     div className: 'domino',
-      Number x: x, y: y
-      Number x: y, y: x
+      Head number: @props.domino[0], onClick: @play
+      Head number: @props.domino[1], onClick: @play
 
   back: -> div className: 'domino back'
