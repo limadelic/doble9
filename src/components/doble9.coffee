@@ -16,4 +16,4 @@ module.exports = component
         Table()
         Player id: 'right'
     Player id: 'front'
-    Player id: 'player'
+    Player id: 'me'

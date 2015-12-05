@@ -4,35 +4,34 @@ _ = require 'lodash'
 { register } = require '../helpers/dispatcher'
 
 players = _.keys require './players'
+{ remove_any } = require '../helpers/_'
 
 class Game extends EventEmitter
 
+  ready: ({ @Table }) ->
+
   start: ->
     @flush()
-    @pick player, 10 for player in players
+    @pick 10 for @player in players
     @emit 'change'
+
+  starting: -> _.isEmpty @table
 
   flush: -> @empty(); @fill()
   empty: -> @[x] = [] for x in ['all', 'table'].concat players
   fill: -> @all.push [x, y] for y in [x..9] for x in [0..9]
 
-  pick: (player, count) -> @[player].push @pick_any() for [1..count]
-  pick_any: -> @all.splice(@all.length * Math.random(), 1)[0]
+  pick: (count) -> @[@player].push remove_any @all for [1..count]
 
-  play: ({ domino, player, head }) ->
-    return unless @can_play domino, player
-    @take player, domino
-    @put_on_table domino
+  play: ({ @domino, @player, head }) ->
+    return unless @valid_play()
+    @play_domino()
+    @place_on_table()
     @emit 'change'
 
-  take: (player, domino) -> @[player] = _.reject @[player], domino
-  put_on_table: (domino) -> @table.push domino
-
-  can_play: (domino, player) -> @has(domino, player) and
-    (@starting() or @can_join(domino, @heads()))
-  has: (domino, player) -> _.any @[player], domino
-  starting: -> _.isEmpty @table
-  can_join: (one, another) -> not _.isEmpty _.intersection one, another
+  valid_play: -> @starting() or @intersects @domino, @heads()
+  play_domino: -> _.remove @[@player], @domino
+  place_on_table: ->
 
   head: -> _.first _.first @table
   tail: -> _.last _.last @table

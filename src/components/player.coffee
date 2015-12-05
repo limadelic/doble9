@@ -22,7 +22,7 @@ module.exports = component
   componentDidMount: ->
     game.on 'change', @refresh
 
-  show_dominoes: -> @player is 'player'
+  show_dominoes: -> @player is 'me'
 
   layout: -> players[@player]
 

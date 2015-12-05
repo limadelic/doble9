@@ -12,6 +12,6 @@ module.exports =
   right:
     root: td
     style: 'vertical'
-  player:
+  me:
     root: div
     style: 'horizontal bottom'
