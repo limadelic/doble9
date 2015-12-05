@@ -21,9 +21,12 @@ class Game extends EventEmitter
 
   play: ({ domino, player, head }) ->
     return unless @can_play domino, player
-    @[player] = _.reject @[player], domino
-    @table.push domino
+    @take player, domino
+    @put_on_table domino
     @emit 'change'
+
+  take: (player, domino) -> @[player] = _.reject @[player], domino
+  put_on_table: (domino) -> @table.push domino
 
   can_play: (domino, player) -> @has(domino, player) and
     (@starting() or @can_join(domino, @heads()))
