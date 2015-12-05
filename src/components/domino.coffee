@@ -1,5 +1,4 @@
 React = require 'react'
-_ = require 'lodash'
 
 { component } = require '../helpers/react'
 
