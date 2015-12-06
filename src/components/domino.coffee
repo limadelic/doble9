@@ -10,14 +10,18 @@ module.exports = component
 
   render: -> if @props.visible then @front() else @back()
 
-  play: ({head}) ->
+  onClick: ({head}) ->
     { onPlay, domino } = @props
     onPlay { domino, head }
 
   front: ->
-    div className: 'domino',
-      Head number: @props.domino[0], onClick: @play
-      Head number: @props.domino[1], onClick: @play
+    { domino } = @props
+    className = "domino #{domino.type}"
+    style = domino.style?()
+    heads = domino.inverted and _.invert(domino) or domino
+
+    div { className, style },
+      Head { number: heads[0], @onClick }
+      Head { number: heads[1], @onClick }
 
   back: -> div className: 'domino back'
-

@@ -18,11 +18,11 @@ class Arranger
     @layout = 'horizontal'
     @inverted = from.inverted ? false
 
-  style: -> @style = => """
-      top: #{@top}px;
-      left: #{@left + 125}px;
-      display: #{@display};
-    """
+  style: -> @style = =>
+    top: "#{@top}px";
+    left: "#{@left + 125}px"
+    display: @display
+
 
   double: (from) ->
     around_corner = ->
