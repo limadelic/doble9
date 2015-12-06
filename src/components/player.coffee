@@ -1,6 +1,6 @@
 React = require 'react'
 { div } = React.DOM
-{ component } = require '../helpers/react'
+{ component, key } = require '../helpers/react'
 
 Domino = require './domino'
 
@@ -26,8 +26,6 @@ module.exports = component
 
   layout: -> players[@player]
 
-  key: (domino) -> Number domino.join ''
-
   play: ({ domino, head }) ->
     dispatch 'play', { @player, domino, head }
 
@@ -35,6 +33,8 @@ module.exports = component
     @layout().root className: @layout().style,
       div id: @player, className: 'dominoes', @dominoes()
 
-  dominoes: -> @state.dominoes.map (x) =>
-    Domino key: @key(x), domino: x, visible: @show_dominoes(), onPlay: @play
-
+  dominoes: -> @state.dominoes.map (x) => Domino
+    key: key(x)
+    domino: x
+    visible: @show_dominoes()
+    onPlay: @play

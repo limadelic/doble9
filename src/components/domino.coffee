@@ -1,6 +1,6 @@
 React = require 'react'
 
-{ component } = require '../helpers/react'
+{ component, key } = require '../helpers/react'
 
 Head = require './head'
 
@@ -20,3 +20,4 @@ module.exports = component
       Head number: @props.domino[1], onClick: @play
 
   back: -> div className: 'domino back'
+
