@@ -28,7 +28,7 @@ module.exports = component
 
   key: (domino) -> Number domino.join ''
 
-  play: ({domino, head}) ->
+  play: ({ domino, head }) ->
     dispatch 'play', { @player, domino, head }
 
   render: ->

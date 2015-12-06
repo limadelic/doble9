@@ -5,10 +5,15 @@ _ = require 'lodash'
 
 players = _.keys require './players'
 { remove_any } = require '../helpers/_'
+Place = require '../helpers/place'
 
 class Game extends EventEmitter
 
-  ready: ({ @Table }) ->
+  constructor: ->
+    @place = new Place @
+
+  ready: ({ clientWidth, clientHeight }) ->
+    [@width, @height] = [clientWidth, clientHeight]
 
   start: ->
     @flush()
@@ -23,18 +28,9 @@ class Game extends EventEmitter
 
   pick: (count) -> @[@player].push remove_any @all for [1..count]
 
-  play: ({ @domino, @player, head }) ->
-    return unless @valid_play()
-    @play_domino()
-    @place_on_table()
+  play: ({ domino, player, head }) ->
+    _.remove @[player], domino
+    @place.on { @table, head, domino }
     @emit 'change'
-
-  valid_play: -> @starting() or @intersects @domino, @heads()
-  play_domino: -> _.remove @[@player], @domino
-  place_on_table: ->
-
-  head: -> _.first _.first @table
-  tail: -> _.last _.last @table
-  heads: -> [@head(), @tail()]
 
 module.exports = register Game

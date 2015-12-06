@@ -1,5 +1,7 @@
 _ = require 'lodash'
 
+Arranger = require './arranger'
+
 DOMINO_WIDTH = 100
 DOMINO_HEIGHT = 50
 TABLE_HEIGHT = 1000
@@ -7,43 +9,48 @@ TABLE_WIDTH = 1000
 
 class Place
 
-  constructor: ->
+  constructor: ({width, height}) ->
+    [TABLE_WIDTH, TABLE_HEIGHT] = [width, height]
     @at = new Arranger
 
-  set: (f) -> @at[f].apply @domino, [@from]
-  layout: (f) -> @at[@from.layout][f].apply @domino, [@from]
+  set: (f) -> @at[f].apply @domino, [@another]
+  layout: (f) -> @at[@another.layout][f].apply @domino, [@another]
 
-  start: (@from, @domino) ->
-    TABLE_HEIGHT = @from.height()
-    TABLE_WIDTH  = @from.width()
-    @place @center
+  on: ({@table, @head, @domino}) -> @['on_' + @head]()
 
-  before: (@from, @domino) -> @place @head
+  on_start: ->
+    @join_to  @
+    @table.push @domino
 
-  after: (@from, @domino) -> @place @tail
+  on_head: ->
+    @join_to _.first(@table), 0
+    @table.unshift @domino
 
-  place: (position) ->
+  on_tail: ->
+    @join_to _.last(@table), 1
+    @table.push @domino
+
+  join_to: (@another, side) ->
+    @domino.reverse() if @domino[side] is @another[side]
 
     @set 'defaults'
     @set 'double'
 
-    position()
+    @['join_to_' + @head]()
 
     @set 'style'
     @set 'layout'
     @set 'inverted'
 
-    @domino
-
-  center: => @set 'center'
-  head: => @layout @next_in @head_path
-  tail: => @layout @next_in @tail_path
+  join_to_start: => @set 'center'
+  join_to_head: => @layout @next_in @head_path
+  join_to_tail: => @layout @next_in @tail_path
 
   next_in: (path) ->
     _.find _.keys(path), (pos) =>
       @is_next path[pos]
 
-  is_next: (pos) -> pos.apply @from
+  is_next: (pos) -> pos.apply @another
 
   head_path:
     up_left: ->

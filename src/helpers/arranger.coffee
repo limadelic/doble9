@@ -48,8 +48,8 @@ class Arranger
   )
 
   center: (from) ->
-    TABLE_HEIGHT = from.height()
-    TABLE_WIDTH = from.width()
+    TABLE_HEIGHT = from.height
+    TABLE_WIDTH = from.width
     @top = TABLE_HEIGHT / 2 - @height / 2
     @left = TABLE_WIDTH / 2 - @width / 2
     @pos = 'center'

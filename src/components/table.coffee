@@ -7,7 +7,7 @@ React = require 'react'
 module.exports = component
 
   componentDidMount: ->
-    dispatch 'ready', Table: @
+    dispatch 'ready', @getDOMNode()
 
   render: ->
     td id: 'table', className: 'main dominoes', '9/9'
