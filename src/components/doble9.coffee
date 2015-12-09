@@ -9,7 +9,7 @@ Table = require './table'
 
 module.exports = component
 
-  render: -> div {},
+  render: -> div id: 'doble9',
     table {},
       tr {},
         Player id: 'left'

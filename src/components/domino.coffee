@@ -1,3 +1,4 @@
+_ = require 'lodash'
 React = require 'react'
 
 { component, key } = require '../helpers/react'
