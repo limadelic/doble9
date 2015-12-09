@@ -19,10 +19,7 @@ class Arranger
     @inverted = from.inverted ? false
 
   style: -> @style = =>
-    top: "#{@top}px";
-    left: "#{@left + 125}px"
-    display: @display
-
+    { @top, @display, left: @left + 125 }
 
   double: (from) ->
     around_corner = ->

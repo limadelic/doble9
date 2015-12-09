@@ -9,8 +9,8 @@ TABLE_WIDTH = 1000
 
 class Place
 
-  constructor: ({width, height}) ->
-    [TABLE_WIDTH, TABLE_HEIGHT] = [width, height]
+  constructor: ({@width, @height}) ->
+    [TABLE_WIDTH, TABLE_HEIGHT] = [@width, @height]
     @at = new Arranger
 
   set: (f) -> @at[f].apply @domino, [@another]

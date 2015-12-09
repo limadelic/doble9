@@ -8,7 +8,7 @@ Head = require './head'
 
 module.exports = component
 
-  render: -> if @props.visible then @front() else @back()
+  render: -> @props.visible and @front() or @back()
 
   onClick: ({head}) ->
     { onPlay, domino } = @props
@@ -18,10 +18,10 @@ module.exports = component
     { domino } = @props
     className = "domino #{domino.type}"
     style = domino.style?()
-    heads = domino.inverted and _.invert(domino) or domino
+    [head, tail] = domino.inverted and _.invert(domino) or domino
 
     div { className, style },
-      Head { number: heads[0], @onClick }
-      Head { number: heads[1], @onClick }
+      Head { number: head, @onClick }
+      Head { number: tail, @onClick }
 
   back: -> div className: 'domino back'

@@ -9,11 +9,10 @@ Place = require '../helpers/place'
 
 class Game extends EventEmitter
 
-  constructor: ->
-    @place = new Place @
-
   ready: ({ clientWidth, clientHeight }) ->
-    [@width, @height] = [clientWidth, clientHeight]
+    @place = new Place
+      width: clientWidth
+      height: clientHeight
 
   start: ->
     @flush()
