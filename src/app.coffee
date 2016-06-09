@@ -1,5 +1,3 @@
-require './helpers/debug'
-
 React = require 'react'
 Doble9 = require './components/doble9'
 

@@ -1,3 +1,5 @@
+_ = require 'lodash'
+
 React = require 'react'
 { div } = React.DOM
 { component, key } = require '../helpers/react'
@@ -6,7 +8,6 @@ Domino = require './domino'
 
 players = require '../stores/players'
 game = require '../stores/game'
-{ dispatch } = require '../helpers/dispatcher'
 
 module.exports = component
 
@@ -18,19 +19,19 @@ module.exports = component
 
   componentWillMount: ->
     @player = @props.id
+    @layout = players[@player]
 
   componentDidMount: ->
-    game.on 'change', @refresh
+    dominoes.on 'change', @refresh
+    game.after 'play', { player: @before_me }, @ if @autoplay?
 
   show_dominoes: -> @player is 'me'
-
-  layout: -> players[@player]
 
   play: ({ domino, head }) ->
     dispatch 'play', { @player, domino, head }
 
   render: ->
-    @layout().root className: @layout().style,
+    @layout.ui className: @layout.className,
       div id: @player, className: 'dominoes', @dominoes()
 
   dominoes: -> @state.dominoes.map (x) => Domino

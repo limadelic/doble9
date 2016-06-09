@@ -1,3 +1,83 @@
+async = require 'async'
+{ store, dispatch } = require '../src/stores/doble9'
+
+describe 'doble9', ->
+
+  sut = store
+
+  verify = (expected_game, done) ->
+    actual_game = sut.getState()
+    actual_game[k].should.eql v for k, v of expected_game
+    done?()
+
+  beforeEach ->
+    dispatch start: {}
+
+  it 'starts', ->
+    verify table: []
+
+  it 'salida', (done) ->
+
+    dispatch play: domino: [9, 9], ->
+      verify table: [[9,9]], done
+
+  it 'doesnt allow forros', (done) ->
+
+    dispatch play: domino: [9, 9], ->
+      dispatch play: domino: [8, 8], ->
+        verify table: [[9,9]], done
+
+  it 'plays at tail', (done) ->
+
+    dispatch play: domino: [9, 9], ->
+      dispatch play: domino: [9, 8], ->
+        verify table: [[9,9],[9,8]], done
+
+  it 'plays at head', (done) ->
+
+    dispatch play: domino: [9, 9], ->
+      dispatch play: domino: [9, 8], ->
+        dispatch play: domino: [9, 7], ->
+          verify table: [[7,9],[9,9],[9,8]], done
+    
+  it 'picks dominoes', (done) ->
+    
+    dispatch pick: player: 'player', domino: [9,9], ->
+      dispatch pick: player: 'player', domino: [8,8], ->
+        dispatch pick: player: 'another', domino: [0,0], ->
+          sut.getState().players.player.dominoes.should.eql [[9,9],[8,8]]
+          done()
+
+  it 'allows to play', (done) ->
+
+    dispatch pick: player: 'player', domino: [9,9], ->
+      dispatch play: player: 'player', domino: [9,9], ->
+        sut.getState().table.should.eql [[9,9]]
+        sut.getState().players.player.dominoes.should.eql []
+        done()
+
+  it 'responds', (done) ->
+
+    dispatch pick: player: 'player', domino: [9,9], ->
+      dispatch pick: player: 'left', domino: [9,8], ->
+        dispatch play: player: 'player', domino: [9,9], ->
+          setTimeout(
+            -> verify table: [[9,9],[9,8]], done
+            10
+          )
+
+  it 'picks right domino', (done) ->
+
+    dispatch pick: player: 'player', domino: [9,9], ->
+      dispatch pick: player: 'left', domino: [0,0], ->
+        dispatch pick: player: 'left', domino: [9,8], ->
+          dispatch play: player: 'player', domino: [9,9], ->
+            setTimeout(
+              -> verify table: [[9,9],[9,8]], done
+              10
+            )
+
+
 describe.skip 'Play', ->
 
   new_sut 'models/game'

@@ -31,5 +31,6 @@ class Game extends EventEmitter
     _.remove @[player], domino
     @place.on { @table, head, domino }
     @emit 'change'
+    @emit 'played', { player }
 
 module.exports = register Game
