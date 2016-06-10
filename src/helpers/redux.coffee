@@ -6,25 +6,22 @@ store = {}
 dispatch = (actions, done) ->
   for type, action of actions
     setTimeout ->
-      p [type, action]
       action = action store.getState() if _.isFunction action
       store.dispatch _.assign { type }, action
       done?()
   undefined
 
-init_state = (defaults, settings) ->
+setup = (defaults, settings) ->
   return defaults unless settings?
   return settings unless defaults?
   defaults = defaults.apply settings if _.isFunction defaults
-  _.merge defaults, settings
+  _.defaults settings, defaults
 
-reducer = (name, settings) ->
+reducer = (handlers, settings) -> (state, action) ->
 
-  actions = require "../reducers/#{name}"
+  next = handlers[action.type]?.apply state, [action, dispatch]
 
-  (state, action) ->
-    state ?= init_state actions.defaults, settings
-    actions[action.type]?.apply(state, [action, dispatch]) or state
+  next ? state ? setup handlers.defaults, settings
 
 createStore = (reducers) -> store = redux.createStore reducers
 

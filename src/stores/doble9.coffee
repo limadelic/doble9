@@ -2,13 +2,18 @@
 { combineReducers } = require 'redux'
 { createStore, reducer } = require '../helpers/redux'
 
-reducers = combineReducers
-  dominoes: reducer 'dominoes'
-  table: reducer 'table'
+dominoes = reducer require '../reducers/dominoes'
+table = reducer require '../reducers/table'
+player = (settings) -> reducer require('../reducers/player'), settings
+
+reducers = combineReducers {
+  dominoes
+  table
   players: combineReducers
-    player: reducer 'player', name: 'player', play_after: 'right'
-    front: reducer 'player', name: 'front', play_after: 'left'
-    right: reducer 'player', name: 'right', play_after: 'front'
-    left: reducer 'player', name: 'left', play_after: 'player'
+    player: player name: 'player', play_after: 'right'
+    front: player name: 'front', play_after: 'left'
+    right: player name: 'right', play_after: 'front'
+    left: player name: 'left', play_after: 'player'
+}
 
 module.exports = createStore reducers

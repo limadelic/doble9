@@ -8,10 +8,8 @@ module.exports =
     autoplay: @name isnt 'player'
     dominoes: []
 
-  start: (_, dispatch) ->
-    need_domino = player: @name
-    dispatch { need_domino } for [0..9]
-    @
+  start: (_, dispatch) -> [0..9].forEach =>
+    dispatch need_domino: { player: @name }
 
   pick: ({ player, domino }) -> if @name is player
     _.assign @, dominoes: _.concat @dominoes, [domino]

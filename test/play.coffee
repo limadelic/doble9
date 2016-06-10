@@ -17,9 +17,9 @@ describe 'doble9', ->
   it 'defaults players', (done) ->
     setTimeout(
       ->
-        p x().players.player
+        p x().players
         done()
-      2000
+      200
     )
 
 

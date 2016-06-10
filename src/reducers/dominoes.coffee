@@ -4,13 +4,13 @@ module.exports =
   
   defaults: []
   
-  start: -> _.flatten(
+  start: -> _.shuffle _.flatten(
     for x in [0..9]
       for y in [x..9]
         [x, y]
   )
 
   need_domino: ({ player }, dispatch) ->
-    domino = @[Math.round Math.random() * @length]
+    domino = _.first @
     dispatch pick: { player, domino }
     _.without @, domino
