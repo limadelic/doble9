@@ -14,15 +14,17 @@ describe 'doble9', ->
   beforeEach (done) ->
     dispatch start: null, done
 
-  it 'defaults players', ->
-    x().players.player.should.eql
-      name: 'player'
-      play_after: 'right'
-      autoplay: false
-      dominoes: []
+  it 'defaults players', (done) ->
+    setTimeout(
+      ->
+        p x().players.player
+        done()
+      2000
+    )
 
 
   it 'starts', ->
+    x().dominoes.length.should.eql 55
     verify table: []
 
   it 'salida', (done) ->

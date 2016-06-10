@@ -6,6 +6,7 @@ store = {}
 dispatch = (actions, done) ->
   for type, action of actions
     setTimeout ->
+      p [type, action]
       action = action store.getState() if _.isFunction action
       store.dispatch _.assign { type }, action
       done?()

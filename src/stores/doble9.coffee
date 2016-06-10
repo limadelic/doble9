@@ -3,6 +3,7 @@
 { createStore, reducer } = require '../helpers/redux'
 
 reducers = combineReducers
+  dominoes: reducer 'dominoes'
   table: reducer 'table'
   players: combineReducers
     player: reducer 'player', name: 'player', play_after: 'right'
