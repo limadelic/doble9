@@ -1,17 +1,26 @@
 async = require 'async'
-{ store, dispatch } = require '../src/stores/doble9'
+{ dispatch } = require '../src/helpers/redux'
 
 describe 'doble9', ->
 
-  sut = store
+  sut = require '../src/stores/doble9'
+  x = sut.getState
 
   verify = (expected_game, done) ->
     actual_game = sut.getState()
     actual_game[k].should.eql v for k, v of expected_game
     done?()
 
-  beforeEach ->
-    dispatch start: {}
+  beforeEach (done) ->
+    dispatch start: null, done
+
+  it 'defaults players', ->
+    x().players.player.should.eql
+      name: 'player'
+      play_after: 'right'
+      autoplay: false
+      dominoes: []
+
 
   it 'starts', ->
     verify table: []
