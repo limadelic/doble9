@@ -1,10 +1,8 @@
-React = require 'react'
+{ render } = require 'react'
+
 Doble9 = require './components/doble9'
 
-React.render(
+render(
   Doble9()
   document.body
 )
-
-{ dispatch } = require './helpers/dispatcher'
-dispatch 'start'

@@ -2,7 +2,7 @@ React = require 'react'
 
 { div, td } = React.DOM
 
-module.exports =
+exports.layout =
   front:
     root: div
     style: 'horizontal top'

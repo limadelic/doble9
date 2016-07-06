@@ -25,4 +25,4 @@ reducer = (handlers, settings) -> (state, action) ->
 
 createStore = (reducers) -> store = redux.createStore reducers
 
-module.exports = { createStore, store, dispatch, reducer }
+module.exports = { createStore, dispatch, reducer }

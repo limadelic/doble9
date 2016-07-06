@@ -6,35 +6,36 @@ React = require 'react'
 
 Domino = require './domino'
 
-players = require '../stores/players'
-game = require '../stores/game'
+{ dispatch } = require '../helpers/redux'
+game = require '../stores/doble9'
+{ layout } = require '../helpers/player'
 
 module.exports = component
 
-  getInitialState: ->
-    dominoes: []
+  dominoes: -> dominoes: game.getState().players[@player]?.dominoes or []
 
-  refresh: -> @setState
-    dominoes: game[@player]
+  getInitialState: -> @dominoes()
+
+  refresh: -> @setState @dominoes()
 
   componentWillMount: ->
     @player = @props.id
-    @layout = players[@player]
+    @layout = layout[@player]
 
   componentDidMount: ->
-    dominoes.on 'change', @refresh
-    game.after 'play', { player: @before_me }, @ if @autoplay?
+    game.subscribe @refresh
 
-  show_dominoes: -> @player is 'me'
+  show_dominoes: -> @player is 'player'
 
   play: ({ domino, head }) ->
-    dispatch 'play', { @player, domino, head }
+    domino.reverse() unless head is domino[0]
+    dispatch play: { @player, domino }
 
   render: ->
-    @layout.ui className: @layout.className,
-      div id: @player, className: 'dominoes', @dominoes()
+    @layout.root className: @layout.style,
+      div id: @player, className: 'dominoes', @render_dominoes()
 
-  dominoes: -> @state.dominoes.map (x) => Domino
+  render_dominoes: -> @state.dominoes.map (x) => Domino
     key: key(x)
     domino: x
     visible: @show_dominoes()

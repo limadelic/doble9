@@ -17,9 +17,11 @@ describe 'doble9', ->
   it 'defaults players', (done) ->
     setTimeout(
       ->
-        p x().players
+        { players, dominoes } = x()
+        p players
+        dominoes.length.should.eql 15
         done()
-      200
+      100
     )
 
 

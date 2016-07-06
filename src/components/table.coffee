@@ -3,23 +3,21 @@ React = require 'react'
 { td } = React.DOM
 Domino = require './domino'
 
-{ dispatch } = require '../helpers/dispatcher'
-game = require '../stores/game'
+game = require '../stores/doble9'
 
 module.exports = component
 
-  getInitialState: ->
-    dominoes: []
+  dominoes: -> dominoes: game.getState().table
 
-  refresh: -> @setState
-    dominoes: game.table
+  getInitialState: -> @dominoes()
+
+  refresh: -> @setState @dominoes()
 
   componentDidMount: ->
-    game.on 'change', @refresh
-    dispatch 'ready', @getDOMNode()
+    game.subscribe @refresh
 
   render: ->
-    td id: 'table', className: 'main dominoes', @dominoes()
+    td id: 'table', className: 'main dominoes', @render_dominoes()
 
-  dominoes: -> @state.dominoes.map (x) =>
+  render_dominoes: -> @state.dominoes.map (x) ->
     Domino key: key(x), domino: x, visible: true
