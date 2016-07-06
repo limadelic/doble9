@@ -12,6 +12,6 @@ exports.layout =
   right:
     root: td
     style: 'vertical'
-  me:
+  player:
     root: div
     style: 'horizontal bottom'

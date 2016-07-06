@@ -10,7 +10,7 @@ module.exports =
     className: 'horizontal top'
   left:
     autoplay: true
-    before_me: 'me'
+    before_me: 'player'
     ui: td
     className: 'vertical'
   right:
