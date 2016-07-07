@@ -9,8 +9,9 @@ TABLE_WIDTH = 1000
 
 class Place
 
-  constructor: ({@width, @height}) ->
-    [TABLE_WIDTH, TABLE_HEIGHT] = [@width, @height]
+  constructor: ({ @width, @height }) ->
+    [TABLE_WIDTH, TABLE_HEIGHT] = 
+      [@width, @height]
     @at = new Arranger
 
   set: (f) -> @at[f].apply @domino, [@another]
@@ -18,17 +19,19 @@ class Place
 
   on: ({@table, @head, @domino}) -> @['on_' + @head]()
 
+  on_forro: -> @table
+  
   on_start: ->
-    @join_to  @
-    @table.push @domino
+    @join_to @
+    [@domino]
 
   on_head: ->
     @join_to _.first(@table), 0
-    @table.unshift @domino
+    _.concat [@domino], @table
 
   on_tail: ->
     @join_to _.last(@table), 1
-    @table.push @domino
+    _.concat @table, [@domino]
 
   join_to: (@another, side) ->
     @domino.reverse() if @domino[side] is @another[side]

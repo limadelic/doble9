@@ -1,18 +1,27 @@
 _ = require 'lodash'
 
+Place = require './place'
+
 exports.heads = heads = (table) -> [
   _.first _.first table
   _.last _.last table
 ]
-  
+
 exports.put = (domino, table) ->
-  
+
   [left, right] = domino
   [head, tail] = heads table
 
-  (_.isEmpty(table) and [domino]) or
-  (left  is tail and _.concat table, [domino]) or
-  (left  is head and _.concat [domino.reverse()], table) or
-  (right is head and _.concat [domino], table) or
-  (right is tail and _.concat table [domino.reverse()]) or
-  table
+  console.log head =
+    (_.isEmpty(table) and 'start') or
+    (left  is tail and 'tail') or
+    (left  is head and 'head') or
+    (right is head and 'head') or
+    (right is tail and 'tail') or
+    'forro'
+
+  place = new Place
+    width: innerWidth - 250,
+    height: innerHeight
+
+  place.on { table, head, domino }

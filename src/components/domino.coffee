@@ -19,7 +19,7 @@ module.exports = component
     { domino } = @props
     className = "domino #{domino.type}"
     style = domino.style?()
-    [head, tail] = domino.inverted and _.invert(domino) or domino
+    [head, tail] = domino.inverted and domino.slice().reverse() or domino
 
     div { className, style },
       Head { number: head, @onClick }
