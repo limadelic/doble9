@@ -5,11 +5,34 @@ React = require 'react'
 
 { div, img } = React.DOM
 
+game = require '../stores/doble9'
+{ heads } = require '../helpers/table'
+
 module.exports = component
 
+  componentDidMount: -> @unsubscribe = game.subscribe @refresh
+  componentWillUnmount: ->
+    console.log 'bye ' + @props.number
+    @unsubscribe()
+  getInitialState: -> @getState()
+  refresh: ->
+    console.log 'hello ' + @props.number
+    @setState @getState()
+
+  getState: ->
+    starting: _.isEmpty game.getState().table
+    heads: heads game.getState().table
+
   render: ->
-    div { className: 'number', @onClick },
+    div (@normal() ? @active() ? @inactive()),
       img src: "img/#{@props.number}.gif"
+
+  normal: -> className: 'number' unless @props.onClick?
+
+  active: -> if @state.starting or @props.number in @state.heads
+    { className: 'number active', @onClick }
+
+  inactive: -> className: 'number inactive'
 
   onClick: -> @props.onClick { head: @props.number }
 

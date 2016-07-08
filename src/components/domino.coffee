@@ -1,7 +1,7 @@
 _ = require 'lodash'
 React = require 'react'
 
-{ component, key } = require '../helpers/react'
+{ component } = require '../helpers/react'
 
 Head = require './head'
 
@@ -16,13 +16,19 @@ module.exports = component
     onPlay { domino, head }
 
   front: ->
+
     { domino } = @props
+
     className = "domino #{domino.type}"
     style = domino.style?()
     [head, tail] = domino.inverted and domino.slice().reverse() or domino
 
-    div { className, style },
-      Head { number: head, @onClick }
-      Head { number: tail, @onClick }
+    div { className, style }, @head(head), @head(tail)
+
+  head: (number) -> Head @normal(number) ? @playable(number)
+
+  normal: (number) -> { number } unless @props.onPlay?
+
+  playable: (number) -> { number, @onClick }
 
   back: -> div className: 'domino back'

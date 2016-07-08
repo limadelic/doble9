@@ -12,18 +12,16 @@ game = require '../stores/doble9'
 
 module.exports = component
 
-  dominoes: -> dominoes: game.getState().players[@player]?.dominoes or []
+  componentDidMount: -> @unsubscribe = game.subscribe @refresh
+  componentWillUnmount: -> @unsubscribe()
+  getInitialState: -> @getState()
+  refresh: -> @setState @getState()
 
-  getInitialState: -> @dominoes()
-
-  refresh: -> @setState @dominoes()
+  getState: -> dominoes: game.getState().players[@player]?.dominoes or []
 
   componentWillMount: ->
     @player = @props.id
     @layout = layout[@player]
-
-  componentDidMount: ->
-    game.subscribe @refresh
 
   show_dominoes: -> @player is 'player'
 

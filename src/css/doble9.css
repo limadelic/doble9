@@ -121,7 +121,7 @@ br {
   float: left;
 }
 
-.number:hover {
+.number.active:hover {
   background-color: brown;
   border-radius: 5px;
 }
