@@ -11,13 +11,9 @@ game = require '../stores/doble9'
 module.exports = component
 
   componentDidMount: -> @unsubscribe = game.subscribe @refresh
-  componentWillUnmount: ->
-    console.log 'bye ' + @props.number
-    @unsubscribe()
+  componentWillUnmount: -> @unsubscribe()
   getInitialState: -> @getState()
-  refresh: ->
-    console.log 'hello ' + @props.number
-    @setState @getState()
+  refresh: ->@setState @getState()
 
   getState: ->
     starting: _.isEmpty game.getState().table

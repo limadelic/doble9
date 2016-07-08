@@ -6,6 +6,6 @@ module.exports =
   
   start: -> []
     
-  play: ({ domino }) -> domino? and put domino, @
+  play: ({ domino }) -> put domino, @
 
     

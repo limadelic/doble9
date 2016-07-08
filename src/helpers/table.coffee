@@ -8,6 +8,7 @@ exports.heads = heads = (table) -> [
 ] unless _.isEmpty table
 
 exports.put = (domino, table) ->
+  return table unless domino?
 
   [left, right] = domino
   [head, tail] = heads(table) ? []
