@@ -1,0 +1,35 @@
+{
+  "name": "doble9",
+  "version": "0.0.1",
+  "description": "proper domino",
+  "homepage": "http://double9.com",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/limadelic/doble9.git"
+  },
+  "keywords": [
+    "game",
+    "dominoes"
+  ],
+  "author": "limadelic <limadelic@gmail.com>",
+  "contributors": [
+    "Mike Suarez <mikemps@gmail.com>"
+  ],
+  "license": "MIT",
+  "dependencies": {
+    "lodash": "^4.17.4"
+  },
+  "devDependencies": {
+    "coffee-loader": "^0.7.3",
+    "coffeescript": "^2.0.0-beta1",
+    "mocha": "^3.2.0",
+    "mocha-webpack": "^0.7.0",
+    "mockery": "^2.0.0",
+    "should": "^11.2.1",
+    "sinon": "^2.1.0",
+    "webpack": "^2.4.1"
+  },
+  "scripts": {
+    "test": "mocha-webpack --opts test/mocha-webpack.opts test/**/*.coffee"
+  }
+}

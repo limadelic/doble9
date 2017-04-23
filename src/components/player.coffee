@@ -31,10 +31,12 @@ module.exports = component
 
   render: ->
     @layout.root className: @layout.style,
-      div id: @player, className: 'dominoes', @render_dominoes()
+      div id: @player, className: 'dominoes', @render_dominoes() + @render_buttons()
 
   render_dominoes: -> @state.dominoes.map (x) => Domino
     key: key(x)
     domino: x
     visible: @show_dominoes()
     onPlay: @play
+    
+  render_dash: ->

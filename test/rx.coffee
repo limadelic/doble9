@@ -1,4 +1,4 @@
-Rx = require 'rx'
+Rx = require 'rxjs'
 fs = require 'fs'
 O = Rx.Observable
 
@@ -19,14 +19,33 @@ pplus = (x) -> (y) -> p x + y
 iplus = (i, x) -> O.interval(i).map plus x
 ojson = (arr) -> O.from(arr).map JSON.parse
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 describe 'Rx', ->
 
   it 'hells o', ->
-    O.just 'hello'
+    O.of 'hello'
     .subscribe p
 
   it 'nodes', ->
-    O.fromNodeCallback(fs.readdir)('.')
+    O.fromNode(fs.readdir)('.')
     .subscribe p
 
   it 'ranges', ->
