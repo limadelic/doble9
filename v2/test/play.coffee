@@ -1,3 +1,7 @@
 describe 'Domino', ->
 
-  it 'start', -> true.should.eql true
+  it 'start', ->
+    game.emit 'start'
+    game.dominoes.length.should.eql 55
+
+  it 'salida', ->
