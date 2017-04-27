@@ -4,7 +4,7 @@ describe 'Domino', ->
 
     when: 'start'
     then:
-      empty: true
+      dominoes: []
       players: all? count: 10
 
 
@@ -13,7 +13,7 @@ describe 'Domino', ->
     given: player: [[9,9]]
     when: play: player: 'player', domino: [9,9]
     then:
-      eql: [[9,9]]
+      dominoes: [[9,9]]
       player: []
 
   it 'forro', ->
@@ -28,4 +28,20 @@ describe 'Domino', ->
     then:
       dominoes: [[9,9]]
       player: []
+      left: [8,8]
+
+  it 'autoplays', ->
+
+    given:
+      player: [[9,9]]
+      left: [[9,8]]
+      front: [[8,8]]
+      right: [[7,7]]
+    when: play: player: 'player', domino: [9,9]
+    then:
+      dominoes: [[9,9],[9,8],[8,8]]
+      player: []
       left: []
+      front: []
+      right: [7,7]
+
