@@ -3,11 +3,19 @@
 module.exports = [
   {
     when: 'start'
-    given: all: -> shuffle
+    given: available: -> shuffle
     dominoes: []
   }
   {
-    when: get_domino: player
-    then: add_domino: player, domino: -> all.shift()
+    when: 'get_domino'
+    then: add_domino: player, domino: -> available.shift()
+  }
+  {
+    when: 'play_head'
+    dominoes: -> concat [domino], @
+  }
+  {
+    when: 'play_tail'
+    dominoes: -> concat @, [domino]
   }
 ]
