@@ -7,7 +7,7 @@ module.exports = [
     dominoes: []
   }
   {
-    when: 'pick'
-    picked: player, domino: -> all.shift
+    when: get_domino: player
+    then: add_domino: player, domino: -> all.shift()
   }
 ]
