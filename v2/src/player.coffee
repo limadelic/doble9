@@ -8,4 +8,8 @@ module.exports = ({ name }) -> [
     when: add_domino: player: name
     dominoes: -> push domino
   }
+  {
+    when: play_domino: player: name
+    dominoes: -> without domino
+  }
 ]
