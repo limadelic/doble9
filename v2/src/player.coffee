@@ -1,4 +1,4 @@
-module.exports = ({ name }) -> [
+module.exports = ({ name, after }) -> [
   {
     when: 'start'
     dominoes: []
@@ -11,5 +11,13 @@ module.exports = ({ name }) -> [
   {
     when: play_domino: player: name
     dominoes: -> without domino
+  }
+  {
+    when: play: player: after
+    then: 'pick_domino'
+  }
+  {
+    when: 'pick_domino'
+
   }
 ]
