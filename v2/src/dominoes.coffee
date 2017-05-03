@@ -3,18 +3,21 @@
 module.exports =
 
   start:
-    given: available: shuffle
+    available: shuffle
     dominoes: []
 
   serve:
-    given: domino: first: available
+    domino: first: available
     available: drop
     then: serve: { player, domino }
 
-  play:
-    domino: [[
-
-    ]]
+  play: domino: [[
+    when: dominoes: empty, head, tail, dominoes: [domino]
+    when: head,       then: head: domino: reverse
+    when: head: tail, then: tail: domino
+    when: tail: head, then: head: domino
+    when: tail      , then: tail: domino: reverse
+  ]]
 
   head:
     head: domino: head
@@ -23,14 +26,3 @@ module.exports =
   tail:
     tail: domino: tail
     dominoes: concat: [domino]
-
-#
-#  {
-#    when: 'play_head'
-#    dominoes: -> concat [domino], @
-#  }
-#  {
-#    when: 'play_tail'
-#    dominoes: -> concat @, [domino]
-#  }
-#]
