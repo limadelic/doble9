@@ -1,21 +1,36 @@
 { shuffle } = require 'helpers'
 
-module.exports = [
-  {
-    when: 'start'
-    given: available: -> shuffle
+module.exports =
+
+  start:
+    given: available: shuffle
     dominoes: []
-  }
-  {
-    when: 'get_domino'
-    then: add_domino: player, domino: -> available.shift()
-  }
-  {
-    when: 'play_head'
+
+  serve:
+    given: domino: first: available
+    available: drop
+    then: serve: { player, domino }
+
+  play:
+    domino: [[
+
+    ]]
+
+  head:
+    head: domino: head
     dominoes: -> concat [domino], @
-  }
-  {
-    when: 'play_tail'
-    dominoes: -> concat @, [domino]
-  }
-]
+
+  tail:
+    tail: domino: tail
+    dominoes: concat: [domino]
+
+#
+#  {
+#    when: 'play_head'
+#    dominoes: -> concat [domino], @
+#  }
+#  {
+#    when: 'play_tail'
+#    dominoes: -> concat @, [domino]
+#  }
+#]

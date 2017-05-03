@@ -3,7 +3,7 @@ module.exports = [[
     when: head: undefined
     then: [
       -> [head, tail] = domino
-      'play_head'
+      @play_head
     ]
   }
   {
