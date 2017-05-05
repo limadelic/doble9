@@ -1,17 +1,23 @@
 start
-  dominoes []
-  then serve for [1..10]
 
-serve dominoes push domino
+  dominoes []
+  serve for [1..10]
 
 play
 
-  dominoes without domino
-
-  or play dominoes first any heads
-
-  or play domino
-
   when player before
-  then play
+  play
+
+when player
+
+  serve dominoes push domino
+
+  play
+
+    dominoes without domino
+
+    or play dominoes first any heads
+
+    or play domino
+
 
