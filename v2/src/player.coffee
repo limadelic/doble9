@@ -1,25 +1,21 @@
-module.exports = ({ name, play_after }) -> [
-  {
-    start:
-      dominoes: []
-      then: (serve: player: @ for [1..10])
+module.exports =
 
-    serve: dominoes: push: domino
+  start:
+    dominoes: []
+    then: (serve: player: @ for [1..10])
 
-    play: [
-      dominoes: without: domino
-    ]
+  serve: dominoes: push: domino
 
-    play: [[
-      {
-        when: dominoes: first: first: heads
-        then: play: domino
-      }
-      { then: knock }
-    ]]
-  }
-  {
-    when: play: player: play_after
-    then: pick: heads
-  }
-]
+  @play: [[
+    { dominoes: without: domino }
+    {
+      when: dominoes: first: first: heads
+      then: play: domino
+    }
+    { then: knock }
+  ]]
+
+  play:
+    when: player: next: @
+    then: play: player: @
+
