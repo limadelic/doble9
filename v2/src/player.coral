@@ -1,23 +1,17 @@
-on start
+when start
+dominoes []
+then pick 10
 
-  set dominoes []
-  then serve for [1..10]
+when player pick
+dominoes push domino
+then pick
 
-on play
+when play player before
+then play
 
-  when player before
-  then play
-
-when player
-
-  on serve
-
-    set dominoes push domino
-
-  on play
-
-    set dominoes without domino
-    or then play dominoes first any heads
-    or then play domino
+when play player
+dominoes =- domino
+or then play dominoes first any heads
+or then play
 
 

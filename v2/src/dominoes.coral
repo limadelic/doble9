@@ -1,6 +1,12 @@
-start
+on start
 
-  available shuffle
-  dominoes []
+  available = shuffle
+  dominoes = []
 
-serve
+on pick
+
+  domino = first available
+  available drop
+  then serve domino
+
+
