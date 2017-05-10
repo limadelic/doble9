@@ -1,16 +1,15 @@
 when start
 dominoes []
-then pick 10
+then pick for [1..10]
 
 when player pick
 dominoes push domino
-then pick
 
 when play player before
 then play
 
 when play player
-dominoes =- domino
+dominoes without domino
 or then play dominoes first any heads
 or then play
 

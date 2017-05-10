@@ -1,12 +1,20 @@
-on start
+when start
+available shuffle
+dominoes []
 
-  available = shuffle
-  dominoes = []
+when pick without domino
+then pick domino available shift
 
-on pick
+when play
 
-  domino = first available
-  available drop
-  then serve domino
+  when dominoes empty set head, tail, dominoes [domino]
+  or when head        then head domino reverse
+  or when head tail   then tail
+  or when tail head   then head
+  or when tail        then tail domino reverse
+
+when head
+head domino head
+dominoes
 
 
