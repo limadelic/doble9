@@ -2,9 +2,9 @@ module.exports =
 
   start:
     dominoes: []
-    then: (serve: for [1..10])
+    then: (pick for [1..10])
 
-  serve: dominoes: push: domino
+  pick: dominoes: push: domino
 
   @play: [[
     { dominoes: without: domino }
