@@ -2,7 +2,7 @@ module.exports =
 
   start:
     dominoes: []
-    then: (pick for [1..10])
+    then: -> pick for [1..10]
 
   pick: dominoes: push: domino
 
