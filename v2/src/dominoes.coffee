@@ -1,9 +1,12 @@
-module.exports =
+import corals from './corals'
+
+export class Dominoes
 
 #  require: 'helpers'
 
-  start:
-    dominoes: []
+  start: (done) ->
+    @dominoes = []
+    done()
 #    available: -> shuffle
 
 #  serve:
