@@ -1,11 +1,10 @@
-import corals from './corals'
+#import corals from './corals'
 
-export class Dominoes
-
-#  require: 'helpers'
+class Dominoes
 
   start: (done) ->
-    @dominoes = []
+
+    @dominoes = [42]
     done()
 #    available: -> shuffle
 
@@ -29,3 +28,6 @@ export class Dominoes
 #  tail:
 #    tail: domino: tail
 #    dominoes: concat: [domino]
+
+export default Dominoes
+

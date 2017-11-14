@@ -34,9 +34,10 @@
     "jest-preset-coffeescript": "^1.0.0"
   },
   "scripts": {
-    "test": "jest test/test.coffee"
+    "test": "jest"
   },
   "jest": {
-    "preset": "jest-preset-coffeescript"
+    "preset": "jest-preset-coffeescript",
+    "testRegex": "spec.coffee"
   }
 }

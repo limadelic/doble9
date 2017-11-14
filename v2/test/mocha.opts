@@ -1,9 +1,0 @@
---require babel-register
---require babel-polyfill
---require coffeescript
---require coffeescript/register
---require should
---require test/test_helper.coffee
---reporter Nyan
--t 130000
--c
