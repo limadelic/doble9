@@ -21,4 +21,14 @@ defmodule GameTest do
 
   end
 
+  describe "Join" do
+
+    setup do: Game.join :player, Game.start
+
+    test "adds the player", game do
+      assert game.players == [:player]
+    end
+
+  end
+
 end

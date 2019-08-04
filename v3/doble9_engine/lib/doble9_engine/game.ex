@@ -10,8 +10,12 @@ defmodule Doble9Engine.Game do
     }
   end
 
+  def join player, game do
+    %{ game | players: [ player | game.players ]}
+  end
+
   def dominoes do
-    for x <- (0..9), y <- (x..9), do: {x, y}
+    for x <- 0..9, y <- x..9, do: {x, y}
   end
 
 end
