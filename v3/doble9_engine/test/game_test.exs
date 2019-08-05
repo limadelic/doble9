@@ -31,4 +31,18 @@ defmodule GameTest do
 
   end
 
+  describe "Serve" do
+
+    setup do: Game.serve :player, Game.start
+
+    test "the player receives 10 dominoes" do
+
+    end
+
+    test "there are 10 dominoes less in the game", game do
+      assert length(game.dominoes) == 45
+    end
+
+  end
+
 end
