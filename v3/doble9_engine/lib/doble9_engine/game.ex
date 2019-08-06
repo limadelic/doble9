@@ -18,7 +18,7 @@ defmodule Doble9Engine.Game do
 
   def join game do GenServer.call game, :join end
 
-  def handle_call :join, player, game do
+  def handle_call :join, {player, _}, game do
     cond do
       member?(game.players, player) -> { :reply, {:error, "already in game"}, game }
       length(game.players) == 4 -> { :reply, {:error, "game full"}, game }
