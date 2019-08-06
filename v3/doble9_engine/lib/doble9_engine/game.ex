@@ -1,16 +1,14 @@
 defmodule Doble9Engine.Game do
   use GenServer
-  alias __MODULE__
-  import Enum, only: [shuffle: 1, drop: 2, take: 2]
+  import Enum, only: [shuffle: 1, member?: 2]
+
+  def start do GenServer.start_link __MODULE__, nil end
+
+  def init _ do { :ok, new } end
 
   @dominoes for x <- 0..9, y <- x..9, do: {x, y}
 
-  def run do GenServer.start_link Game, nil end
-  def stop game do GenServer.stop game end
-
-  def init _ do { :ok, start } end
-
-  def start do
+  def new do
     %{
       table: [],
       dominoes: shuffle(@dominoes),
@@ -18,14 +16,14 @@ defmodule Doble9Engine.Game do
     }
   end
 
-  def join player, game do
-#    send self, { :serve, player }
-    %{ game | players: [ player | game.players ]}
-  end
+  def join game do GenServer.call game, :join end
 
-  def serve player, game do
-#    send player, { :take, take(game.dominoes, 10)}
-    %{ game | dominoes: drop(game.dominoes, 10) }
+  def handle_call :join, player, game do
+    cond do
+      member?(game.players, player) -> { :reply, {:error, "already in game"}, game }
+      length(game.players) == 4 -> { :reply, {:error, "game full"}, game }
+      :ok -> { :reply, :ok, %{ game | players: [ player | game.players ]} }
+    end
   end
 
 end
