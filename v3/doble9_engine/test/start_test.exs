@@ -2,7 +2,6 @@ defmodule StartTest do
   use ExUnit.Case, async: true
 
   alias Doble9Engine.{Game, Player}
-  import Player, only: [join: 2, pick: 1, info: 1]
 
   setup do
     {:ok, game} = Game.start

@@ -2,7 +2,7 @@ defmodule PickTest do
   use ExUnit.Case, async: true
 
   alias Doble9Engine.{Game, Player}
-  import Player, only: [join: 2, pick: 1, info: 1]
+  import Player, only: [join: 2, pick: 1]
 
   setup do
     {:ok, game} = Game.start
@@ -13,8 +13,9 @@ defmodule PickTest do
   test "picks 10 dominoes", %{ game: game, player: player } = _ do
     :ok = join player, game
     :ok = pick player
+    player = :sys.get_state player
 
-    assert length(info(player).dominoes) == 10
+    assert length(player.dominoes) == 10
   end
 
   test "can't pick unless joined", %{ player: player } = _ do
