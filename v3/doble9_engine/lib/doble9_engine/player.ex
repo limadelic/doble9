@@ -46,4 +46,8 @@ defmodule Doble9Engine.Player do
     { :reply, :ok, %{ player | dominoes: dominoes}}
   end
 
+  def handle_pick error, player do
+    { :reply, error, player }
+  end
+
 end

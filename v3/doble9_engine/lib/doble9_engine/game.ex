@@ -15,7 +15,8 @@ defmodule Doble9Engine.Game do
     %{
       table: [],
       dominoes: shuffle(@dominoes),
-      players: []
+      players: [],
+      picked: []
     }
   end
 
@@ -29,7 +30,11 @@ defmodule Doble9Engine.Game do
 
   def handle_call :pick, {player, _}, game do
     cond do
-      :ok -> { :reply, {:ok, take(game.dominoes, 10)}, %{ game | dominoes: drop(game.dominoes, 10)}}
+      member?(game.picked, player) -> { :reply, {:error, "picked already"}, game }
+      :ok -> { :reply, {:ok, take(game.dominoes, 10)}, %{ game |
+        dominoes: drop(game.dominoes, 10),
+        picked: [player | game.picked]
+      }}
     end
   end
 
