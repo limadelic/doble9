@@ -10,7 +10,7 @@ defmodule JoinTest do
     assert Player.join player, game
   end
 
-  test "fail to join twice", the do
+  test "fail to join twice" do
     {:ok, game} = Game.start
     {:ok, player} = Player.start
     :ok = Player.join player, game
@@ -18,7 +18,15 @@ defmodule JoinTest do
     assert Player.join(player, game) == {:error, "already in game"}
   end
 
-  test "game full", the do
+  test "game full" do
+    {:ok, game} = Game.start
+    for _ <- 1..4 do
+      {:ok, player} = Player.start
+      :ok = Player.join player, game
+    end
+    {:ok, player} = Player.start
+
+    assert Player.join(player, game) == {:error, "game full"}
   end
 
 end
