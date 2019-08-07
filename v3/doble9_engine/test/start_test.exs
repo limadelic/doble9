@@ -22,4 +22,12 @@ defmodule StartTest do
     assert game.table == []
   end
 
+  test "the player is not in the game", %{ player: player } = _ do
+    assert player.game == nil
+  end
+
+  test "the player has no dominoes", %{ player: player } = _ do
+    assert player.dominoes == []
+  end
+
 end
