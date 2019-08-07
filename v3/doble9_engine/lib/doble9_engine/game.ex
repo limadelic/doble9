@@ -1,10 +1,11 @@
 defmodule Doble9Engine.Game do
   use GenServer
-  import Enum, only: [shuffle: 1, member?: 2]
+  import Enum, only: [shuffle: 1, member?: 2, take: 2, drop: 2]
 
   def start do GenServer.start_link __MODULE__, nil end
-  def info game do GenServer.call game, :info  end
+  def info game do GenServer.call game, :info end
   def join game do GenServer.call game, :join end
+  def pick game do GenServer.call game, :pick end
 
   def init _ do { :ok, new } end
 
@@ -27,7 +28,9 @@ defmodule Doble9Engine.Game do
   end
 
   def handle_call :pick, {player, _}, game do
-
+    cond do
+      :ok -> { :reply, {:ok, take(game.dominoes, 10)}, %{ game | dominoes: drop(game.dominoes, 10)}}
+    end
   end
 
 end
