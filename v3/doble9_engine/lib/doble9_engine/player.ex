@@ -34,6 +34,10 @@ defmodule Doble9Engine.Player do
     { :reply, error, player }
   end
 
+  def handle_call(:pick, _, %{ game: game } = player) when game == nil do
+    { :reply, { :error, "need to join a game first" }, player }
+  end
+
   def handle_call :pick, _, player do
     handle_pick Game.pick(player.game), player
   end
