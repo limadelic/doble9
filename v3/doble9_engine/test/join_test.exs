@@ -2,31 +2,31 @@ defmodule JoinTest do
   use ExUnit.Case, async: true
 
   alias Doble9Engine.{Game, Player}
+  import Player, only: [join: 2, pick: 1, info: 1]
 
-  test "joined" do
+  setup do
     {:ok, game} = Game.start
     {:ok, player} = Player.start
-
-    assert Player.join player, game
+    %{ game: game, player: player }
   end
 
-  test "fail to join twice" do
-    {:ok, game} = Game.start
-    {:ok, player} = Player.start
-    :ok = Player.join player, game
-
-    assert Player.join(player, game) == {:error, "already in game"}
+  test "joined", %{ game: game, player: player } = _ do
+    assert join player, game
   end
 
-  test "game full" do
-    {:ok, game} = Game.start
+  test "fail to join twice", %{ game: game, player: player } = _ do
+    :ok = join player, game
+
+    assert join(player, game) == {:error, "already in game"}
+  end
+
+  test "game full", %{ game: game, player: player } = _ do
     for _ <- 1..4 do
       {:ok, player} = Player.start
-      :ok = Player.join player, game
+      :ok = join player, game
     end
-    {:ok, player} = Player.start
 
-    assert Player.join(player, game) == {:error, "game full"}
+    assert join(player, game) == {:error, "game full"}
   end
 
 end

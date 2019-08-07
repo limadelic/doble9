@@ -4,18 +4,20 @@ defmodule PickTest do
   alias Doble9Engine.{Game, Player}
   import Player, only: [join: 2, pick: 1, info: 1]
 
-  test "picks 10 dominoes" do
+  setup do
     {:ok, game} = Game.start
     {:ok, player} = Player.start
+    %{ game: game, player: player }
+  end
+
+  test "picks 10 dominoes", %{ game: game, player: player } = _ do
     :ok = join player, game
     :ok = pick player
 
     assert length(info(player).dominoes) == 10
   end
 
-  test "can't pick unless joined" do
-    {:ok, game} = Game.start
-    {:ok, player} = Player.start
+  test "can't pick unless joined", %{ game: game, player: player } = _ do
 
     assert pick(player) == { :error, "need to join a game first" }
   end
