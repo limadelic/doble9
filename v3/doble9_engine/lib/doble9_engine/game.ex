@@ -10,11 +10,14 @@ defmodule Doble9Engine.Game do
 
   def init _ do {:ok, new()} end
 
-  @dominoes for x <- 0..9, y <- x..9, do: {x, y}
+  @dominoes for x <- 0..9, y <- x..9, do: [x|y]
 
   def new do
     %{
-      table: [],
+      table: %{
+        dominoes: [],
+        heads: []
+      },
       dominoes: shuffle(@dominoes),
       players: [],
       picked: []
@@ -40,8 +43,10 @@ defmodule Doble9Engine.Game do
     end
   end
 
-  def handle_call {:play, domino}, {player, _}, %{table: table} = game do
-    {:reply, :ok, %{game | table: [domino | table]}}
+  def handle_call {:play, domino}, {player, _}, %{table: %{dominoes: dominoes, heads: heads}} = game do
+    cond do
+      :ok -> {:reply, :ok, %{game | table: %{dominoes: [domino|dominoes], heads: domino}}}
+    end
   end
 
 end

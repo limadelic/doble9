@@ -19,7 +19,8 @@ defmodule StartTest do
   end
 
   test "the table is empty", %{ game: game } = _ do
-    assert game.table == []
+    assert game.table.dominoes == []
+    assert game.table.heads == []
   end
 
   test "the player is not in the game", %{ player: player } = _ do

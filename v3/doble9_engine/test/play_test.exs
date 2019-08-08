@@ -16,7 +16,7 @@ defmodule PlayTest do
 
   test "start", %{ game: game, player: player, dominoes: [ domino | _ ] } = _ do
     assert play player, domino
-    assert the(game).table == [domino]
+    assert the(game).table.dominoes == [domino]
     refute domino in the(player).dominoes
   end
 
