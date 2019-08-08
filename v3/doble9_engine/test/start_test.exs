@@ -2,11 +2,12 @@ defmodule StartTest do
   use ExUnit.Case, async: true
 
   alias Doble9Engine.{Game, Player}
+  import TestHelper, only: [the: 1]
 
   setup do
     {:ok, game} = Game.start
     {:ok, player} = Player.start
-    %{ game: :sys.get_state(game), player: :sys.get_state(player) }
+    %{ game: the(game), player: the(player) }
   end
 
   test "there r no players", %{ game: game } = _ do
