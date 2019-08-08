@@ -43,9 +43,16 @@ defmodule Doble9Engine.Game do
     end
   end
 
-  def handle_call {:play, domino}, {player, _}, %{table: %{dominoes: dominoes, heads: heads}} = game do
+  def handle_call {:play, domino}, {player, _}, %{table: %{dominoes: []}} = game do
+    {:reply, :ok, %{game | table: %{dominoes: [domino], heads: domino}}}
+  end
+
+  def handle_call {:play, [head|tail] = domino}, {player, _}, %{table: %{dominoes: dominoes, heads: [table_head|table_tail]}} = game do
     cond do
-      :ok -> {:reply, :ok, %{game | table: %{dominoes: [domino|dominoes], heads: domino}}}
+      head == table_head -> {:reply, :ok, %{game | table: %{dominoes: [[tail|head]] ++ dominoes, heads: [tail|table_tail]}}}
+      head == table_tail -> {:reply, :ok, %{game | table: %{dominoes: dominoes ++ [domino], heads: [table_head|tail]}}}
+      tail == table_tail -> {:reply, :ok, %{game | table: %{dominoes: dominoes ++ [[tail|head]], heads: [table_head|head]}}}
+      tail == table_head -> {:reply, :ok, %{game | table: %{dominoes: [domino] ++ dominoes, heads: [head|table_tail]}}}
     end
   end
 
