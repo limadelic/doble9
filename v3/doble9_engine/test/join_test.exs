@@ -1,5 +1,5 @@
 defmodule JoinTest do
-  use ExUnit.Case, async: true
+  use ExUnit.Case
 
   alias Doble9Engine.{Game, Player}
   import Player, only: [join: 2]
