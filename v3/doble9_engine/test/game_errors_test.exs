@@ -1,4 +1,4 @@
-defmodule ErrorTest do
+defmodule GameErrorsTest do
   use ExUnit.Case
 
   alias Doble9Engine.{Game, Player}
