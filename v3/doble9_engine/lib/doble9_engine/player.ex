@@ -22,7 +22,7 @@ defmodule Doble9Engine.Player do
     { :reply, { :error, "already in game" }, player }
   end
   def handle_call {:join, game}, _, %{name: name} = player do
-    joined Game.join(game, player), player, game
+    joined Game.join(game, name), player, game
   end
 
   def handle_call(:pick, _, %{game: game} = player) when game == nil do

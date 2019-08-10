@@ -44,7 +44,6 @@ defmodule GameTest do
 
     test "joined" do
       assert join @player, @game
-      p the @game
       assert @player in (the(@game).players)
       assert the(@player).game == @game
     end
