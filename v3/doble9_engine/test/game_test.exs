@@ -72,10 +72,10 @@ defmodule GameTest do
       start
       :ok = join @player, @game
       :ok = pick @player
-      the(@player).dominoes
+      %{ dominoes: the(@player).dominoes }
     end
 
-    test "start", [domino|_] do
+    test "start", %{dominoes: [domino|_]} = _ do
       assert play @player, domino
       assert the(@game).table.dominoes == [domino]
       refute domino in the(@player).dominoes
