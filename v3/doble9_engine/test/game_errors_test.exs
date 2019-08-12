@@ -8,8 +8,8 @@ defmodule GameErrorsTest do
   @player :mike
 
   setup do
-    {:ok, _} = Game.start @game
-    {:ok, _} = Player.start @player
+    {:ok, _} = Game.start %{name: @game}
+    {:ok, _} = Player.start %{name: @player}
     :ok
   end
 
@@ -21,7 +21,7 @@ defmodule GameErrorsTest do
 
   test "game full" do
     Enum.map [:w, :x, :y, :z], fn player ->
-      {:ok, _} = Player.start player
+      {:ok, _} = Player.start %{name: player}
       :ok = join player, @game
     end
 

@@ -72,7 +72,7 @@ defmodule GameTest do
       start
       :ok = join @player, @game
       :ok = pick @player
-      %{ dominoes: the(@player).dominoes }
+      %{dominoes: the(@player).dominoes}
     end
 
     test "start", %{dominoes: [domino|_]} = _ do
@@ -84,8 +84,8 @@ defmodule GameTest do
   end
 
   defp start _ \\ nil do
-    {:ok, _} = Game.start @game
-    {:ok, _} = Player.start @player
+    {:ok, _} = Game.start %{name: @game}
+    {:ok, _} = Player.start %{name: @player}
     :ok
   end
 

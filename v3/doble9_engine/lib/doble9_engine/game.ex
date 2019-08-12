@@ -2,12 +2,12 @@ defmodule Doble9Engine.Game do
   use GenServer
   import Enum, only: [shuffle: 1, take: 2, drop: 2]
 
-  def start game do GenServer.start_link __MODULE__, nil, name: game end
+  def start %{name: name} = game do GenServer.start_link __MODULE__, game, name: name end
   def join game, player do GenServer.call game, {:join, player} end
   def pick game, player do GenServer.call game, {:pick, player} end
   def play game, player, domino do GenServer.call game, {:play, player, domino} end
 
-  def init _ do {:ok, new()} end
+  def init game do {:ok, Map.merge(new(), game)} end
 
   @dominoes for x <- 0..9, y <- x..9, do: [x|y]
 
