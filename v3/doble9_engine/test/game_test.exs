@@ -66,6 +66,21 @@ defmodule GameTest do
 
   end
 
+  describe "Turn" do
+
+    setup do
+      start
+      join @player, @game
+      %{ game: the(@game), player: the(@player) }
+    end
+
+    test "it's first player turn", %{game: game, player: player} do
+      assert game.turn == @player
+      assert player.turn
+    end
+
+  end
+
   describe "Play" do
 
     @dominoes [[9|9],[9|8],[9|7],[8|8],[7|7]]
@@ -82,6 +97,15 @@ defmodule GameTest do
       assert player.dominoes == []
     end
 
+  end
+
+  describe "Auto-play" do
+
+    setup do
+#      Game.start %{name: @game, players: [@player]}
+#      Player.start %{name: @player, game: @game, dominoes: @dominoes, }
+#      %{game: the(@game), player: the(@player)}
+    end
   end
 
   defp start _ \\ nil do

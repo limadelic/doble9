@@ -1,5 +1,6 @@
 defmodule Doble9Engine.Game do
   use GenServer
+  alias Doble9Engine.Player
   import Enum, only: [shuffle: 1, take: 2, drop: 2]
 
   def start %{name: name} = game do GenServer.start_link __MODULE__, game, name: name end
@@ -19,6 +20,7 @@ defmodule Doble9Engine.Game do
       },
       dominoes: shuffle(@dominoes),
       players: [],
+      turn: nil,
       picked: []
     }
   end
@@ -27,6 +29,9 @@ defmodule Doble9Engine.Game do
     cond do
       length(players) == 4 -> {:reply, {:error, "game full"}, game}
       player in players -> {:reply, {:error, "already in game"}, game}
+      players == [] ->
+        Player.turn player
+        {:reply, :ok, %{game | players: [player], turn: player}}
       :ok -> {:reply, :ok, %{game | players: [player | players]}}
     end
   end

@@ -6,6 +6,7 @@ defmodule Doble9Engine.Player do
   def start %{name: name} = player do GenServer.start_link __MODULE__, player, name: name end
   def join player, game do GenServer.call player, {:join, game} end
   def pick player do GenServer.call player, :pick end
+  def turn player do GenServer.cast player, :turn end
   def play player, domino do GenServer.call player, {:play, domino}  end
 
   def init player do {:ok, Map.merge(new(), player)} end
@@ -14,8 +15,13 @@ defmodule Doble9Engine.Player do
     %{
       name: nil,
       game: nil,
+      turn: false,
       dominoes: []
     }
+  end
+
+  def handle_cast :turn, player do
+    {:noreply, %{player | turn: true}}
   end
 
   def handle_call({:join, _}, _, %{game: game} = player) when game != nil do
@@ -41,7 +47,7 @@ defmodule Doble9Engine.Player do
   end
 
   def joined :ok, player, game do
-    { :reply, :ok, %{ player | game: game }}
+    { :reply, :ok, %{player | game: game}}
   end
 
   def joined error, player, _ do
@@ -57,7 +63,7 @@ defmodule Doble9Engine.Player do
   end
 
   def played :ok, player, domino do
-    { :reply, :ok, %{ player | dominoes: delete(player.dominoes, domino) }}
+    { :reply, :ok, %{player | dominoes: delete(player.dominoes, domino)}}
   end
 
 end
