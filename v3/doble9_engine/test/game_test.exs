@@ -68,17 +68,18 @@ defmodule GameTest do
 
   describe "Play" do
 
+    @dominoes [[9|9],[9|8],[9|7],[8|8],[7|7]]
+
     setup do
-      start
-      :ok = join @player, @game
-      :ok = pick @player
-      %{dominoes: the(@player).dominoes}
+      Game.start %{name: @game, players: [@player]}
+      Player.start %{name: @player, game: @game, dominoes: @dominoes}
+      Enum.map @dominoes, &(play @player, &1)
+      %{game: the(@game), player: the(@player)}
     end
 
-    test "start", %{dominoes: [domino|_]} = _ do
-      assert play @player, domino
-      assert the(@game).table.dominoes == [domino]
-      refute domino in the(@player).dominoes
+    test "play all in a row", %{game: game, player: player} = _ do
+      assert game.table.dominoes == [[8|8],[8|9],[9|9],[9|7],[7|7]]
+      assert player.dominoes == []
     end
 
   end
