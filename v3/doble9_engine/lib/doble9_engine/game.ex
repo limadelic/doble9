@@ -3,27 +3,31 @@ defmodule Doble9Engine.Game do
   alias Doble9Engine.Player
   import Enum, only: [shuffle: 1, take: 2, drop: 2]
 
-  def start %{name: name} = game do GenServer.start_link __MODULE__, game, name: name end
+  def create game, host do GenServer.start_link __MODULE__, host, name: game end
   def join game, player do GenServer.call game, {:join, player} end
   def pick game, player do GenServer.call game, {:pick, player} end
   def play game, player, domino do GenServer.call game, {:play, player, domino} end
 
-  def init game do {:ok, Map.merge(new(), game)} end
+  def init host do {:ok, new host } end
 
   @dominoes for x <- 0..9, y <- x..9, do: [x|y]
+  @bots [:right, :front, :left]
 
-  def new do
+  def new host do
     %{
+      host: host,
       table: %{
         dominoes: [],
         heads: []
       },
       dominoes: shuffle(@dominoes),
-      players: [],
-      turn: nil,
+      players: [host|@bots],
+      turn: host,
       picked: []
     }
   end
+
+  def
 
   def handle_call {:join, player}, _, %{players: players} = game do
     cond do

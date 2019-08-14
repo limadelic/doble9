@@ -3,17 +3,17 @@ defmodule Doble9Engine.Player do
   use GenServer
   import List, only: [delete: 2]
 
-  def start %{name: name} = player do GenServer.start_link __MODULE__, player, name: name end
+  def start player do GenServer.start_link __MODULE__, player, name: player end
   def join player, game do GenServer.call player, {:join, game} end
   def pick player do GenServer.call player, :pick end
   def turn player do GenServer.cast player, :turn end
   def play player, domino do GenServer.call player, {:play, domino}  end
 
-  def init player do {:ok, Map.merge(new(), player)} end
+  def init player do {:ok, new player} end
 
-  def new do
+  def new player do
     %{
-      name: nil,
+      name: player,
       game: nil,
       turn: false,
       dominoes: []

@@ -81,6 +81,16 @@ defmodule GameTest do
 
   end
 
+  describe "Start" do
+
+    setup [:start]
+
+    test "adds bots when starting without enough players", %{game: game, player: player} do
+      assert
+    end
+
+  end
+
   describe "Play" do
 
     @dominoes [[9|9],[9|8],[9|7],[8|8],[7|7]]
@@ -109,8 +119,8 @@ defmodule GameTest do
   end
 
   defp start _ \\ nil do
-    {:ok, _} = Game.start %{name: @game}
-    {:ok, _} = Player.start %{name: @player}
+    Player.start @player
+    Player.create @player, @game
     :ok
   end
 
