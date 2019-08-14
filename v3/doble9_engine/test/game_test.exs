@@ -93,7 +93,7 @@ defmodule GameTest do
 
   describe "Play" do
 
-    @dominoes [[9|9],[9|8],[9|7],[8|8],[7|7],[0|0]]
+    @dominoes [[9|9],[9|8],[9|7],[8|8],[7|7]]
 
     setup do
       Game.start %{name: @game, players: [@player]}
