@@ -121,7 +121,7 @@ defmodule GameTest do
   defp start _ \\ nil do
     Player.start @player
     Player.create @player, @game
-    :ok
+    %{player: the(@player), game: the(@game)}
   end
 
 end

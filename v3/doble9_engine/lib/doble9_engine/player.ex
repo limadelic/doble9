@@ -4,6 +4,7 @@ defmodule Doble9Engine.Player do
   import List, only: [delete: 2]
 
   def start player do GenServer.start_link __MODULE__, player, name: player end
+  def create player, game do GenServer.call player, {:create, game} end
   def join player, game do GenServer.call player, {:join, game} end
   def pick player do GenServer.call player, :pick end
   def turn player do GenServer.cast player, :turn end
@@ -22,6 +23,10 @@ defmodule Doble9Engine.Player do
 
   def handle_cast :turn, player do
     {:noreply, %{player | turn: true}}
+  end
+
+  def handle_call {:create, game}, _, player do
+    created Game.create(game), game, player
   end
 
   def handle_call({:join, _}, _, %{game: game} = player) when game != nil do
@@ -44,6 +49,15 @@ defmodule Doble9Engine.Player do
       domino not in dominoes -> { :reply, {:error, "forro!!"}, player}
       :ok -> played Game.play(game, name, domino), player, domino
     end
+  end
+
+  def handle_info :pick, player do
+
+  end
+
+  def created :ok, player, game do
+    send self, {:pick}
+    { :reply, :ok, %{player | game: game}}
   end
 
   def joined :ok, player, game do
