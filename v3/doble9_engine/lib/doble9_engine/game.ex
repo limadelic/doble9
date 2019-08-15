@@ -8,7 +8,10 @@ defmodule Doble9Engine.Game do
   def pick game, player do GenServer.call game, {:pick, player} end
   def play game, player, domino do GenServer.call game, {:play, player, domino} end
 
-  def init host do {:ok, new host } end
+  def init host do
+    start_bots
+    {:ok, new host }
+  end
 
   @dominoes for x <- 0..9, y <- x..9, do: [x|y]
   @bots [:right, :front, :left]
@@ -21,13 +24,20 @@ defmodule Doble9Engine.Game do
         heads: []
       },
       dominoes: shuffle(@dominoes),
-      players: [host|@bots],
+      players: [host],
       turn: host,
       picked: []
     }
   end
 
-  def
+  def start_bots do
+    for bot <- @bots do send self, {:start_bot, bot} end
+  end
+
+  def handle_info {:start_bot, bot}, %{name: name} = game do
+    Player.start_bot bot, name
+    {:noreply, game}
+  end
 
   def handle_call {:join, player}, _, %{players: players} = game do
     cond do

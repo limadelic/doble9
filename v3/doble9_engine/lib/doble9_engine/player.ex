@@ -4,6 +4,7 @@ defmodule Doble9Engine.Player do
   import List, only: [delete: 2]
 
   def start player do GenServer.start_link __MODULE__, player, name: player end
+  def start_bot bot, game do GenServer.start_link __MODULE__, player, name: player end
   def create player, game do GenServer.call player, {:create, game} end
   def join player, game do GenServer.call player, {:join, game} end
   def pick player do GenServer.call player, :pick end
@@ -51,12 +52,13 @@ defmodule Doble9Engine.Player do
     end
   end
 
-  def handle_info :pick, player do
-
+  def handle_info :pick, %{name: name, game: game} = player do
+    {:ok, dominoes} = Game.pick game, name
+    {:noreply, %{player | dominoes: dominoes}}
   end
 
   def created :ok, player, game do
-    send self, {:pick}
+    send self, :pick
     { :reply, :ok, %{player | game: game}}
   end
 
