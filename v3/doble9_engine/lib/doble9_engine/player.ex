@@ -3,9 +3,9 @@ defmodule Doble9Engine.Player do
   use GenServer
   import List, only: [delete: 2]
 
-  def start player do GenServer.start_link __MODULE__, player, name: player end
-  def start_bot bot, game do GenServer.start_link __MODULE__, player, name: player end
-  def create player, game do GenServer.call player, {:create, game} end
+  def login player do GenServer.start_link __MODULE__, player, name: player end
+  def start_bot bot, game do GenServer.start_link __MODULE__, bot, name: bot end
+  def new_game player, game do GenServer.call player, {:new_game, game} end
   def join player, game do GenServer.call player, {:join, game} end
   def pick player do GenServer.call player, :pick end
   def turn player do GenServer.cast player, :turn end
@@ -26,7 +26,7 @@ defmodule Doble9Engine.Player do
     {:noreply, %{player | turn: true}}
   end
 
-  def handle_call {:create, game}, _, player do
+  def handle_call {:new_game, game}, _, player do
     created Game.create(game), game, player
   end
 
