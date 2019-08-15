@@ -26,8 +26,8 @@ defmodule Doble9Engine.Player do
     {:noreply, %{player | turn: true}}
   end
 
-  def handle_call {:new_game, game}, _, player do
-    created Game.create(game), game, player
+  def handle_call {:new_game, game}, _, %{name: name} = player do
+    created Game.create(game, name), game, player
   end
 
   def handle_call({:join, _}, _, %{game: game} = player) when game != nil do
@@ -57,7 +57,7 @@ defmodule Doble9Engine.Player do
     {:noreply, %{player | dominoes: dominoes}}
   end
 
-  def created :ok, player, game do
+  def created {:ok, _}, game, player do
     send self, :pick
     { :reply, :ok, %{player | game: game}}
   end

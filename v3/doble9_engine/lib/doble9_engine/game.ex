@@ -9,7 +9,7 @@ defmodule Doble9Engine.Game do
   def play game, player, domino do GenServer.call game, {:play, player, domino} end
 
   def init game do
-    start_bots
+#    start_bots
     {:ok, new game }
   end
 

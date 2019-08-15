@@ -8,9 +8,18 @@ defmodule GameTest do
   @game :calle8
   @player :mike
 
-  test "new single player game" do
-    login @player
-#    new_game @player, @game
+  describe "new single player game" do
+
+    setup do
+      login @player
+      new_game @player, @game
+      %{player: the(@player), game: the(@game)}
+    end
+
+    test "player picked 10 dominoes", %{player: %{dominoes: dominoes}} = _ do
+      assert length(dominoes) == 10
+    end
+
   end
 
 end
