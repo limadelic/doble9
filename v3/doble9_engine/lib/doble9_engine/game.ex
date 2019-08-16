@@ -9,21 +9,22 @@ defmodule Doble9Engine.Game do
   def play game, player, domino do GenServer.call game, {:play, player, domino} end
 
   def init game do
-#    start_bots
+    start_bots
     {:ok, new game }
   end
 
   @dominoes for x <- 0..9, y <- x..9, do: [x|y]
-  @bots [:right, :front, :left]
+  @bots [:chino, :angel, :aurelio]
 
   def new %{name: name, player: player} = game do
     %{
+      name: name,
       table: %{
         dominoes: [],
         heads: []
       },
       dominoes: shuffle(@dominoes),
-      players: [player],
+      players: [player|@bots],
       turn: player,
       picked: []
     }

@@ -13,11 +13,19 @@ defmodule GameTest do
     setup do
       login @player
       new_game @player, @game
+
       %{player: the(@player), game: the(@game)}
     end
 
     test "player picked 10 dominoes", %{player: %{dominoes: dominoes}} = _ do
       assert length(dominoes) == 10
+    end
+
+    test "there r 4 players ready", %{game: %{players: players}} = _ do
+      assert length(players) == 4
+      for %{dominoes: dominoes} = _ <- players do
+        assert length(dominoes) == 10
+      end
     end
 
   end
