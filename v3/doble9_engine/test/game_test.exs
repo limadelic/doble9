@@ -28,6 +28,11 @@ defmodule GameTest do
       end
     end
 
+    test "player could start with any domino",
+         %{player: %{dominoes: dominoes, turn: %{choices: choices}}}=_ do
+      assert dominoes == choices
+    end
+
     test "start", %{player: %{dominoes: [domino|_]}} = _ do
 #      play @player, domino
     end

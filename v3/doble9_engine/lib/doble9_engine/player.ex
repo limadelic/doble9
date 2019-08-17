@@ -49,11 +49,8 @@ defmodule Doble9Engine.Player do
     joined Game.join(game, name), player, game
   end
 
-  def handle_call(:pick, _, %{game: game} = player) when game == nil do
-    { :reply, { :error, "need to join a game first" }, player }
-  end
   def handle_call :pick, _, %{name: name, game: game} = player do
-    picked Game.pick(game, name), player
+    reply picked player, Game.pick(game, name)
   end
 
   def handle_call {:play, domino}, _, %{name: name, dominoes:  dominoes, game: game} = player do
@@ -63,6 +60,10 @@ defmodule Doble9Engine.Player do
       :ok -> {:reply, :ok, played(Game.play(game, name, domino), player, domino)}
     end
   end
+
+  def reply {:ok, player} do {:reply, :ok, player} end
+  def reply {{:ok, response}, player} do {:reply, {:ok, response}, player} end
+  def reply {error, player} do {:reply, error, player} end
 
   def handle_info :pick, %{name: name, game: game} = player do
     {:ok, dominoes} = Game.pick game, name
@@ -86,12 +87,14 @@ defmodule Doble9Engine.Player do
     { :reply, error, player }
   end
 
-  def picked {:ok, dominoes}, player do
-    { :reply, :ok, %{ player | dominoes: dominoes}}
+  def picked %{turn: turn} = player, {:ok, dominoes}  do
+    { :ok, %{ player | dominoes: dominoes, turn: %{turn | choices: dominoes}}}
   end
-
-  def picked error, player do
-    { :reply, error, player }
+  def picked player, {:ok, dominoes} do
+    { :ok, %{ player | dominoes: dominoes}}
+  end
+  def picked player, error do
+    { error, player }
   end
 
   def played :ok, player, domino do
