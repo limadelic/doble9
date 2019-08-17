@@ -3,6 +3,7 @@ defmodule Doble9Engine.Player do
   use GenServer
   import List, only: [delete: 2]
   import Enum, only: [filter: 2]
+  import Map, only: [merge: 2]
 
   def login player do GenServer.start_link __MODULE__, %{name: player}, name: player end
   def start_bot bot, game do GenServer.start_link __MODULE__, %{name: bot, bot: true, game: game}, name: bot end
@@ -10,7 +11,7 @@ defmodule Doble9Engine.Player do
 
   def join player, game do GenServer.call player, {:join, game} end
   def pick player do GenServer.call player, :pick end
-  def turn player, heads do GenServer.cast player, {:turn, heads} end
+  def turn player, heads \\ [] do GenServer.cast player, {:turn, heads} end
   def play player, domino do GenServer.call player, {:play, domino}  end
 
   @defaults %{
@@ -26,7 +27,7 @@ defmodule Doble9Engine.Player do
 
   def init player do new player end
 
-  def new player do {:ok, Map.merge(@defaults, player)} end
+  def new player do {:ok, merge(@defaults, player)} end
 
   def handle_cast {:turn, heads}, %{bot: true} = player do
     send self, {:play, heads}
@@ -34,7 +35,7 @@ defmodule Doble9Engine.Player do
   end
 
   def handle_cast {:turn, heads}, player do
-    {:noreply, turn(player, heads)}
+    {:noreply, turned(player, heads)}
   end
 
   def handle_call {:new_game, game}, _, %{name: name} = player do
@@ -59,7 +60,7 @@ defmodule Doble9Engine.Player do
     cond do
       game == nil -> { :reply, { :error, "need to join a game first" }, player }
       domino not in dominoes -> { :reply, {:error, "forro!!"}, player}
-      :ok -> {:reply, :ok, played Game.play(game, name, domino), player, domino}
+      :ok -> {:reply, :ok, played(Game.play(game, name, domino), player, domino)}
     end
   end
 
@@ -69,7 +70,6 @@ defmodule Doble9Engine.Player do
   end
 
   def handle_info {:play, heads}, player do
-    {_, _, player} = handle_call {:play, match(heads)}, nil, player
     {:noreply, player}
   end
 
@@ -98,9 +98,11 @@ defmodule Doble9Engine.Player do
     %{player | turn: nil, played: domino, dominoes: delete(player.dominoes, domino)}
   end
 
-  def turn %{dominoes: dominoes} = player, heads do
+  def turned %{dominoes: dominoes} = player, heads do
     %{player | turn: %{heads: heads, choices: choices(heads, dominoes)}}
   end
+
+  def choices [], dominoes do dominoes end
 
   def choices heads, dominoes do
     filter dominoes, fn [head|tail]=_ -> head in heads or tail in heads end

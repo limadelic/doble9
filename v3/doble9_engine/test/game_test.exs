@@ -29,7 +29,7 @@ defmodule GameTest do
     end
 
     test "start", %{player: %{dominoes: [domino|_]}} = _ do
-      play @player, domino
+#      play @player, domino
     end
 
   end
