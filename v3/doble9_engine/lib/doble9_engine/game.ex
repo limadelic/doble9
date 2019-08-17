@@ -1,7 +1,7 @@
 defmodule Doble9Engine.Game do
   use GenServer
   alias Doble9Engine.Player
-  import Enum, only: [shuffle: 1, take: 2, drop: 2]
+  import Enum, only: [shuffle: 1, take: 2, drop: 2, find_index: 2, at: 2]
 
   def create game, player do GenServer.start_link __MODULE__, %{name: game, player: player}, name: game end
   def pick game do GenServer.call game, :pick end
@@ -42,7 +42,9 @@ defmodule Doble9Engine.Game do
   end
 
   def handle_call {:play, player, domino}, _, game do
-    {:reply, :ok, played(domino, game)}
+    game = played domino, game
+    Player.turn next(player, game.players), game.table.heads
+    {:reply, :ok, game}
   end
 
   def played domino, %{table: %{dominoes: []}} = game do
@@ -60,6 +62,11 @@ defmodule Doble9Engine.Game do
 
   def place game, dominoes, heads do
     %{game | table: %{dominoes: dominoes, heads: heads}}
+  end
+
+  def next player, [first|_] = players do
+    players = players ++ [first]
+    at players, find_index(players, &(&1 == player)) + 1
   end
 
 end

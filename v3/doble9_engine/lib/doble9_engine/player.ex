@@ -34,7 +34,7 @@ defmodule Doble9Engine.Player do
   end
 
   def handle_call {:play, domino}, _, %{name: name, game: game} = player do
-    {:reply, :ok, played(Game.play(game, name, domino), player, domino)}
+    {:reply, :ok, played(Game.play(game, name, domino), domino, player)}
   end
 
   def handle_cast {:turn, heads}, %{bot: true} = player do
@@ -49,8 +49,11 @@ defmodule Doble9Engine.Player do
     {:noreply, picked(Game.pick(game), player)}
   end
 
-  def handle_info :play, player do
-    {:noreply, player}
+  def handle_info :play, %{game: game, name: name, turn: %{choices: []}} = player do
+    {:noreply, knocked(Game.knock(game, name), player)}
+  end
+  def handle_info :play, %{game: game, name: name, turn: %{choices: [domino|_]}} = player do
+    {:noreply, played(Game.play(game, name, domino), domino, player)}
   end
 
   def created {:ok, _}, game, player do
@@ -65,12 +68,16 @@ defmodule Doble9Engine.Player do
     %{player | dominoes: dominoes}
   end
 
-  def played :ok, player, domino do
+  def knocked :ok, %{turn: %{heads: heads}} = player do
+    %{player | turn: nil, knocked: heads }
+  end
+
+  def played :ok, domino, player do
     %{player | turn: nil, played: domino, dominoes: delete(player.dominoes, domino)}
   end
 
   def turned heads, %{dominoes: dominoes} = player do
-    %{player | turn: %{heads: heads, choices: matches(dominoes, heads)}}
+    %{player | played: nil, knocked: nil, turn: %{heads: heads, choices: matches(dominoes, heads)}}
   end
 
   def matches dominoes, [] do dominoes end
