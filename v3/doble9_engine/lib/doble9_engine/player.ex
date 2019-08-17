@@ -16,26 +16,25 @@ defmodule Doble9Engine.Player do
 
   @defaults %{
     game: nil,
+    dominoes: [],
     turn: nil,
-    dominoes: []
+    played: nil,
   }
 
   def init %{bot: true} = player do
     send self, :pick
     new player
   end
-
   def init player do new player end
 
   def new player do {:ok, merge(@defaults, player)} end
 
   def handle_cast {:turn, heads}, %{bot: true} = player do
-    send self, {:play, heads}
-    {:noreply, turn(player, heads)}
+    send self, :play
+    {:noreply, turned(heads, player)}
   end
-
   def handle_cast {:turn, heads}, player do
-    {:noreply, turned(player, heads)}
+    {:noreply, turned(heads, player)}
   end
 
   def handle_call {:new_game, game}, _, %{name: name} = player do
@@ -50,7 +49,7 @@ defmodule Doble9Engine.Player do
   end
 
   def handle_call :pick, _, %{name: name, game: game} = player do
-    reply picked player, Game.pick(game, name)
+    reply picked Game.pick(game, name), player
   end
 
   def handle_call {:play, domino}, _, %{name: name, dominoes:  dominoes, game: game} = player do
@@ -66,8 +65,8 @@ defmodule Doble9Engine.Player do
   def reply {error, player} do {:reply, error, player} end
 
   def handle_info :pick, %{name: name, game: game} = player do
-    {:ok, dominoes} = Game.pick game, name
-    {:noreply, %{player | dominoes: dominoes}}
+    {:ok, player} = picked Game.pick(game, name), player
+    {:noreply, player}
   end
 
   def handle_info {:play, heads}, player do
@@ -87,13 +86,13 @@ defmodule Doble9Engine.Player do
     { :reply, error, player }
   end
 
-  def picked %{turn: turn} = player, {:ok, dominoes}  do
+  def picked {:ok, dominoes}, %{turn: turn} = player do
     { :ok, %{ player | dominoes: dominoes, turn: %{turn | choices: dominoes}}}
   end
-  def picked player, {:ok, dominoes} do
+  def picked {:ok, dominoes}, player do
     { :ok, %{ player | dominoes: dominoes}}
   end
-  def picked player, error do
+  def picked error, player do
     { error, player }
   end
 
@@ -101,14 +100,13 @@ defmodule Doble9Engine.Player do
     %{player | turn: nil, played: domino, dominoes: delete(player.dominoes, domino)}
   end
 
-  def turned %{dominoes: dominoes} = player, heads do
+  def turned heads, %{dominoes: dominoes} = player do
     %{player | turn: %{heads: heads, choices: choices(heads, dominoes)}}
   end
 
   def choices [], dominoes do dominoes end
-
   def choices heads, dominoes do
-    filter dominoes, fn [head|tail]=_ -> head in heads or tail in heads end
+    filter dominoes, &{&1 -- heads != &1}
   end
 
 end

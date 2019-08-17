@@ -14,7 +14,7 @@ defmodule Doble9Engine.Game do
     {:ok, new game }
   end
 
-  @dominoes for x <- 0..9, y <- x..9, do: [x|y]
+  @dominoes for x <- 0..9, y <- x..9, do: [x,y]
   @bots [:chino, :angel, :aurelio]
 
   def new %{name: name, player: player} = game do
@@ -73,7 +73,7 @@ defmodule Doble9Engine.Game do
     {:reply, :ok, %{game | table: %{dominoes: [domino], heads: domino}}}
   end
 
-  def handle_play [head|tail] = domino, %{table: %{dominoes: dominoes, heads: [table_head|table_tail]}} = game do
+  def handle_play [head,tail] = domino, %{table: %{dominoes: dominoes, heads: [table_head|table_tail]}} = game do
     cond do
       head == table_head -> played game, [[tail|head]] ++ dominoes, [tail|table_tail]
       head == table_tail -> played game, dominoes ++ [domino], [table_head|tail]
