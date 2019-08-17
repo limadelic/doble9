@@ -65,7 +65,7 @@ defmodule Doble9Engine.Player do
   def reply {error, player} do {:reply, error, player} end
 
   def handle_info :pick, %{name: name, game: game} = player do
-    {:ok, player} = picked Game.pick(game, name), player
+    {:ok, player} = picked Game.pick(game), player
     {:noreply, player}
   end
 
@@ -86,7 +86,7 @@ defmodule Doble9Engine.Player do
     { :reply, error, player }
   end
 
-  def picked {:ok, dominoes}, %{turn: turn} = player do
+  def picked({:ok, dominoes}, %{turn: turn} = player) when turn != nil do
     { :ok, %{ player | dominoes: dominoes, turn: %{turn | choices: dominoes}}}
   end
   def picked {:ok, dominoes}, player do
@@ -101,11 +101,11 @@ defmodule Doble9Engine.Player do
   end
 
   def turned heads, %{dominoes: dominoes} = player do
-    %{player | turn: %{heads: heads, choices: choices(heads, dominoes)}}
+    %{player | turn: %{heads: heads, choices: matches(dominoes, heads)}}
   end
 
-  def choices [], dominoes do dominoes end
-  def choices heads, dominoes do
+  def matches dominoes, [] do dominoes end
+  def matches dominoes, heads do
     filter dominoes, &{&1 -- heads != &1}
   end
 

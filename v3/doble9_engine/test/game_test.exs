@@ -23,8 +23,8 @@ defmodule GameTest do
 
     test "there r 4 players ready", %{game: %{players: players}} = _ do
       assert length(players) == 4
-      for %{dominoes: dominoes} = _ <- players do
-        assert length(dominoes) == 10
+      for player <- players do
+        assert length(the(player).dominoes) == 10
       end
     end
 
@@ -51,8 +51,7 @@ defmodule GameTest do
 
     test "the other players played", %{game: %{players: [_|players]}} = _ do
       for other <- players do
-        p the other
-#        assert the(other).played
+        assert the(other).played
       end
     end
 
