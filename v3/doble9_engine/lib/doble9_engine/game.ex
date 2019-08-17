@@ -82,6 +82,7 @@ defmodule Doble9Engine.Game do
   end
 
   def played game, dominoes, heads do
+    Player.turn
     {:reply, :ok, %{game | table: %{dominoes: dominoes, heads: heads}}}
   end
 

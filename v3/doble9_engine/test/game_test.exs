@@ -2,13 +2,13 @@ defmodule GameTest do
   use ExUnit.Case
 
   alias Doble9Engine.{Game, Player}
-  import Player, only: [login: 1, new_game: 2]
+  import Player, only: [login: 1, new_game: 2, play: 2]
   import TestHelper, only: [the: 1, p: 1]
 
   @game :calle8
   @player :mike
 
-  describe "new single player game" do
+  describe "single player game" do
 
     setup do
       login @player
@@ -26,6 +26,10 @@ defmodule GameTest do
       for %{dominoes: dominoes} = _ <- players do
         assert length(dominoes) == 10
       end
+    end
+
+    test "start", %{player: %{dominoes: [domino|_]}} = _ do
+      play @player, domino
     end
 
   end
