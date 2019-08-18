@@ -2,7 +2,7 @@ defmodule GameTest do
   use ExUnit.Case
 
   alias Doble9Engine.Player
-  import Player, only: [login: 1, new_game: 2, play: 2]
+  import Player, only: [login: 1, new_game: 2, play: 2, knock: 1, turn: 2]
   import TestHelper, only: [the: 1, p: 1, given: 2]
 
   @game :calle8
@@ -37,7 +37,7 @@ defmodule GameTest do
     setup do
       start
       %{dominoes: [domino|_]} = the @player
-      send @player, :play
+      play @player, domino
       %{player: the(@player), game: the(@game), domino: domino}
     end
 
@@ -63,7 +63,7 @@ defmodule GameTest do
         dominoes: [[9,9]]
       }})
       given @player, &(%{&1| dominoes: [[0,0]]})
-      Player.turn @player, [9,9]
+      turn @player, [9,9]
     end
 
     test "player should knock" do
@@ -76,8 +76,31 @@ defmodule GameTest do
     end
 
     test "player knock" do
-      Player.knock @player
+      knock @player
       assert the(@player).knocked == [9,9]
+    end
+
+  end
+
+  describe "happy endings" do
+
+    setup do
+      start
+      given @game, &(%{&1| table: %{
+        heads: [9,9],
+        dominoes: [[9,9]]
+      }})
+      given @player, &(%{&1| dominoes: [[9,8]]})
+      play @player, [9,8]
+    end
+
+    test "its done" do
+      assert the(@game).finished
+    end
+
+    test "player wins" do
+      assert the(@game).finished.winner == @player
+      assert the(@player).won
     end
 
   end
