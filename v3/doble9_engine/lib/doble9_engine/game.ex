@@ -6,6 +6,7 @@ defmodule Doble9Engine.Game do
   def create game, player do GenServer.start_link __MODULE__, %{name: game, player: player}, name: game end
   def pick game do GenServer.call game, :pick end
   def play game, player, domino do GenServer.call game, {:play, player, domino} end
+  def knock game, player do GenServer.call game, {:knock, player} end
 
   def init %{player: player} = game do
     start_bots
@@ -43,7 +44,12 @@ defmodule Doble9Engine.Game do
 
   def handle_call {:play, player, domino}, _, game do
     game = played domino, game
-    Player.turn next(player, game.players), game.table.heads
+    call_next player, game
+    {:reply, :ok, game}
+  end
+
+  def handle_call {:knock, player}, _, game do
+    call_next player, game
     {:reply, :ok, game}
   end
 
@@ -62,6 +68,10 @@ defmodule Doble9Engine.Game do
 
   def place game, dominoes, heads do
     %{game | table: %{dominoes: dominoes, heads: heads}}
+  end
+
+  def call_next player, %{players: players, table: %{heads: heads}} = game do
+    Player.turn next(player, players), heads
   end
 
   def next player, [first|_] = players do

@@ -70,6 +70,11 @@ defmodule GameTest do
       assert the(@player).turn.choices == []
     end
 
+    test "knock" do
+      send @player, :play
+      assert the(@player).knocked == [9,9]
+    end
+
   end
 
   def start do
