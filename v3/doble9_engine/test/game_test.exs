@@ -32,7 +32,7 @@ defmodule GameTest do
 
   end
 
-  describe "start" do
+  describe "play" do
 
     setup do
       start
@@ -70,8 +70,13 @@ defmodule GameTest do
       assert the(@player).turn.choices == []
     end
 
-    test "knock" do
+    test "bot knock" do
       send @player, :play
+      assert the(@player).knocked == [9,9]
+    end
+
+    test "player knock" do
+      Player.knock @player
       assert the(@player).knocked == [9,9]
     end
 

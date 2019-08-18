@@ -12,6 +12,7 @@ defmodule Doble9Engine.Player do
   def pick player do GenServer.call player, :pick end
   def turn player, heads \\ [] do GenServer.cast player, {:turn, heads} end
   def play player, domino do GenServer.call player, {:play, domino}  end
+  def knock player do GenServer.call player, :knock end
 
   @defaults %{
     game: nil,
@@ -35,6 +36,10 @@ defmodule Doble9Engine.Player do
 
   def handle_call {:play, domino}, _, %{name: name, game: game} = player do
     {:reply, :ok, played(Game.play(game, name, domino), domino, player)}
+  end
+
+  def handle_call :knock, _, %{name: name, game: game} = player do
+    {:reply, :ok, knocked(Game.knock(game, name), player)}
   end
 
   def handle_cast {:turn, heads}, %{bot: true} = player do
