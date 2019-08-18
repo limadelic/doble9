@@ -3,7 +3,7 @@ defmodule GameTest do
 
   alias Doble9Engine.Player
   import Player, only: [login: 1, new_game: 2, play: 2]
-  import TestHelper, only: [the: 1, p: 1]
+  import TestHelper, only: [the: 1, p: 1, given: 2]
 
   @game :calle8
   @player :mike
@@ -11,9 +11,7 @@ defmodule GameTest do
   describe "single player game" do
 
     setup do
-      login @player
-      new_game @player, @game
-
+      start
       %{player: the(@player), game: the(@game)}
     end
 
@@ -37,8 +35,7 @@ defmodule GameTest do
   describe "start" do
 
     setup do
-      login @player
-      new_game @player, @game
+      start
       %{dominoes: [domino|_]} = the @player
       send @player, :play
       %{player: the(@player), game: the(@game), domino: domino}
@@ -55,6 +52,29 @@ defmodule GameTest do
       end
     end
 
+  end
+
+  describe "knock" do
+
+    setup do
+      start
+      given @game, &(%{&1| table: %{
+        heads: [9,9],
+        dominoes: [[9,9]]
+      }})
+      given @player, &(%{&1| dominoes: [[0,0]]})
+      Player.turn @player, [9,9]
+    end
+
+    test "player should knock" do
+      assert the(@player).turn.choices == []
+    end
+
+  end
+
+  def start do
+    login @player
+    new_game @player, @game
   end
 
 end
