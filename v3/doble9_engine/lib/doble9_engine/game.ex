@@ -16,7 +16,7 @@ defmodule Doble9Engine.Game do
   @dominoes for x <- 0..9, y <- x..9, do: [x,y]
   @bots [:chino, :angel, :aurelio]
 
-  def new %{name: name, player: player} = game do
+  def new %{name: name, player: player} = _ do
     %{
       name: name,
       table: %{
@@ -51,12 +51,12 @@ defmodule Doble9Engine.Game do
     place game, [domino], domino
   end
 
-  def played [head,tail] = domino, %{table: %{dominoes: dominoes, heads: [table_head|table_tail]}} = game do
+  def played [head,tail] = domino, %{table: %{dominoes: dominoes, heads: [table_head,table_tail]}} = game do
     cond do
-      head == table_head -> place game, [[tail|head]] ++ dominoes, [tail|table_tail]
-      head == table_tail -> place game, dominoes ++ [domino], [table_head|tail]
-      tail == table_tail -> place game, dominoes ++ [[tail|head]], [table_head|head]
-      tail == table_head -> place game, [domino] ++ dominoes, [head|table_tail]
+      head == table_head -> place game, [[tail,head]] ++ dominoes, [tail,table_tail]
+      head == table_tail -> place game, dominoes ++ [domino], [table_head,tail]
+      tail == table_tail -> place game, dominoes ++ [[tail,head]], [table_head,head]
+      tail == table_head -> place game, [domino] ++ dominoes, [head,table_tail]
     end
   end
 
@@ -65,8 +65,7 @@ defmodule Doble9Engine.Game do
   end
 
   def next player, [first|_] = players do
-    players = players ++ [first]
-    at players, find_index(players, &(&1 == player)) + 1
+    at (players ++ [first]), find_index(players, &(&1 == player)) + 1
   end
 
 end

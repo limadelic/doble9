@@ -1,7 +1,7 @@
 defmodule GameTest do
   use ExUnit.Case
 
-  alias Doble9Engine.{Game, Player}
+  alias Doble9Engine.Player
   import Player, only: [login: 1, new_game: 2, play: 2]
   import TestHelper, only: [the: 1, p: 1]
 
@@ -40,7 +40,7 @@ defmodule GameTest do
       login @player
       new_game @player, @game
       %{dominoes: [domino|_]} = the @player
-      play @player, domino
+      send @player, :play
       %{player: the(@player), game: the(@game), domino: domino}
     end
 

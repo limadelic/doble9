@@ -50,7 +50,7 @@ defmodule Doble9Engine.Player do
   end
 
   def handle_info :play, %{game: game, name: name, turn: %{choices: []}} = player do
-    {:noreply, knocked(Game.knock(game, name), player)}
+#    {:noreply, knocked(Game.knock(game, name), player)}
   end
   def handle_info :play, %{game: game, name: name, turn: %{choices: [domino|_]}} = player do
     {:noreply, played(Game.play(game, name, domino), domino, player)}
@@ -82,7 +82,7 @@ defmodule Doble9Engine.Player do
 
   def matches dominoes, [] do dominoes end
   def matches dominoes, heads do
-    filter dominoes, &{&1 -- heads != &1}
+    filter dominoes, fn [head, tail] -> head in heads or tail in heads end
   end
 
 end
