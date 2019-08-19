@@ -8,10 +8,14 @@ defmodule GameTest do
   @game :calle8
   @player :mike
 
+  setup do
+    login @player
+    new_game @player, @game
+  end
+
   describe "single player game" do
 
     setup do
-      start
       %{player: the(@player), game: the(@game)}
     end
 
@@ -35,7 +39,6 @@ defmodule GameTest do
   describe "play" do
 
     setup do
-      start
       %{dominoes: [domino|_]} = the @player
       play @player, domino
       %{player: the(@player), game: the(@game), domino: domino}
@@ -57,7 +60,6 @@ defmodule GameTest do
   describe "knock" do
 
     setup do
-      start
       given @game, &(%{&1| table: %{
         heads: [9,9],
         dominoes: [[9,9]]
@@ -85,7 +87,6 @@ defmodule GameTest do
   describe "happy endings" do
 
     setup do
-      start
       given @game, &(%{&1| table: %{
         heads: [9,9],
         dominoes: [[9,9]]
@@ -103,11 +104,6 @@ defmodule GameTest do
       assert the(@player).won
     end
 
-  end
-
-  def start do
-    login @player
-    new_game @player, @game
   end
 
 end
