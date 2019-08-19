@@ -45,18 +45,15 @@ defmodule Doble9Engine.Game do
   end
 
   def handle_call {:play, player, domino}, _, game do
-    game = played game, domino
-    call_next player, game
-    {:reply, :ok, game}
+    {:reply, :ok, game |> played(domino) |> call_next(player)}
   end
 
   def handle_call {:win, player, domino}, _, game do
-    {:reply, :ok, game |> played(domino) |> won(player) }
+    {:reply, :ok, game |> played(domino) |> won(player)}
   end
 
   def handle_call {:knock, player}, _, game do
-    call_next player, game
-    {:reply, :ok, game}
+    {:reply, :ok, game |> call_next(player)}
   end
 
   def won game, player do
@@ -80,8 +77,9 @@ defmodule Doble9Engine.Game do
     %{game | table: %{dominoes: dominoes, heads: heads}}
   end
 
-  def call_next player, %{players: players, table: %{heads: heads}} = game do
+  def call_next %{players: players, table: %{heads: heads}} = game, player do
     Player.turn next(player, players), heads
+    game
   end
 
   def next player, [first|_] = players do
