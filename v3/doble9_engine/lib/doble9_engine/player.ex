@@ -19,7 +19,8 @@ defmodule Doble9Engine.Player do
     dominoes: [],
     turn: nil,
     played: nil,
-    knocked: nil
+    knocked: nil,
+    won: false,
   }
 
   def init %{bot: true} = player do
@@ -32,6 +33,10 @@ defmodule Doble9Engine.Player do
 
   def handle_call {:new_game, game}, _, %{name: name} = player do
     created Game.create(game, name), game, player
+  end
+
+  def handle_call {:play, domino}, _, %{name: name, game: game, dominoes: [domino]} = player do
+    {:reply, :ok, won(Game.win(game, name, domino), player)}
   end
 
   def handle_call {:play, domino}, _, %{name: name, game: game} = player do
@@ -79,6 +84,10 @@ defmodule Doble9Engine.Player do
 
   def played :ok, domino, player do
     %{player | turn: nil, played: domino, dominoes: delete(player.dominoes, domino)}
+  end
+
+  def won :ok, %{dominoes: [domino]} = player do
+    %{player | turn: nil, played: domino, dominoes: [], won: true}
   end
 
   def turned heads, %{dominoes: dominoes} = player do

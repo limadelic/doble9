@@ -6,6 +6,7 @@ defmodule Doble9Engine.Game do
   def create game, player do GenServer.start_link __MODULE__, %{name: game, player: player}, name: game end
   def pick game do GenServer.call game, :pick end
   def play game, player, domino do GenServer.call game, {:play, player, domino} end
+  def win game, player, domino do GenServer.call game, {:win, player, domino} end
   def knock game, player do GenServer.call game, {:knock, player} end
 
   def init %{player: player} = game do
@@ -26,6 +27,7 @@ defmodule Doble9Engine.Game do
       },
       dominoes: shuffle(@dominoes),
       players: [player|@bots],
+      finished: nil
     }
   end
 
@@ -43,9 +45,13 @@ defmodule Doble9Engine.Game do
   end
 
   def handle_call {:play, player, domino}, _, game do
-    game = played domino, game
+    game = played game, domino
     call_next player, game
     {:reply, :ok, game}
+  end
+
+  def handle_call {:win, player, domino}, _, game do
+    {:reply, :ok, game |> played(domino) |> won(player) }
   end
 
   def handle_call {:knock, player}, _, game do
@@ -53,11 +59,15 @@ defmodule Doble9Engine.Game do
     {:reply, :ok, game}
   end
 
-  def played domino, %{table: %{dominoes: []}} = game do
+  def won game, player do
+    %{game | finished: %{winner: player}}
+  end
+
+  def played %{table: %{dominoes: []}} = game, domino do
     place game, [domino], domino
   end
 
-  def played [head,tail] = domino, %{table: %{dominoes: dominoes, heads: [table_head,table_tail]}} = game do
+  def played %{table: %{dominoes: dominoes, heads: [table_head,table_tail]}} = game, [head,tail] = domino do
     cond do
       head == table_head -> place game, [[tail,head]] ++ dominoes, [tail,table_tail]
       head == table_tail -> place game, dominoes ++ [domino], [table_head,tail]
