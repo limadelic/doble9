@@ -106,4 +106,27 @@ defmodule GameTest do
 
   end
 
+  describe "stuck in the middle" do
+
+    setup do
+      given @game, &(%{&1| table: %{
+        heads: [9,9],
+        dominoes: [[9,9]],
+        knocks: 3,
+      }})
+      given @player, &(%{&1| dominoes: [[0,0]]})
+      knock @player
+    end
+
+    test "it's over" do
+      assert the(@game).finished
+    end
+
+    test "player wins" do
+      assert the(@game).finished.winner == @player
+      assert the(@player).won
+    end
+
+  end
+
 end

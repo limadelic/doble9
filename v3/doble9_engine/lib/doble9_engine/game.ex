@@ -27,7 +27,8 @@ defmodule Doble9Engine.Game do
       },
       dominoes: shuffle(@dominoes),
       players: [player|@bots],
-      finished: nil
+      finished: nil,
+      knocks: 0
     }
   end
 
@@ -52,12 +53,24 @@ defmodule Doble9Engine.Game do
     {:reply, :ok, game |> played(domino) |> won(player)}
   end
 
+  def handle_call {:knock, _}, _, %{knocked: 3} = game do
+    {:reply, :ok, game |> stuck}
+  end
+
   def handle_call {:knock, player}, _, game do
-    {:reply, :ok, game |> call_next(player)}
+    {:reply, :ok, game |> knocked |> call_next(player)}
   end
 
   def won game, player do
     %{game | finished: %{winner: player}}
+  end
+
+  def knocked %{knocks: knocks} = game do
+    %{game | knocks: knocks + 1}
+  end
+
+  def stuck game do
+    %{game | finished: }
   end
 
   def played %{table: %{dominoes: []}} = game, domino do
@@ -74,7 +87,7 @@ defmodule Doble9Engine.Game do
   end
 
   def place game, dominoes, heads do
-    %{game | table: %{dominoes: dominoes, heads: heads}}
+    %{game | table: %{dominoes: dominoes, heads: heads}, knocks: 0}
   end
 
   def call_next %{players: players, table: %{heads: heads}} = game, player do
