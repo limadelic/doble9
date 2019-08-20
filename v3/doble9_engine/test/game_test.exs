@@ -147,11 +147,11 @@ defmodule GameTest do
 
     setup do play @game end
 
-    test "plays a whole game" do
-      assert p the(@game).finished
+    test "plays a whole game", %{finished: finished} = _ do
+      assert p finished
     end
 
-    def play(%{finished: finished} = _) when finished != nil do :ok end
+    def play(%{finished: finished} = game) when finished != nil do game end
     def play _ do
       send @player, :play
       :timer.sleep 1
