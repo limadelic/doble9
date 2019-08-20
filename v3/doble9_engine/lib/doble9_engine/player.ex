@@ -1,8 +1,8 @@
 defmodule Doble9Engine.Player do
   alias Doble9Engine.Game
   use GenServer
-  import List, only: [delete: 2]
-  import Enum, only: [filter: 2]
+  import List, only: [delete: 2, flatten: 1]
+  import Enum, only: [filter: 2, sum: 1]
   import Map, only: [merge: 2]
 
   def login player do GenServer.start_link __MODULE__, %{name: player}, name: player end
@@ -13,6 +13,7 @@ defmodule Doble9Engine.Player do
   def turn player, heads \\ [] do GenServer.cast player, {:turn, heads} end
   def play player, domino do GenServer.call player, {:play, domino}  end
   def knock player do GenServer.call player, :knock end
+  def count player do GenServer.call player, :count end
 
   @defaults %{
     game: nil,
@@ -45,6 +46,10 @@ defmodule Doble9Engine.Player do
 
   def handle_call :knock, _, %{name: name, game: game} = player do
     {:reply, :ok, knocked(Game.knock(game, name), player)}
+  end
+
+  def handle_call :count, _, %{dominoes: dominoes} = player do
+    {:reply, {:ok, dominoes |> flatten |> sum}, player}
   end
 
   def handle_cast {:turn, heads}, %{bot: true} = player do

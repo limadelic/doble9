@@ -1,7 +1,7 @@
 defmodule Doble9Engine.Game do
   use GenServer
   alias Doble9Engine.Player
-  import Enum, only: [shuffle: 1, take: 2, drop: 2, find_index: 2, at: 2]
+  import Enum, only: [shuffle: 1, take: 2, drop: 2, find_index: 2, at: 2, sort: 2, map: 2, filter: 2]
 
   def create game, player do GenServer.start_link __MODULE__, %{name: game, player: player}, name: game end
   def pick game do GenServer.call game, :pick end
@@ -53,8 +53,8 @@ defmodule Doble9Engine.Game do
     {:reply, :ok, game |> played(domino) |> won(player)}
   end
 
-  def handle_call {:knock, _}, _, %{knocked: 3} = game do
-    {:reply, :ok, game |> stuck}
+  def handle_call {:knock, _}, _, %{knocked: 3, players: players} = game do
+    {:reply, :ok, game |> pick_winners(sorted_scores players) |> announce_winners}
   end
 
   def handle_call {:knock, player}, _, game do
@@ -69,8 +69,24 @@ defmodule Doble9Engine.Game do
     %{game | knocks: knocks + 1}
   end
 
-  def stuck game do
-    %{game | finished: }
+  def sorted_scores players do
+    players
+      |> map(&(scored Player.count(&1), &1))
+      |> sort(&(&1.count <= &2.count))
+  end
+
+  def scored {:ok, count}, player do %{player: player, score: count} end
+
+  def pick_winners game, [%{score: tie},%{score: tie}|_] = scores do
+    %{game | finished: %{winners: scores |> filter(&(&1.score == tie)) |> map(&(&1.player))}}
+  end
+
+  def pick_winners game, [%{player: winner}|_] = _ do
+    %{game | finished: %{winner: winner}}
+  end
+
+  def announce_winners game do
+    game
   end
 
   def played %{table: %{dominoes: []}} = game, domino do
