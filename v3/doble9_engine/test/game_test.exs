@@ -114,16 +114,26 @@ defmodule GameTest do
         dominoes: [[9,9]],
       }})
       given @player, &(%{&1| dominoes: [[0,0]]})
-      knock @player
     end
 
     test "it's over" do
+      knock @player
       assert the(@game).finished
     end
 
     test "player wins" do
+      knock @player
       assert the(@game).finished.winner == @player
       assert the(@player).won
+    end
+
+    test "with you" do
+      given :chino, &(%{&1| dominoes: [[0,0]]})
+      knock @player
+
+      assert the(@game).finished.winners == [@player, :chino]
+      assert the(@player).won
+      assert the(:chino).won
     end
 
   end

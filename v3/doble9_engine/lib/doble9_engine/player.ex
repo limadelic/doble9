@@ -71,6 +71,10 @@ defmodule Doble9Engine.Player do
     {:noreply, played(Game.play(game, name, domino), domino, player)}
   end
 
+  def handle_info :won, player do
+    {:noreply, %{player | won: true}}
+  end
+
   def created {:ok, _}, game, player do
     send self, :pick
     {:reply, :ok, %{player | game: game}}

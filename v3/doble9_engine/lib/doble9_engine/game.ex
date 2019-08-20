@@ -66,7 +66,6 @@ defmodule Doble9Engine.Game do
     {:noreply, game |> pick_winners(sorted_scores players) |> announce_winners}
   end
 
-
   def won game, player do
     %{game | finished: %{winner: player}}
   end
@@ -81,7 +80,7 @@ defmodule Doble9Engine.Game do
       |> sort(&(&1.score <= &2.score))
   end
 
-  def scored {:ok, count}, player do IO.inspect %{player: player, score: count} end
+  def scored {:ok, count}, player do %{player: player, score: count} end
 
   def pick_winners game, [%{score: tie},%{score: tie}|_] = scores do
     %{game | finished: %{winners: scores |> filter(&(&1.score == tie)) |> map(&(&1.player))}}
@@ -91,7 +90,13 @@ defmodule Doble9Engine.Game do
     %{game | finished: %{winner: winner}}
   end
 
-  def announce_winners game do
+  def announce_winners %{finished: %{winners: winners}} = game do
+    for winner <- winners, do: send winner, :won
+    game
+  end
+
+  def announce_winners %{finished: %{winner: winner}} = game do
+    send winner, :won
     game
   end
 
