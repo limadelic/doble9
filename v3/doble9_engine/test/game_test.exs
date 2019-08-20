@@ -109,10 +109,9 @@ defmodule GameTest do
   describe "stuck in the middle" do
 
     setup do
-      given @game, &(%{&1| table: %{
+      given @game, &(%{&1| knocks: 3, table: %{
         heads: [9,9],
         dominoes: [[9,9]],
-        knocks: 3,
       }})
       given @player, &(%{&1| dominoes: [[0,0]]})
       knock @player

@@ -53,7 +53,7 @@ defmodule Doble9Engine.Game do
     {:reply, :ok, game |> played(domino) |> won(player)}
   end
 
-  def handle_call {:knock, _}, _, %{knocked: 3, players: players} = game do
+  def handle_call {:knock, _}, _, %{knocks: 3, players: players} = game do
     {:reply, :ok, game |> pick_winners(sorted_scores players) |> announce_winners}
   end
 
@@ -70,12 +70,13 @@ defmodule Doble9Engine.Game do
   end
 
   def sorted_scores players do
+    IO.inspect :scores
     players
       |> map(&(scored Player.count(&1), &1))
       |> sort(&(&1.count <= &2.count))
   end
 
-  def scored {:ok, count}, player do %{player: player, score: count} end
+  def scored {:ok, count}, player do IO.inspect %{player: player, score: count} end
 
   def pick_winners game, [%{score: tie},%{score: tie}|_] = scores do
     %{game | finished: %{winners: scores |> filter(&(&1.score == tie)) |> map(&(&1.player))}}
