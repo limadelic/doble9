@@ -118,7 +118,7 @@ defmodule GameTest do
     end
 
     test "it's over" do
-      assert p(the(@game)).finished
+      assert the(@game).finished
     end
 
     test "player wins" do

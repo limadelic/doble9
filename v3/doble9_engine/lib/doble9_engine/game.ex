@@ -36,11 +36,6 @@ defmodule Doble9Engine.Game do
     for bot <- @bots do send self, {:start_bot, bot} end
   end
 
-  def handle_info {:start_bot, bot}, %{name: name} = game do
-    Player.start_bot bot, name
-    {:noreply, game}
-  end
-
   def handle_call :pick, _, %{dominoes: dominoes} = game do
     {:reply, {:ok, take(dominoes, 10)}, %{game | dominoes: drop(dominoes, 10)}}
   end
@@ -53,13 +48,24 @@ defmodule Doble9Engine.Game do
     {:reply, :ok, game |> played(domino) |> won(player)}
   end
 
-  def handle_call {:knock, _}, _, %{knocks: 3, players: players} = game do
-    {:reply, :ok, game |> pick_winners(sorted_scores players) |> announce_winners}
+  def handle_call {:knock, _}, _, %{knocks: 3} = game do
+    send self, :stucked
+    {:reply, :ok, game |> knocked}
   end
 
   def handle_call {:knock, player}, _, game do
     {:reply, :ok, game |> knocked |> call_next(player)}
   end
+
+  def handle_info {:start_bot, bot}, %{name: name} = game do
+    Player.start_bot bot, name
+    {:noreply, game}
+  end
+
+  def handle_info :stucked, %{players: players} = game do
+    {:noreply, game |> pick_winners(sorted_scores players) |> announce_winners}
+  end
+
 
   def won game, player do
     %{game | finished: %{winner: player}}
@@ -70,10 +76,9 @@ defmodule Doble9Engine.Game do
   end
 
   def sorted_scores players do
-    IO.inspect :scores
     players
       |> map(&(scored Player.count(&1), &1))
-      |> sort(&(&1.count <= &2.count))
+      |> sort(&(&1.score <= &2.score))
   end
 
   def scored {:ok, count}, player do IO.inspect %{player: player, score: count} end
