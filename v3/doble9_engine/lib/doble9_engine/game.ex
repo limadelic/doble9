@@ -91,7 +91,7 @@ defmodule Doble9Engine.Game do
   end
 
   def announce_winners %{finished: %{winners: winners}} = game do
-    for winner <- winners, do: send winner, :won
+    for winner <- winners do send winner, :won end
     game
   end
 

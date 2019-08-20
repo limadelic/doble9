@@ -138,4 +138,20 @@ defmodule GameTest do
 
   end
 
+  describe "play a game" do
+
+    setup do play end
+
+    test "plays a whole game" do
+      assert the(@game).finished
+    end
+
+    def play(%{finished: finished} = _) when finished != nil do :ok end
+    def play _ \\ nil do
+      send @player, :play
+      play the @game
+    end
+
+  end
+
 end
