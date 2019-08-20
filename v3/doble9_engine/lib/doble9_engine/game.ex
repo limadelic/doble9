@@ -123,7 +123,7 @@ defmodule Doble9Engine.Game do
   end
 
   def next player, [first|_] = players do
-    at (players ++ [first]), find_index(players, &(&1 == player)) + 1
+    at players ++ [first], find_index(players, &(&1 == player)) + 1
   end
 
 end

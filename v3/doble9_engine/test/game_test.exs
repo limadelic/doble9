@@ -51,8 +51,13 @@ defmodule GameTest do
 
     test "the other players played", %{game: %{players: [_|players]}} = _ do
       for other <- players do
-        assert the(other).played
+        assert the(other).played || the(other).knocked
       end
+    end
+
+    test "is ready to play again" do
+      :timer.sleep 1
+      assert the(@player).turn
     end
 
   end
@@ -140,15 +145,16 @@ defmodule GameTest do
 
   describe "play a game" do
 
-    setup do play end
+    setup do play @game end
 
     test "plays a whole game" do
-      assert the(@game).finished
+      assert p the(@game).finished
     end
 
     def play(%{finished: finished} = _) when finished != nil do :ok end
-    def play _ \\ nil do
+    def play _ do
       send @player, :play
+      :timer.sleep 1
       play the @game
     end
 
