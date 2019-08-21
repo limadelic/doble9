@@ -1,26 +1,28 @@
 defmodule Doble9Engine.Game do
   use GenServer
   alias Doble9Engine.Player
+  import Player, only: [turn: 2, turn: 1, start_bot: 2, count: 1]
   import Enum, only: [shuffle: 1, take: 2, drop: 2, find_index: 2, at: 2, sort: 2, map: 2, filter: 2]
 
-  def create game, player do GenServer.start_link __MODULE__, %{name: game, player: player}, name: game end
+  def create game, player do GenServer.start_link __MODULE__, {game, player}, name: game end
+  def new game do GenServer.call game, :new end
   def pick game do GenServer.call game, :pick end
   def play game, player, domino do GenServer.call game, {:play, player, domino} end
   def win game, player, domino do GenServer.call game, {:win, player, domino} end
   def knock game, player do GenServer.call game, {:knock, player} end
 
-  def init %{player: player} = game do
-    start_bots
-    Player.turn player
-    {:ok, new game }
+  def init {game, player} do
+    start_bots()
+    turn player
+    {:ok, start(game, player)}
   end
 
   @dominoes for x <- 0..9, y <- x..9, do: [x,y]
   @bots [:chino, :angel, :aurelio]
 
-  def new %{name: name, player: player} = _ do
+  def start game, player do
     %{
-      name: name,
+      name: game,
       table: %{
         dominoes: [],
         heads: []
@@ -33,7 +35,13 @@ defmodule Doble9Engine.Game do
   end
 
   def start_bots do
-    for bot <- @bots do send self, {:start_bot, bot} end
+    for bot <- @bots do send self(), {:start_bot, bot} end
+  end
+
+  def handle_call :new, _, %{name: name, players: players} = game do
+
+    turn player
+    {:reply, :ok, start(name, player)}
   end
 
   def handle_call :pick, _, %{dominoes: dominoes} = game do
@@ -49,7 +57,7 @@ defmodule Doble9Engine.Game do
   end
 
   def handle_call {:knock, _}, _, %{knocks: 3} = game do
-    send self, :stucked
+    send self(), :stucked
     {:reply, :ok, game |> knocked}
   end
 
@@ -58,7 +66,7 @@ defmodule Doble9Engine.Game do
   end
 
   def handle_info {:start_bot, bot}, %{name: name} = game do
-    Player.start_bot bot, name
+    start_bot bot, name
     {:noreply, game}
   end
 
@@ -76,7 +84,7 @@ defmodule Doble9Engine.Game do
 
   def sorted_scores players do
     players
-      |> map(&(scored Player.count(&1), &1))
+      |> map(&(scored count(&1), &1))
       |> sort(&(&1.score <= &2.score))
   end
 
@@ -125,7 +133,7 @@ defmodule Doble9Engine.Game do
   end
 
   def call_next %{players: players, table: %{heads: heads}} = game, player do
-    Player.turn next(player, players), heads
+    turn next(player, players), heads
     game
   end
 

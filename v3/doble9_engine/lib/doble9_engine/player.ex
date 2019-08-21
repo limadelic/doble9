@@ -25,7 +25,7 @@ defmodule Doble9Engine.Player do
   }
 
   def init %{bot: true} = player do
-    send self, :pick
+    send self(), :pick
     new player
   end
   def init player do new player end
@@ -53,14 +53,14 @@ defmodule Doble9Engine.Player do
   end
 
   def handle_cast {:turn, heads}, %{bot: true} = player do
-    send self, :play
+    send self(), :play
     {:noreply, turned(heads, player)}
   end
   def handle_cast {:turn, heads}, player do
     {:noreply, turned(heads, player)}
   end
 
-  def handle_info :pick, %{name: name, game: game} = player do
+  def handle_info :pick, %{game: game} = player do
     {:noreply, picked(Game.pick(game), player)}
   end
 
@@ -76,7 +76,7 @@ defmodule Doble9Engine.Player do
   end
 
   def created {:ok, _}, game, player do
-    send self, :pick
+    send self(), :pick
     {:reply, :ok, %{player | game: game}}
   end
 
