@@ -91,8 +91,8 @@ defmodule Doble9Engine.Player do
     %{player | turn: nil, knocked: heads }
   end
 
-  def played :ok, domino, player do
-    %{player | turn: nil, played: domino, dominoes: delete(player.dominoes, domino)}
+  def played :ok, domino, %{dominoes: dominoes} = player do
+    %{player | turn: nil, played: domino, dominoes: filter(dominoes, &(&1 -- domino != []))}
   end
 
   def won :ok, %{dominoes: [domino]} = player do

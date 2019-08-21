@@ -1,6 +1,6 @@
 defmodule Doble9Engine.Helpers do
 
-  alias Doble9Engine.Player
+  alias Doble9Engine.{Player, Game}
 
   @game :calle8
   @player :mike
