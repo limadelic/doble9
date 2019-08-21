@@ -152,14 +152,6 @@ defmodule GameTest do
       assert p finished
     end
 
-    def play %{finished: nil} do
-      send @player, :play
-      :timer.sleep 1
-      play the @game
-    end
-
-    def play game do game end
-
   end
 
   describe "play another" do
@@ -167,6 +159,7 @@ defmodule GameTest do
     setup do
       play the @game
       new @game
+      %{player: the(@player), game: the(@game)}
     end
 
     test "player picked 10 dominoes", %{player: %{dominoes: dominoes}} = _ do

@@ -38,8 +38,8 @@ defmodule Doble9Engine.Game do
     for bot <- @bots do send self(), {:start_bot, bot} end
   end
 
-  def handle_call :new, _, %{name: name, players: players} = game do
-
+  def handle_call :new, _, %{name: name, players: [player|_] = players} = game do
+    for player <- players do send player, :pick end
     turn player
     {:reply, :ok, start(name, player)}
   end
