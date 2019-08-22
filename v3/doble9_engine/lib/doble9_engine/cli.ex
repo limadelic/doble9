@@ -28,4 +28,18 @@ defmodule Doble9Engine.Cli do
   def dominoes do p the(@player).dominoes; :ok end
   def table do p the(@game).table; :ok end
 
+  def domino x do
+    p "         "
+    p "┌───┬───┐"
+    p "│ 9 │ 9 │"
+    p "└───┴───┘"
+    p "         "
+    p "┌───┐"
+    p "│ 9 │"
+    p "├───┤"
+    p "│ 9 │"
+    p "└───┘"
+    :ok
+  end
+
 end
