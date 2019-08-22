@@ -1,7 +1,7 @@
 defmodule Doble9Engine.Player do
   alias Doble9Engine.Game
   use GenServer
-  import List, only: [delete: 2, flatten: 1]
+  import List, only: [flatten: 1]
   import Enum, only: [filter: 2, sum: 1]
   import Map, only: [merge: 2]
 
