@@ -3,7 +3,7 @@ defmodule GameTest do
 
   alias Doble9Engine.{Player, Helpers, Game}
   import Player, only: [login: 1, new_game: 2, play: 2, knock: 1, turn: 2]
-  import Helpers, only: [the: 1, p: 1, given: 2]
+  import Helpers, only: [the: 1, i: 1, given: 2]
   import Game, only: [new: 1]
 
   @game :calle8
@@ -149,7 +149,7 @@ defmodule GameTest do
     setup do play the @game end
 
     test "plays a whole game", %{finished: finished} = _ do
-      assert p finished
+      assert i finished
     end
 
   end

@@ -4,6 +4,7 @@ defmodule Doble9Engine.Helpers do
 
   def given server, state do :sys.replace_state server, state end
 
-  def p x do IO.inspect x, charlists: :as_lists end
+  def p x do IO.puts x end
+  def i x do IO.inspect x, charlists: :as_lists end
 
 end

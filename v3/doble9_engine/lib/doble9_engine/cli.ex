@@ -1,4 +1,4 @@
-defmodule Doble9Engine.Cli do
+defmodule Doble9Engine.CLI do
 
   alias Doble9Engine.{Player, Game, Helpers}
   import Helpers, only: [the: 1, p: 1]
