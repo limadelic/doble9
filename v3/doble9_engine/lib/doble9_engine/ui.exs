@@ -17,9 +17,7 @@ defmodule Doble9Engine.UI do
     view do
       canvas height: height, width: width do
         [
-          domino([7,9], div(width, 2) - 9, div(height, 2) + 1, domino(:l,:x)),
-          domino([9,9], div(width, 2), div(height, 2), domino(:l,:y)),
-          domino([9,8], div(width, 2) + 5, div(height, 2) + 1, domino(:l,:x)),
+          domino([9,9], div(width, 2), div(height, 2), glyph(:xl,:y)),
         ]
       end
     end
@@ -36,7 +34,21 @@ defmodule Doble9Engine.UI do
   def h_or_t [_,t], "t" do "#{t}" end
   def h_or_t _, c do c end
 
-  def domino :l, :y do
+  def glyph :xl, :y do
+    [
+      "┌───────┐",
+      "│ ● ● ● │",
+      "│ ● ● ● │",
+      "│ ● ● ● │",
+      "├───────┤",
+      "│ ● ● ● │",
+      "│ ● ● ● │",
+      "│ ● ● ● │",
+      "└───────┘"
+    ]
+  end
+
+  def glyph :l, :y do
     [
       "┌───┐",
       "│ h │",
@@ -46,7 +58,7 @@ defmodule Doble9Engine.UI do
     ]
   end
 
-  def domino :l, :x do
+  def glyph :l, :x do
     [
       "┌───┬───┐",
       "│ h │ t │",
@@ -54,7 +66,7 @@ defmodule Doble9Engine.UI do
     ]
   end
 
-  def domino :m, :y do
+  def glyph :m, :y do
     [
       "┌─┐",
       "│h│",
@@ -64,7 +76,7 @@ defmodule Doble9Engine.UI do
     ]
   end
 
-  def domino :m, :x do
+  def glyph :m, :x do
     [
       "┌─┬─┐",
       "│h│t│",
@@ -72,7 +84,7 @@ defmodule Doble9Engine.UI do
     ]
   end
 
-  def domino :s, :y do
+  def glyph :s, :y do
     [
       "h",
       "─",
@@ -80,7 +92,7 @@ defmodule Doble9Engine.UI do
     ]
   end
 
-  def domino :s, :x do
+  def glyph :s, :x do
     [
       "h│t",
     ]
