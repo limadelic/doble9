@@ -15,10 +15,10 @@ defmodule Doble9Engine.UI do
 
   def render %{height: height, width: width} do
     view do
-      panel height: :fill, padding: 0 do
-        canvas height: height, width: width do
-          domino [9,9], div(width, 2), div(height, 2), :vertical
-        end
+      canvas height: height, width: width do
+        [
+          domino([9,9], div(width, 2), div(height, 2), :vertical)
+        ]
       end
     end
   end
@@ -50,6 +50,56 @@ defmodule Doble9Engine.UI do
       canvas_cell(x: x + 1, y: y + 2, char: "─"),
       canvas_cell(x: x - 2, y: y + 2, char: "└"),
       canvas_cell(x: x + 2, y: y + 2, char: "┘"),
+    ]
+  end
+
+  def domino :l, :y do
+    [
+      "┌───┐",
+      "│ h │",
+      "├───┤",
+      "│ t │",
+      "└───┘"
+    ]
+  end
+
+  def domino :l, :x do
+    [
+      "┌───┬───┐",
+      "│ h │ t │",
+      "└───┴───┘",
+    ]
+  end
+
+  def domino :m, :y do
+    [
+      "┌─┐",
+      "│h│",
+      "├─┤",
+      "│t│",
+      "└─┘"
+    ]
+  end
+
+  def domino :m, :x do
+    [
+      "┌─┬─┐",
+      "│h│t│",
+      "└─┴─┘",
+    ]
+  end
+
+  def domino :s, :y do
+    [
+      "h",
+      "─",
+      "t",
+    ]
+  end
+
+  def domino :s, :x do
+    [
+      "h│t",
     ]
   end
 
