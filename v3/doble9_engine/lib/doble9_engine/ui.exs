@@ -1,8 +1,8 @@
 defmodule Doble9Engine.UI do
   @behaviour Ratatouille.App
 
-  import Ratatouille.View
   alias Doble9Engine.{Player, Game, Helpers}
+  import Ratatouille.View
 
   @game :calle8
   @player :mike
@@ -17,41 +17,24 @@ defmodule Doble9Engine.UI do
     view do
       canvas height: height, width: width do
         [
-          domino([9,9], div(width, 2), div(height, 2), :vertical)
+          domino([7,9], div(width, 2) - 9, div(height, 2) + 1, domino(:l,:x)),
+          domino([9,9], div(width, 2), div(height, 2), domino(:l,:y)),
+          domino([9,8], div(width, 2) + 5, div(height, 2) + 1, domino(:l,:x)),
         ]
       end
     end
   end
 
-  def domino [head,tail], x, y, :vertical do
-    [
-      canvas_cell(x: x, y: y - 2, char: "─"),
-      canvas_cell(x: x - 1, y: y - 2, char: "─"),
-      canvas_cell(x: x + 1, y: y - 2, char: "─"),
-      canvas_cell(x: x - 2, y: y - 2, char: "┌"),
-      canvas_cell(x: x + 2, y: y - 2, char: "┐"),
-
-      canvas_cell(x: x, y: y - 1, char: "#{head}"),
-      canvas_cell(x: x - 2, y: y - 1, char: "│"),
-      canvas_cell(x: x + 2, y: y - 1, char: "│"),
-
-      canvas_cell(x: x, y: y, char: "─"),
-      canvas_cell(x: x - 1, y: y, char: "─"),
-      canvas_cell(x: x + 1, y: y, char: "─"),
-      canvas_cell(x: x + 2, y: y, char: "┤"),
-      canvas_cell(x: x - 2, y: y, char: "├"),
-
-      canvas_cell(x: x, y: y + 1, char: "#{tail}"),
-      canvas_cell(x: x - 2, y: y + 1, char: "│"),
-      canvas_cell(x: x + 2, y: y + 1, char: "│"),
-
-      canvas_cell(x: x, y: y + 2, char: "─"),
-      canvas_cell(x: x - 1, y: y + 2, char: "─"),
-      canvas_cell(x: x + 1, y: y + 2, char: "─"),
-      canvas_cell(x: x - 2, y: y + 2, char: "└"),
-      canvas_cell(x: x + 2, y: y + 2, char: "┘"),
-    ]
+  def domino domino, left, top, [row|_] = glyph do
+    for x <- 0..String.length(row) - 1, y <- 0..length(glyph) - 1 do
+      canvas_cell x: left + x, y: top + y, char: domino_char(domino, x, y, glyph)
+    end
   end
+
+  def domino_char domino, x, y, glyph do h_or_t domino, String.at(Enum.at(glyph, y), x) end
+  def h_or_t [h,_], "h" do "#{h}" end
+  def h_or_t [_,t], "t" do "#{t}" end
+  def h_or_t _, c do c end
 
   def domino :l, :y do
     [
