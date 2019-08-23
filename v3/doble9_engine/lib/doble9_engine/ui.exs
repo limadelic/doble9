@@ -48,6 +48,16 @@ defmodule Doble9Engine.UI do
     ]
   end
 
+  def glyph :xl, :x do
+    [
+      "┌───────┬───────┐",
+      "│ ● ● ● │ ● ● ● │",
+      "│ ● ● ● │ ● ● ● │",
+      "│ ● ● ● │ ● ● ● │",
+      "└───────┴───────┘",
+    ]
+  end
+
   def glyph :l, :y do
     [
       "┌───┐",
