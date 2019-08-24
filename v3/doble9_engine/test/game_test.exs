@@ -115,6 +115,7 @@ defmodule GameTest do
   describe "stuck in the middle" do
 
     setup do
+      :timer.sleep 5
       given @game, &(%{&1| knocks: 3, table: %{
         heads: [9,9],
         dominoes: [[9,9]],
