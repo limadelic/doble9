@@ -34,7 +34,7 @@ defmodule Doble9Engine.Assets do
     ]
   end
 
-  def frame :xl, :y do
+  def frame :xl, :x do
     [
       "┌───────┬───────┐",
       "│       │       │",
