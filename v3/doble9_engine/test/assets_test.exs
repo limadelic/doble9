@@ -1,7 +1,7 @@
 defmodule AssetsTest do
   use ExUnit.Case, async: true
 
-  import Doble9Engine.Assets
+  import Doble9Engine.UI.Assets
 
   describe "numbers" do
 

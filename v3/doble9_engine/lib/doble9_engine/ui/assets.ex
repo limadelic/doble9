@@ -1,4 +1,4 @@
-defmodule Doble9Engine.Assets do
+defmodule Doble9Engine.UI.Assets do
 
   def number n, size, axis do
     numbers(size, axis) |> Enum.map(&(Enum.at &1, n))
