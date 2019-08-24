@@ -1,0 +1,20 @@
+defmodule AssetsTest do
+  use ExUnit.Case, async: true
+
+  import Doble9Engine.Assets
+
+  describe "numbers" do
+
+    test "find the nine" do
+
+      assert number(9,:xl,:x) == [
+        " ● ● ● ",
+        " ● ● ● ",
+        " ● ● ● ",
+      ]
+
+    end
+
+  end
+
+end

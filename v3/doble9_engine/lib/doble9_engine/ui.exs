@@ -1,59 +1,66 @@
 defmodule Doble9Engine.UI do
   @behaviour Ratatouille.App
 
-  alias Doble9Engine.{Player, Game, Helpers}
+  alias Doble9Engine.{Player, Game, Helpers, Assets}
   import Ratatouille.View
-  import Doble9Engine.UI.Assets
+  import Assets
 
   @game :calle8
   @player :mike
 
-  def init %{window: window} do
+  def init state do
     Player.login @player
     Player.new_game @player, @game
-    window
+    state
   end
 
-  def render %{height: height, width: width} do
+  def render %{window: %{height: height, width: width}} do
     view do
       canvas height: height, width: width do
         [
-          domino([9,9], {:xl, :y, div(width, 2), div(height, 2)}),
+          render(%{domino: [9,9], size: :xl, axis: :y, left: div(width, 2), top: div(height, 2)}),
         ]
       end
     end
   end
 
-  def domino [h, t], style do
+  def render %{domino: [h,t], size: size, axis: axis, left: left, top: top} = domino do
     [
-      glyph(:frame, style),
-      glyph({:number, h}, style),
-      glyph({:number, t}, style),
+      render(%{left: left, top: top, frame: frame(size, axis)}),
+      render(%{left: left, top: top, head: number(h, size, axis)}),
+      render(%{left: left, top: top, tail: number(t, size, axis), axis: axis}),
     ]
   end
 
-  def glyph :frame, {size, axis, left, top} do
-    frame size, axis
-    |> measured
-    |> glyph_cells(left, top)
+  def render %{frame: frame, left: left, top: top} do
+    {width, height} = measure frame
+    render %{glyph: frame, width: width, height: height, left: left, top: top, bk: false}
   end
 
-  def measured [row|_] = glyph do
-    %{glyph: glyph, width: String.length(row), height: length(glyph)}
+  def render %{head: head, left: left, top: top} do
+    {width, height} = measure head
+    render %{glyph: head, width: width, height: height, left: left + 1, top: top + 1, bk: true}
   end
 
-  def glyph_cells glyph, left, top,
+  def render %{tail: tail, left: left, top: top, axis: :x} do
+    {width, height} = measure tail
+    render %{glyph: tail, width: width, height: height, left: left + width + 2, top: top + 1}
+  end
 
-  def glyph domino, left, top, [row|_] = glyph do
-    for x <- 0..String.length(row) - 1, y <- 0..length(glyph) - 1 do
-      canvas_cell x: left + x, y: top + y, char: domino_char(domino, x, y, glyph)
+  def render %{tail: tail, left: left, top: top, axis: :y} do
+    {width, height} = measure tail
+    render %{glyph: tail, width: width, height: height, left: left + 1, top: top + height + 2}
+  end
+
+  def render %{glyph: glyph, width: width, height: height, left: left, top: top, bk: bk} do
+    for x <- 0..width - 1, y <- 0..height - 1 do
+      render %{char: char_at(glyph, x, y), x: left + x, y: top + y, bk: bk}
     end
   end
 
-  def domino_char domino, x, y, glyph do h_or_t domino, String.at(Enum.at(glyph, y), x) end
-  def h_or_t [h,_], "h" do "#{h}" end
-  def h_or_t [_,t], "t" do "#{t}" end
-  def h_or_t _, c do c end
+  def render %{char: " ", bk: false} do end
+
+  def render %{char: _} = cell do canvas_cell cell end
 
 end
 
