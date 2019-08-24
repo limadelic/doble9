@@ -2,35 +2,46 @@ defmodule Doble9Engine.UI do
   @behaviour Ratatouille.App
 
   alias Doble9Engine.{Player, Game, Helpers, Assets}
+  import Enum, only: [with_index: 1]
   import Ratatouille.View
   import Assets
+  import Helpers
 
   @game :calle8
   @player :mike
+  @size :xl
 
-  def init state do
+  def init %{window: window} do
     Player.login @player
     Player.new_game @player, @game
-    state
+    %{window: window, player: the(@player)}
   end
 
-  def render %{window: %{height: height, width: width}} do
+  def render %{window: %{height: height, width: width}, player: player} do
     view do
       canvas height: height, width: width do
         [
-          render(%{domino: [8,9], size: :xl, axis: :x, left: div(width, 2) - 18, top: div(height, 2) + 2}),
-          render(%{domino: [9,9], size: :xl, axis: :y, left: div(width, 2), top: div(height, 2)}),
-          render(%{domino: [9,7], size: :xl, axis: :x, left: div(width, 2) + 10, top: div(height, 2) + 2}),
+          render(%{player: player, height: height, width: width})
         ]
       end
     end
   end
 
+  def render %{player: %{dominoes: dominoes}, width: window_width, height: window_height} do
+    {width, height} = measure frame @size, :y
+    left = div(window_width - (width * length(dominoes)), 2)
+    top = window_height - height
+
+    for {domino, i} <- with_index dominoes do
+      render %{domino: domino, size: @size, axis: :y, left: left + i * width, top: top}
+    end
+  end
+
   def render %{domino: [h,t], size: size, axis: axis, left: left, top: top} = domino do
     [
-      render(%{left: left, top: top, frame: frame(size, axis)}),
-      render(%{left: left, top: top, head: number(h, size, axis)}),
-      render(%{left: left, top: top, tail: number(t, size, axis), axis: axis}),
+      render(%{frame: frame(size, axis), left: left, top: top}),
+      render(%{head: number(h, size, axis), left: left, top: top, }),
+      render(%{tail: number(t, size, axis), axis: axis, left: left, top: top, }),
     ]
   end
 
