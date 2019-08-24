@@ -24,10 +24,9 @@ defmodule Doble9Engine.Game do
     %{
       name: game,
       table: %{
-        dominoes: [],
+        dominoes: shuffle(@dominoes),
         heads: []
       },
-      dominoes: shuffle(@dominoes),
       players: [player|@bots],
       finished: nil,
       knocks: 0
@@ -44,8 +43,8 @@ defmodule Doble9Engine.Game do
     {:reply, :ok, start(name, player)}
   end
 
-  def handle_call :pick, _, %{dominoes: dominoes} = game do
-    {:reply, {:ok, take(dominoes, 10)}, %{game | dominoes: drop(dominoes, 10)}}
+  def handle_call :pick, _, %{table: %{dominoes: dominoes} = table} = game do
+    {:reply, {:ok, take(dominoes, 10)}, %{game | table: %{table | dominoes: drop(dominoes, 10)}}}
   end
 
   def handle_call {:play, player, domino}, _, game do
@@ -108,7 +107,7 @@ defmodule Doble9Engine.Game do
     game
   end
 
-  def played %{table: %{dominoes: []}} = game, domino do
+  def played %{table: %{heads: []}} = game, domino do
     place game, [domino], domino
   end
 
