@@ -25,7 +25,8 @@ defmodule Doble9Engine.Game do
       name: game,
       table: %{
         dominoes: shuffle(@dominoes),
-        heads: []
+        heads: [],
+        start: nil,
       },
       players: [player|@bots],
       finished: nil,
@@ -107,11 +108,11 @@ defmodule Doble9Engine.Game do
     game
   end
 
-  def played %{table: %{heads: []}} = game, domino do
-    place game, [domino], domino
+  def played %{table: %{heads: []}} = game, start do
+    place game, [start], start
   end
 
-  def played %{table: %{dominoes: dominoes, heads: [head,table_tail]}} = game, [head,tail] = _ do
+  def played %{table: %{dominoes: dominoes, heads: [head,table_tail]}} = game, [head,tail] do
     place game, [[tail,head]] ++ dominoes, [tail,table_tail]
   end
 
@@ -119,7 +120,7 @@ defmodule Doble9Engine.Game do
     place game, dominoes ++ [domino], [table_head,tail]
   end
 
-  def played %{table: %{dominoes: dominoes, heads: [table_head,tail]}} = game, [head,tail] = _ do
+  def played %{table: %{dominoes: dominoes, heads: [table_head,tail]}} = game, [head,tail] do
     place game, dominoes ++ [[tail,head]], [table_head,head]
   end
 
@@ -127,8 +128,12 @@ defmodule Doble9Engine.Game do
     place game, [domino] ++ dominoes, [head,table_tail]
   end
 
-  def place game, dominoes, heads do
-    %{game | table: %{dominoes: dominoes, heads: heads}, knocks: 0}
+  def place game, [start], _ do
+    %{game | table: %{dominoes: [start], heads: start, start: start}}
+  end
+
+  def place %{table: table} = game, dominoes, heads do
+    %{game | table: %{table | dominoes: dominoes, heads: heads}, knocks: 0}
   end
 
   def call_next %{players: players, table: %{heads: heads}} = game, player do

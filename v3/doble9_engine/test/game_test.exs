@@ -45,6 +45,10 @@ defmodule GameTest do
       %{player: the(@player), game: the(@game), domino: domino}
     end
 
+    test "its the start", %{domino: domino, game: %{table: table}} do
+      assert domino == table.start
+    end
+
     test "played domino", %{player: player, domino: domino, game: %{table: table}} = _ do
       assert player.played == domino
       assert domino in table.dominoes

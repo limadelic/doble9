@@ -1,7 +1,7 @@
 defmodule Doble9Engine.UI do
   @behaviour Ratatouille.App
 
-  alias Doble9Engine.UI.Player
+  alias Doble9Engine.UI.{Player, Table}
 
   import Ratatouille.View
   import Enum, only: [map: 2]
@@ -10,7 +10,7 @@ defmodule Doble9Engine.UI do
 
   @game :calle8
   @player :mike
-  @numbers 48..67
+  @numbers 48..57
 
   def init %{window: window} do
     login @player
@@ -30,10 +30,11 @@ defmodule Doble9Engine.UI do
 
   def update game, {_, x} do i x; game end
 
-  def render %{game: %{players: [player, right, top, left]}, window: %{height: height, width: width} = window} do
+  def render %{game: %{table: table, players: [player, right, top, left]}, window: %{height: height, width: width} = window} do
     view do
       canvas height: height, width: width do
         [
+          Table.render(%{table: table, window: window}),
           Player.render(%{player: the(top), at: :top, window: window}),
           Player.render(%{player: the(left), at: :left, window: window}),
           Player.render(%{player: the(right), at: :right, window: window}),
