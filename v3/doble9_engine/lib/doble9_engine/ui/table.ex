@@ -95,8 +95,8 @@ defmodule Doble9Engine.UI.Table do
     [Domino.render(domino) | render(%{tail: dominoes, pos: :left, prev: domino, margins: margins})]
   end
 
-  def render(%{tail: [[h,t]|dominoes], pos: {:down, :head}, prev: prev, margins: margins}) do
-    domino = place {:down, :head}, :y, [t,h], prev
+  def render(%{tail: [domino|dominoes], pos: {:down, :head}, prev: prev, margins: margins}) do
+    domino = place {:down, :head}, :y, domino, prev
     [Domino.render(domino) | render(%{tail: dominoes, pos: {:right, :tail}, prev: domino, margins: margins})]
   end
 
