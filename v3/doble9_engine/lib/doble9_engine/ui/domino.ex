@@ -4,17 +4,33 @@ defmodule Doble9Engine.UI.Domino do
   import Doble9Engine.UI.Assets
   import Doble9Engine.UI.Arranger
 
-  def render %{domino: [h,t], size: size, axis: axis, left: left, top: top} = domino do
+  def render %{show: false, size: size, axis: axis, left: left, top: top} = domino do
     [
-      render(%{frame: frame(size, axis), left: left, top: top}),
+      render(%{frame: back(size, axis), left: left, top: top}),
+    ]
+  end
+
+  def render %{domino: [h,t], size: size, axis: axis, left: left, top: top, selected: true} = domino do
+    [
+      render(%{frame: selected(size, axis), left: left, top: top}),
       render(%{head: number(h, size, axis), left: left, top: top, }),
       render(%{tail: number(t, size, axis), axis: axis, left: left, top: top, }),
     ]
   end
 
-  def render %{domino: :back, size: size, axis: axis, left: left, top: top} = domino do
+  def render %{domino: [h,t], size: size, axis: axis, left: left, top: top, available: true} = domino do
     [
-      render(%{frame: back(size, axis), left: left, top: top}),
+      render(%{frame: available(size, axis), left: left, top: top}),
+      render(%{head: number(h, size, axis), left: left, top: top, }),
+      render(%{tail: number(t, size, axis), axis: axis, left: left, top: top, }),
+    ]
+  end
+
+  def render %{domino: [h,t], size: size, axis: axis, left: left, top: top} = domino do
+    [
+      render(%{frame: frame(size, axis), left: left, top: top}),
+      render(%{head: number(h, size, axis), left: left, top: top, }),
+      render(%{tail: number(t, size, axis), axis: axis, left: left, top: top, }),
     ]
   end
 
