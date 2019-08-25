@@ -3,6 +3,7 @@ defmodule Doble9Engine.UI.Player do
   alias Doble9Engine.UI.Domino
   import Enum, only: [with_index: 1]
   import Doble9Engine.UI.Assets
+  import Doble9Engine.UI.Arranger
 
   @size :xl
 

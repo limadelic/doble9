@@ -2,6 +2,7 @@ defmodule Doble9Engine.UI.Domino do
 
   import Ratatouille.View
   import Doble9Engine.UI.Assets
+  import Doble9Engine.UI.Arranger
 
   def render %{domino: [h,t], size: size, axis: axis, left: left, top: top} = domino do
     [
