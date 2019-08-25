@@ -21,6 +21,22 @@ defmodule Doble9Engine.UI.Table do
 
   def render %{head: []} do [] end
 
+  def render(%{head: [domino|dominoes], pos: {:left, :head}, prev: prev, margins: margins}) do
+    domino = place {:left, :head}, :x, domino, prev
+    [Domino.render(domino) | render(%{head: dominoes, pos: :left, prev: domino, margins: margins})]
+  end
+
+  def render(%{head: [domino|dominoes], pos: {:top, :tail}, prev: prev, margins: margins}) do
+    domino = place {:top, :tail}, :y, domino, prev
+    [Domino.render(domino) | render(%{head: dominoes, pos: {:left, :head}, prev: domino, margins: margins})]
+  end
+
+  def render(%{head: [[h,t]|dominoes], pos: :right, prev: %{left: left, width: width} = prev, margins: %{right: right_margin} = margins})
+      when left + width + @padding >= right_margin do
+    domino = place :right, :x, [t,h], prev
+    [Domino.render(domino) | render(%{head: dominoes, pos: {:top, :tail}, prev: domino, margins: margins})]
+  end
+  
   def render %{head: [[h,t]|dominoes], pos: :right, prev: prev, margins: margins} do
     domino = place :right, [t,h], prev
     [Domino.render(domino) | render(%{head: dominoes, pos: :right, prev: domino, margins: margins})]
@@ -68,9 +84,25 @@ defmodule Doble9Engine.UI.Table do
     [Domino.render(domino) | render(%{tail: dominoes, pos: :left, prev: domino, margins: margins})]
   end
 
+  def render(%{tail: [[h,t]|dominoes], pos: :left, prev: %{left: left} = prev, margins: %{left: left_margin} = margins})
+      when left - @padding <= left_margin do
+    domino = place :left, :x, [t,h], prev
+    [Domino.render(domino) | render(%{tail: dominoes, pos: {:down, :head}, prev: domino, margins: margins})]
+  end
+
   def render %{tail: [[h,t]|dominoes], pos: :left, prev: prev, margins: margins} do
     domino = place :left, [t,h], prev
     [Domino.render(domino) | render(%{tail: dominoes, pos: :left, prev: domino, margins: margins})]
+  end
+
+  def render(%{tail: [[h,t]|dominoes], pos: {:down, :head}, prev: prev, margins: margins}) do
+    domino = place {:down, :head}, :y, [t,h], prev
+    [Domino.render(domino) | render(%{tail: dominoes, pos: {:right, :tail}, prev: domino, margins: margins})]
+  end
+
+  def render(%{tail: [domino|dominoes], pos: {:right, :tail}, prev: prev, margins: margins}) do
+    domino = place {:right, :tail}, :x, domino, prev
+    [Domino.render(domino) | render(%{tail: dominoes, pos: :right, prev: domino, margins: margins})]
   end
 
   def render %{tail: []} do [] end

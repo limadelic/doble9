@@ -28,6 +28,12 @@ defmodule Doble9Engine.UI do
     %{game | game: the(@game), playing: nil}
   end
 
+  def update(%{playing: head} = game, {:event, %{key: 32}}) do
+    send @player, :play
+    :timer.sleep 10
+    %{game | game: the(@game), playing: nil}
+  end
+
   def update game, {_, x} do i x; game end
 
   def render %{game: %{table: table, players: [player, right, top, left]}, window: %{height: height, width: width} = window} do

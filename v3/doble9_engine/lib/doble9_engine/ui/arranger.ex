@@ -53,6 +53,14 @@ defmodule Doble9Engine.UI.Arranger do
     place pos, %{domino: domino, size: @size, width: width, height: height, axis: axis}, another
   end
 
+  def place {:left, :head}, %{width: width} = domino, %{left: left, top: top} do
+    merge domino, %{left: left - width, top: top}
+  end
+
+  def place {:top, :tail}, %{width: width, height: height,} = domino, %{left: left, top: top, width: ref_width} do
+    merge domino, %{left: left + ref_width - width, top: top - height}
+  end
+
   def place {:right, :head}, domino, %{left: left, top: top, width: width} do
     merge domino, %{left: left + width, top: top}
   end
@@ -91,6 +99,14 @@ defmodule Doble9Engine.UI.Arranger do
 
   def place {:left, :tail}, %{width: width, height: height} = domino, %{left: left, top: top, height: ref_height} do
     merge domino, %{left: left - width, top: top + ref_height - height}
+  end
+
+  def place {:down, :head}, domino, %{left: left, top: top, height: height} do
+    merge domino, %{left: left, top: top + height}
+  end
+
+  def place {:right, :tail}, %{height: height} = domino, %{left: left, top: top, width: width, height: ref_height} do
+    merge domino, %{left: left + width, top: top + ref_height - height}
   end
 
   def measure [row|_] = glyph do
