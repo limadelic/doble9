@@ -2,6 +2,7 @@ defmodule Doble9Engine.UI.Arranger do
 
   @size :xl
   @dy 2
+  @axis [:x, :y]
 
   import Map, only: [merge: 2]
   import Doble9Engine.UI.Assets
@@ -37,14 +38,19 @@ defmodule Doble9Engine.UI.Arranger do
     split [domino|head], dominoes, start
   end
 
-  def place dir, [x,x], another do
+  def place pos, [x,x], another do
     {width, height} = measure frame @size, :y
-    place dir, %{domino: [x,x], size: @size, width: width, height: height, axis: :y}, another
+    place pos, %{domino: [x,x], size: @size, width: width, height: height, axis: :y}, another
   end
 
-  def place dir, [x,y], another do
+  def place pos, [x,y], another do
     {width, height} = measure frame @size, :x
-    place dir, %{domino: [x,y], size: @size, width: width, height: height, axis: :x}, another
+    place pos, %{domino: [x,y], size: @size, width: width, height: height, axis: :x}, another
+  end
+
+  def place(pos, axis, domino, another) when axis in @axis do
+    {width, height} = measure frame @size, axis
+    place pos, %{domino: domino, size: @size, width: width, height: height, axis: axis}, another
   end
 
   def place :left, %{axis: :x, width: width} = domino, %{left: left, top: top, axis: :x} do
@@ -59,6 +65,10 @@ defmodule Doble9Engine.UI.Arranger do
     merge domino, %{left: left - width, top: top - @dy}
   end
 
+  def place {:top, :head}, %{height: height} = domino, %{left: left, top: top} do
+    merge domino, %{left: left, top: top - height}
+  end
+
   def place :right, %{axis: :x} = domino, %{left: left, width: width, top: top, axis: :x} do
     merge domino, %{left: left + width, top: top}
   end
@@ -68,7 +78,7 @@ defmodule Doble9Engine.UI.Arranger do
   end
 
   def place :right, %{axis: :y} = domino, %{left: left, width: width, top: top} do
-    merge domino, %{left: left - width, top: top - @dy}
+    merge domino, %{left: left + width, top: top - @dy}
   end
 
   def measure [row|_] = glyph do
