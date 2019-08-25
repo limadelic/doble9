@@ -22,6 +22,12 @@ defmodule Doble9Engine.UI.Table do
     [Domino.render(domino) | render(%{head: dominoes, dir: :left, prev: domino, margins: margins})]
   end
 
+#  def render(%{head: [domino|dominoes], dir: :left, prev: %{left: left, width: width, axis: :x} = prev, margins: %{left: margin} = margins})
+#    when left - width <= margin do
+#    domino = place :left_top, domino, prev
+#    [Domino.render(domino) | render(%{head: dominoes, dir: :left_top, prev: domino, margins: margins})]
+#  end
+
   def render %{head: []} do [] end
 
   def render %{tail: [domino|dominoes], dir: :right, prev: prev, margins: margins} do
