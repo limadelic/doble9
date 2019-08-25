@@ -19,14 +19,14 @@ defmodule Doble9Engine.UI.Table do
 
   def render %{head: [domino|dominoes], dir: :left, prev: prev, margins: margins} do
     domino = place :left, domino, prev
-    [Domino.render(domino)] # | render(%{dominoes: dominoes, dir: :left, prev: domino, margins: margins})]
+    [Domino.render(domino) | render(%{head: dominoes, dir: :left, prev: domino, margins: margins})]
   end
 
   def render %{head: []} do [] end
 
   def render %{tail: [domino|dominoes], dir: :right, prev: prev, margins: margins} do
     domino = place :right, domino, prev
-    [Domino.render(domino)] # | render(%{dominoes: dominoes, dir: :right, prev: domino, margins: margins})]
+    [Domino.render(domino) | render(%{tail: dominoes, dir: :right, prev: domino, margins: margins})]
   end
 
   def render %{tail: []} do [] end

@@ -1,7 +1,7 @@
 defmodule Doble9Engine.UI.Arranger do
 
   @size :xl
-  @dy 3
+  @dy 2
 
   import Map, only: [merge: 2]
   import Doble9Engine.UI.Assets
