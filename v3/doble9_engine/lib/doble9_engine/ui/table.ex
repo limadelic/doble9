@@ -28,7 +28,7 @@ defmodule Doble9Engine.UI.Table do
   end
 
   def render(%{head: [domino|dominoes], pos: :left, prev: %{left: left} = prev, margins: %{left: left_margin} = margins})
-      when left - @width - @height < left_margin do
+      when left - @width <= left_margin + @height + 1 do
     domino = place :left, :x, domino, prev
     [Domino.render(domino) | render(%{head: dominoes, pos: {:top, :head}, prev: domino, margins: margins})]
   end

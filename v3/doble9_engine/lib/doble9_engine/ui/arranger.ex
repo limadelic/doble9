@@ -8,8 +8,8 @@ defmodule Doble9Engine.UI.Arranger do
   import Doble9Engine.UI.Assets
 
   def margins window do
-    {width, height} = measure frame @size, :x
-    %{left: width, top: height, right: window.width - width, bottom: window.height - height}
+    {width, _} = measure frame @size, :x
+    %{left: width,right: window.width - width}
   end
 
   def center [x,x], window do center [x,x], window, :y end
