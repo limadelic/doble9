@@ -34,11 +34,11 @@ defmodule Doble9Engine.UI do
     view do
       canvas height: height, width: width do
         [
-          Table.render(%{table: table, window: window}),
           Player.render(%{player: the(top), at: :top, window: window}),
           Player.render(%{player: the(left), at: :left, window: window}),
           Player.render(%{player: the(right), at: :right, window: window}),
           Player.render(%{player: the(player), at: :bottom, window: window}),
+          Table.render(%{table: table, window: window}),
         ]
       end
     end

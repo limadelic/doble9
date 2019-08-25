@@ -9,7 +9,7 @@ defmodule Doble9Engine.UI.Arranger do
 
   def margins window do
     {width, _} = measure frame @size, :x
-    %{left: width,right: window.width - width}
+    %{left: width, right: window.width - width}
   end
 
   def center [x,x], window do center [x,x], window, :y end
@@ -53,6 +53,14 @@ defmodule Doble9Engine.UI.Arranger do
     place pos, %{domino: domino, size: @size, width: width, height: height, axis: axis}, another
   end
 
+  def place {:right, :head}, domino, %{left: left, top: top, width: width} do
+    merge domino, %{left: left + width, top: top}
+  end
+
+  def place {:top, :head}, %{height: height} = domino, %{left: left, top: top} do
+    merge domino, %{left: left, top: top - height}
+  end
+
   def place :left, %{axis: :x, width: width} = domino, %{left: left, top: top, axis: :x} do
     merge domino, %{left: left - width, top: top}
   end
@@ -65,10 +73,6 @@ defmodule Doble9Engine.UI.Arranger do
     merge domino, %{left: left - width, top: top - @dy}
   end
 
-  def place {:top, :head}, %{height: height} = domino, %{left: left, top: top} do
-    merge domino, %{left: left, top: top - height}
-  end
-
   def place :right, %{axis: :x} = domino, %{left: left, width: width, top: top, axis: :x} do
     merge domino, %{left: left + width, top: top}
   end
@@ -79,6 +83,14 @@ defmodule Doble9Engine.UI.Arranger do
 
   def place :right, %{axis: :y} = domino, %{left: left, width: width, top: top} do
     merge domino, %{left: left + width, top: top - @dy}
+  end
+
+  def place {:down, :tail}, %{width: width} = domino, %{left: left, top: top, height: height, width: ref_width} do
+    merge domino, %{left: left + ref_width - width, top: top + height}
+  end
+
+  def place {:left, :tail}, %{width: width, height: height} = domino, %{left: left, top: top, height: ref_height} do
+    merge domino, %{left: left - width, top: top + ref_height - height}
   end
 
   def measure [row|_] = glyph do
