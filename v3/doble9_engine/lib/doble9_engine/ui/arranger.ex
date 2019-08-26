@@ -1,6 +1,5 @@
 defmodule Doble9Engine.UI.Arranger do
 
-  @size :xl
   @dy 2
   @axis [:x, :y]
 
@@ -8,7 +7,7 @@ defmodule Doble9Engine.UI.Arranger do
   import Doble9Engine.UI.Assets
 
   def margins window do
-    {width, _} = measure frame @size, :x
+    {width, _} = measure frame :x
     %{left: width, right: window.width - width}
   end
 
@@ -16,10 +15,10 @@ defmodule Doble9Engine.UI.Arranger do
   def center [x,y], window do center [x,y], window, :x end
 
   def center domino, window, axis do
-    {width, height} = measure frame @size, axis
+    {width, height} = measure frame axis
     left = div(window.width, 2) - div(width, 2)
     top = div(window.height, 2) - div(height, 2)
-    %{domino: domino, left: left, top: top, size: @size, axis: axis, width: width, height: height}
+    %{domino: domino, left: left, top: top, axis: axis, width: width, height: height}
   end
 
   def split [start], start do {[],[]} end
@@ -39,18 +38,18 @@ defmodule Doble9Engine.UI.Arranger do
   end
 
   def place pos, [x,x], another do
-    {width, height} = measure frame @size, :y
-    place pos, %{domino: [x,x], size: @size, width: width, height: height, axis: :y}, another
+    {width, height} = measure frame :y
+    place pos, %{domino: [x,x], width: width, height: height, axis: :y}, another
   end
 
   def place pos, [x,y], another do
-    {width, height} = measure frame @size, :x
-    place pos, %{domino: [x,y], size: @size, width: width, height: height, axis: :x}, another
+    {width, height} = measure frame :x
+    place pos, %{domino: [x,y], width: width, height: height, axis: :x}, another
   end
 
   def place(pos, axis, domino, another) when axis in @axis do
-    {width, height} = measure frame @size, axis
-    place pos, %{domino: domino, size: @size, width: width, height: height, axis: axis}, another
+    {width, height} = measure frame axis
+    place pos, %{domino: domino, width: width, height: height, axis: axis}, another
   end
 
   def place {:left, :head}, %{width: width} = domino, %{left: left, top: top} do

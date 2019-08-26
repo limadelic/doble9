@@ -1,10 +1,10 @@
 defmodule Doble9Engine.UI.Assets do
 
-  def number n, size, axis do
-    numbers(size, axis) |> Enum.map(&(Enum.at &1, n))
+  def number n, axis do
+    numbers(axis) |> Enum.map(&(Enum.at &1, n))
   end
 
-  def numbers :xl, :y do
+  def numbers :y do
     [
       ["       ","       ","     ● ","     ● "," ●   ● "," ●   ● "," ●   ● "," ●   ● "," ● ● ● "," ● ● ● "],
       ["       ","   ●   ","       ","   ●   ","       ","   ●   "," ●   ● "," ● ● ● "," ●   ● "," ● ● ● "],
@@ -12,7 +12,7 @@ defmodule Doble9Engine.UI.Assets do
     ]
   end
 
-  def numbers :xl, :x do
+  def numbers :x do
     [
       ["       ","       "," ●     "," ●     "," ●   ● "," ●   ● "," ● ● ● "," ● ● ● "," ● ● ● "," ● ● ● "],
       ["       ","   ●   ","       ","   ●   ","       ","   ●   ","       ","   ●   "," ●   ● "," ● ● ● "],
@@ -20,7 +20,7 @@ defmodule Doble9Engine.UI.Assets do
     ]
   end
 
-  def frame :xl, :y do
+  def frame :y do
     [
       "┌───────┐",
       "│       │",
@@ -34,7 +34,7 @@ defmodule Doble9Engine.UI.Assets do
     ]
   end
 
-  def frame :xl, :x do
+  def frame :x do
     [
       "┌───────┬───────┐",
       "│       │       │",
@@ -44,21 +44,21 @@ defmodule Doble9Engine.UI.Assets do
     ]
   end
 
-  def available :xl, :y do
+  def available :y do
     [
-      "╔───────╗",
+      "╔──═══──╗",
       "│       │",
+      "║       ║",
       "│       │",
+      "╠───────╣",
       "│       │",
-      "├───────┤",
+      "║       ║",
       "│       │",
-      "│       │",
-      "│       │",
-      "╚───────╝"
+      "╚──═══──╝"
     ]
   end
 
-  def selected :xl, :y do
+  def selected :y do
     [
       "╔═══════╗",
       "║       ║",
@@ -72,7 +72,7 @@ defmodule Doble9Engine.UI.Assets do
     ]
   end
 
-  def back :xl, :y do
+  def back :y do
     [
       "┌───────┐",
       "│\\\\//\\\\/│",
@@ -86,7 +86,7 @@ defmodule Doble9Engine.UI.Assets do
     ]
   end
 
-  def back :xl, :x do
+  def back :x do
     [
       "┌───────────────┐",
       "│\\\\//\\\\//\\\\//\\\\/│",
