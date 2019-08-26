@@ -1,7 +1,12 @@
 defmodule Doble9Engine.UI.Assets do
 
-  def width axis do frame(axis) |> hd |> String.length end
-  def height axis do length frame axis end
+  @axis [:x, :y]
+
+  def width(axis) when axis in @axis do width frame axis  end
+  def width glyph do glyph |> hd |> String.length end
+
+  def height(axis) when axis in @axis do height frame axis end
+  def height glyph do length glyph end
 
   def number n, axis do
     numbers(axis) |> Enum.map(&(Enum.at &1, n))
