@@ -7,18 +7,16 @@ defmodule Doble9Engine.UI.Arranger do
   import Doble9Engine.UI.Assets
 
   def margins window do
-    {width, _} = measure frame :x
-    %{left: width, right: window.width - width}
+    %{left: width(:x), right: window.width - width(:x)}
   end
 
   def center [x,x], window do center [x,x], window, :y end
   def center [x,y], window do center [x,y], window, :x end
 
   def center domino, window, axis do
-    {width, height} = measure frame axis
-    left = div(window.width, 2) - div(width, 2)
-    top = div(window.height, 2) - div(height, 2)
-    %{domino: domino, left: left, top: top, axis: axis, width: width, height: height}
+    left = div(window.width, 2) - div(width(axis), 2)
+    top = div(window.height, 2) - div(height(axis), 2)
+    %{domino: domino, left: left, top: top, axis: axis, width: width(axis), height: height(axis)}
   end
 
   def split [start], start do {[],[]} end
@@ -38,18 +36,15 @@ defmodule Doble9Engine.UI.Arranger do
   end
 
   def place pos, [x,x], another do
-    {width, height} = measure frame :y
-    place pos, %{domino: [x,x], width: width, height: height, axis: :y}, another
+    place pos, :y, [x,x], another
   end
 
   def place pos, [x,y], another do
-    {width, height} = measure frame :x
-    place pos, %{domino: [x,y], width: width, height: height, axis: :x}, another
+    place pos, :x, [x,y],another
   end
 
   def place(pos, axis, domino, another) when axis in @axis do
-    {width, height} = measure frame axis
-    place pos, %{domino: domino, width: width, height: height, axis: axis}, another
+    place pos, %{domino: domino, width: width(axis), height: height(axis), axis: axis}, another
   end
 
   def place {:left, :head}, %{width: width} = domino, %{left: left, top: top} do
