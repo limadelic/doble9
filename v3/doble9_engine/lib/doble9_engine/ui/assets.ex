@@ -2,6 +2,9 @@ defmodule Doble9Engine.UI.Assets do
 
   @axis [:x, :y]
 
+  def other :x do :y end
+  def other :y do :x end
+
   def width(axis) when axis in @axis do width frame axis  end
   def width glyph do glyph |> hd |> String.length end
 
