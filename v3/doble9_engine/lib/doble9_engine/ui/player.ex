@@ -6,9 +6,20 @@ defmodule Doble9Engine.UI.Player do
   import Doble9Engine.UI.Assets
   import Doble9Engine.UI.Arranger
 
-  def render %{axis: axis, player: %{dominoes: dominoes}, window: %{width: width}, show: show, top: top, left: left, dx: dx, dy: dy} do
+  def render %{player: %{turn: %{choices: choices}}, domino: domino} = player do
+    Domino.render merge Domino.from(player), %{
+      available: domino in choices,
+      selected: length(choices) > 0 && domino == hd(choices)
+    }
+  end
+
+  def render %{domino: _} = player do
+    Domino.render Domino.from player
+  end
+
+  def render %{axis: axis, player: %{dominoes: dominoes}, show: show, top: top, left: left, dx: dx, dy: dy} = player do
     for {domino, i} <- with_index dominoes do
-      Domino.render %{domino: domino, show: show, axis: other(axis), left: left + i * dx, top: top + i * dy}
+      render merge player, %{domino: domino, axis: other(axis), left: left + i * dx, top: top + i * dy}
     end
   end
 
@@ -35,19 +46,5 @@ defmodule Doble9Engine.UI.Player do
   def render %{at: :bottom, window: %{height: height}} = player do
     render merge player, %{axis: :x, top: height - height(:y)}
   end
-
-#  def render %{player: %{dominoes: dominoes, turn: %{choices: [first|_] = choices}}, at: :bottom, window: window} do
-#    left = div(window.width - (width(:y) * length(dominoes)), 2)
-#    top = window.height - height(:y)
-#
-#    for {domino, i} <- with_index dominoes do
-#      Domino.render %{
-#        domino: domino, axis: :y, left: left + i * width(:y), top: top,
-#        selected: domino == first,
-#        available: domino in choices
-#      }
-#    end
-#  end
-#
 
 end

@@ -4,6 +4,8 @@ defmodule Doble9Engine.UI.Domino do
   import Doble9Engine.UI.Assets
   import Doble9Engine.UI.Arranger
 
+  def from x do %{domino: x.domino, axis: x.axis, left: x.left, top: x.top, show: x.show} end
+
   def render %{show: false, axis: axis, left: left, top: top} = domino do
     [
       render(%{frame: back(axis), left: left, top: top}),
