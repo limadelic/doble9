@@ -32,32 +32,22 @@ defmodule Doble9Engine.UI.Player do
     render merge player, %{axis: :y, left: width - width(:x)}
   end
 
-  def render %{player: %{dominoes: dominoes, turn: %{choices: [first|_] = choices}}, at: :bottom, window: window} do
-    left = div(window.width - (width(:y) * length(dominoes)), 2)
-    top = window.height - height(:y)
-
-    for {domino, i} <- with_index dominoes do
-      Domino.render %{
-        domino: domino, axis: :y, left: left + i * width(:y), top: top,
-        selected: domino == first,
-        available: domino in choices
-      }
-    end
+  def render %{at: :bottom, window: %{height: height}} = player do
+    render merge player, %{axis: :x, top: height - height(:y)}
   end
 
-  def render %{player: %{dominoes: dominoes}, at: :bottom, window: window} do
-    left = div(window.width - (width(:y) * length(dominoes)), 2)
-    top = window.height - height(:y)
-
-    for {domino, i} <- with_index dominoes do
-      Domino.render %{domino: domino, axis: :y, left: left + i * width(:y), top: top}
-    end
-  end
-
-#  def render %{dominoes: dominoes, axis: axis, left: left, top: top} = this do
+#  def render %{player: %{dominoes: dominoes, turn: %{choices: [first|_] = choices}}, at: :bottom, window: window} do
+#    left = div(window.width - (width(:y) * length(dominoes)), 2)
+#    top = window.height - height(:y)
+#
 #    for {domino, i} <- with_index dominoes do
-#      Domino.render %{domino: domino, axis: axis, left: left.(this, i), top: top.(this, i)}
+#      Domino.render %{
+#        domino: domino, axis: :y, left: left + i * width(:y), top: top,
+#        selected: domino == first,
+#        available: domino in choices
+#      }
 #    end
 #  end
+#
 
 end

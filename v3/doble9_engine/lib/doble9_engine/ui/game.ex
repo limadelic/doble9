@@ -10,7 +10,7 @@ defmodule Doble9Engine.UI.Game do
       Player.render(%{player: the(top), at: :top, window: window, show: show_dominoes}),
       Player.render(%{player: the(left), at: :left, window: window, show: show_dominoes}),
       Player.render(%{player: the(right), at: :right, window: window, show: show_dominoes}),
-      Player.render(%{player: the(player), at: :bottom, window: window}),
+      Player.render(%{player: the(player), at: :bottom, window: window, show: true}),
       Table.render(%{table: table, window: window}),
     ]
   end
