@@ -25,6 +25,10 @@ defmodule Doble9Engine.UI.Controller do
     %{game | selected: next(choices, selected)}
   end
 
+  def update %{selected: selected, player: %{turn: %{choices: choices}}} = game, {_, %{key: @left}} do
+    %{game | selected: prev(choices, selected)}
+  end
+
   def update(%{playing: nil} = game, {:event, %{ch: ch}}) when ch in @numbers do
     %{game | playing: ch - 48}
   end
