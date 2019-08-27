@@ -5,18 +5,20 @@ defmodule Doble9Engine.UI.Domino do
   import Doble9Engine.UI.Assets
   import Doble9Engine.UI.Arranger
 
-  def from x do %{domino: x.domino, axis: x.axis, left: x.left, top: x.top, show: x.show} end
+  def from x do %{domino: x[:domino], axis: x[:axis], left: x[:left], top: x[:top], show: x[:show]} end
 
-  def render %{glyph: glyph, left: left, top: top, bk: bk} do
-    for x <- 0..width(glyph) - 1, y <- 0..height(glyph) - 1 do
-      render %{char: char_at(glyph, x, y), x: left + x, y: top + y, bk: bk}
-    end
-  end
+  def cell x do %{char: x[:char], x: x[:x], y: x[:y], color: x[:color], attributes: x[:attributes]} end
 
   def render %{char: " ", bk: false} do end
 
-  def render %{char: char, x: x, y: y} do
-    canvas_cell x: x, y: y, char: char
+  def render %{char: _} = domino do
+    canvas_cell cell domino
+  end
+
+  def render %{glyph: glyph, left: left, top: top, bk: bk} = domino do
+    for x <- 0..width(glyph) - 1, y <- 0..height(glyph) - 1 do
+      render merge domino, %{char: char_at(glyph, x, y), x: left + x, y: top + y, bk: bk}
+    end
   end
 
   def render %{frame: frame} = domino do
@@ -36,20 +38,32 @@ defmodule Doble9Engine.UI.Domino do
   end
 
   def render %{show: false, axis: axis} = domino do
+    domino = merge domino, %{color: :default, attributes: []}
     [
       render(merge domino, %{frame: back(axis)}),
     ]
   end
 
   def render %{selected: true, domino: [h,t], axis: axis} = domino do
+    domino = merge domino, %{color: :default, attributes: [:reverse]}
     [
-      render(merge domino, %{frame: selected(axis)}),
+      render(merge domino, %{frame: frame(axis)}),
+      render(merge domino, %{head: number(h, axis)}),
+      render(merge domino, %{tail: number(t, axis)}),
+    ]
+  end
+
+  def render %{available: false, domino: [h,t], axis: axis} = domino do
+    domino = merge domino, %{color: :red, attributes: []}
+    [
+      render(merge domino, %{frame: frame(axis)}),
       render(merge domino, %{head: number(h, axis)}),
       render(merge domino, %{tail: number(t, axis)}),
     ]
   end
 
   def render %{domino: [h,t], axis: axis} = domino do
+    domino = merge domino, %{color: :default, attributes: []}
     [
       render(merge domino, %{frame: frame(axis)}),
       render(merge domino, %{head: number(h, axis)}),
