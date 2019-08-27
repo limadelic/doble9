@@ -1,5 +1,6 @@
 defmodule Doble9Engine.UI.Domino do
 
+  import Map, only: [merge: 2]
   import Ratatouille.View
   import Doble9Engine.UI.Assets
   import Doble9Engine.UI.Arranger
@@ -52,7 +53,7 @@ defmodule Doble9Engine.UI.Domino do
 
   def render %{char: " ", bk: false} do end
 
-  def render %{char: char, x: x, y: y} = cell do
+  def render %{char: char, x: x, y: y} do
     canvas_cell x: x, y: y, char: char
   end
 

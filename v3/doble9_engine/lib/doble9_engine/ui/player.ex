@@ -6,7 +6,7 @@ defmodule Doble9Engine.UI.Player do
   import Doble9Engine.UI.Assets
   import Doble9Engine.UI.Arranger
 
-  def render %{player: %{turn: %{choices: choices}}, domino: domino} = player do
+  def render %{domino: domino, player: %{turn: %{choices: choices}}} = player do
     Domino.render merge Domino.from(player), %{
       available: domino in choices,
       selected: length(choices) > 0 && domino == hd(choices)
