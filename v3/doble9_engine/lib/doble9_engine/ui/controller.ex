@@ -18,10 +18,10 @@ defmodule Doble9Engine.UI.Controller do
   def init %{window: window} do
     login @player
     new_game @player, @game
-    %{window: window, game: the(@game), playing: nil, selected: selected(the(@player))}
+    %{window: window, game: the(@game), player: the(@player), playing: nil, selected: selected(the(@player))}
   end
 
-  def update %{selected: selected, game: %{turn: %{choices: choices}}} = game, {_, %{key: @right}} do
+  def update %{selected: selected, player: %{turn: %{choices: choices}}} = game, {_, %{key: @right}} do
     %{game | selected: next(choices, selected)}
   end
 
@@ -32,13 +32,13 @@ defmodule Doble9Engine.UI.Controller do
   def update(%{playing: head} = game, {:event, %{ch: ch}}) when ch in @numbers do
     play @player, [head, ch - 48]
     :timer.sleep 10
-    %{game | game: the(@game), playing: nil, selected: selected(the(@player))}
+    %{game | game: the(@game), player: the(@player), playing: nil, selected: selected(the(@player))}
   end
 
-  def update(%{playing: head} = game, {:event, %{key: 32}}) do
-    send @player, :play
+  def update(%{playing: head, selected: domino} = game, {:event, %{key: 32}}) do
+    play @player, domino
     :timer.sleep 10
-    %{game | game: the(@game), playing: nil, selected: selected(the(@player))}
+    %{game | game: the(@game), player: the(@player), playing: nil, selected: selected(the(@player))}
   end
 
   def update game, {_, x} do i x; game end
