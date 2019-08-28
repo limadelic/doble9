@@ -24,9 +24,10 @@ defmodule Doble9Engine.UI.Controller do
     update %{window: window, game: nil, player: nil, playing: nil, selected: nil}
   end
 
-  def update game do
+  def update old do
     :timer.sleep 10
-    %{game | game: the(@game), player: the(@player), playing: nil, selected: selected(the(@player))}
+    with game <- the(@game), player <- the(@player), selected <- selected(player), target <- target(selected, game.table.heads),
+      do: %{old | game: game, player: player, playing: nil, selected: selected}
   end
 
   def update %{selected: selected, player: %{turn: %{choices: choices}}} = game, {_, %{key: @right}} do
@@ -56,7 +57,7 @@ defmodule Doble9Engine.UI.Controller do
     update game
   end
 
-  def update game, {_, x} do i x; game end
+  def update game, _ do game end
 
   def selected %{turn: %{choices: [selected|_]}} do selected end
   def selected _ do nil end
