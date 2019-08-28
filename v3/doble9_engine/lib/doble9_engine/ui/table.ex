@@ -25,9 +25,10 @@ defmodule Doble9Engine.UI.Table do
        [Domino.render target]
   end
 
+  def target from do merge last(from), %{target: true} end
   def target nil, _, _ do nil end
-  def target :head, head, _ do merge last(head), %{target: :head} end
-  def target :tail, _, tail do merge last(tail), %{target: :tail} end
+  def target :head, head, _ do target head end
+  def target :tail, _, tail do target tail end
 
   def head %{dominoes: []} do [] end
 

@@ -56,6 +56,10 @@ defmodule Doble9Engine.UI.Domino do
     render merge domino, %{color: :default, attributes: [:reverse]}
   end
 
+  def render %{target: true} = domino do
+    render merge domino, %{color: :default, attributes: [:reverse]}
+  end
+
   def render %{available: false} = domino do
     render merge domino, %{color: :red, attributes: []}
   end

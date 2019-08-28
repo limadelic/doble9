@@ -30,12 +30,14 @@ defmodule Doble9Engine.UI.Controller do
       do: %{old | game: game, player: player, playing: nil, selected: selected, target: target}
   end
 
-  def update %{selected: selected, player: %{turn: %{choices: choices}}} = game, {_, %{key: @right}} do
-    %{game | selected: next(choices, selected)}
+  def update %{selected: selected, player: %{turn: %{choices: choices}}, game: %{table: table}} = game, {_, %{key: @right}} do
+    selected = next choices, selected
+    %{game | selected: selected, target: target(selected, table.heads)}
   end
 
-  def update %{selected: selected, player: %{turn: %{choices: choices}}} = game, {_, %{key: @left}} do
-    %{game | selected: prev(choices, selected)}
+  def update %{selected: selected, player: %{turn: %{choices: choices}}, game: %{table: table}} = game, {_, %{key: @left}} do
+    selected = prev choices, selected
+    %{game | selected: selected, target: target(selected, table.heads)}
   end
 
   def update(%{playing: nil} = game, {:event, %{ch: ch}}) when ch in @numbers do
