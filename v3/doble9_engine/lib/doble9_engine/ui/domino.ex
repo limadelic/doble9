@@ -6,6 +6,8 @@ defmodule Doble9Engine.UI.Domino do
   import Doble9Engine.UI.Assets
   import Doble9Engine.UI.Arranger
 
+  def render nil do end
+
   def render %{char: " ", bk: false} do end
 
   def render %{char: _} = domino do

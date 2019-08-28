@@ -1,6 +1,8 @@
 defmodule Doble9Engine.UI.Table do
 
   alias Doble9Engine.UI.Domino
+  import List, only: [last: 1]
+  import Map, only: [merge: 2]
   import Enum, only: [with_index: 1, map: 2]
   import Doble9Engine.UI.Assets
   import Doble9Engine.UI.Arranger
@@ -10,16 +12,22 @@ defmodule Doble9Engine.UI.Table do
 
   def render %{table: %{heads: []}} do  end
 
-  def render %{table: %{dominoes: dominoes, start: start}, window: window} do
+  def render %{table: %{dominoes: dominoes, start: start}, window: window, target: target} do
     {head, tail} = split dominoes, start
     start = center start, window
     head = head %{dominoes: head, pos: :left, prev: start, margins: margins(window)}
     tail = tail %{dominoes: tail, pos: :right, prev: start, margins: margins(window)}
+    target = target target, head, tail
 
-    [Domino.render(start)] ++
+    [Domino.render start] ++
        map(head, &(Domino.render &1)) ++
-       map(tail, &(Domino.render &1))
+       map(tail, &(Domino.render &1)) ++
+       [Domino.render target]
   end
+
+  def target nil, _, _ do nil end
+  def target :head, head, _ do merge last(head), %{target: :head} end
+  def target :tail, _, tail do merge last(tail), %{target: :tail} end
 
   def head %{dominoes: []} do [] end
 

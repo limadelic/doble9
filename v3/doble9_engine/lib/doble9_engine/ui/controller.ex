@@ -21,13 +21,13 @@ defmodule Doble9Engine.UI.Controller do
   def init %{window: window} do
     login @player
     new_game @player, @game
-    update %{window: window, game: nil, player: nil, playing: nil, selected: nil}
+    update %{window: window, game: nil, player: nil, playing: nil, selected: nil, target: nil}
   end
 
   def update old do
     :timer.sleep 10
     with game <- the(@game), player <- the(@player), selected <- selected(player), target <- target(selected, game.table.heads),
-      do: %{old | game: game, player: player, playing: nil, selected: selected}
+      do: %{old | game: game, player: player, playing: nil, selected: selected, target: target}
   end
 
   def update %{selected: selected, player: %{turn: %{choices: choices}}} = game, {_, %{key: @right}} do
