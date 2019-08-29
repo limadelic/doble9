@@ -18,6 +18,10 @@ defmodule Doble9Engine.Helpers do
     Enum.at list ++ [first], Enum.find_index(list, &(&1 == item)) + 1
   end
 
+  def switch nil do nil end
+  def switch :head do :tail end
+  def switch :tail do :head end
+
   def target nil, _ do nil end
   def target domino, [] do nil end
   def target([h,_], [h, _]) do :head end
