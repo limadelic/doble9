@@ -110,7 +110,9 @@ defmodule Doble9Engine.Player do
 
   def matches dominoes, [] do dominoes end
   def matches dominoes, heads do
-    filter dominoes, fn [head, tail] -> head in heads or tail in heads end
+    dominoes
+    |> map(&({&1, target(&1, heads)}))
+    |> filter fn {_, target} -> target == nil end
   end
 
 end
