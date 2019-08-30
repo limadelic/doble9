@@ -17,6 +17,7 @@ defmodule Doble9Engine.UI.Controller do
   @enter key(:enter)
   @play [@space, @up]
   @knock [@space, @enter]
+  @switch_target [@up, @down]
 
   def init %{window: window} do
     login @player
@@ -40,24 +41,32 @@ defmodule Doble9Engine.UI.Controller do
     %{game | selected: selected, target: target(selected, table.heads)}
   end
 
-  def update(%{playing: nil} = game, {:event, %{ch: ch}}) when ch in @numbers do
+  def update(%{playing: nil} = game, {_, %{ch: ch}}) when ch in @numbers do
     %{game | playing: ch - 48}
   end
 
-  def update(%{playing: head} = game, {:event, %{ch: ch}}) when ch in @numbers do
+  def update(%{playing: head} = game, {_, %{ch: ch}}) when ch in @numbers do
     play @player, [head, ch - 48]
     update game
   end
 
-  def update(%{selected: nil} = game, {:event, %{key: key}}) when key in @knock do
+  def update(%{selected: nil} = game, {_, %{key: key}}) when key in @knock do
     knock @player
     update game
   end
 
-#  def update(%{target: target, game: %{table: %{heads: [x,x]}}} = game, {:event, %{key: key}}) when target != nil, key in [@up, @down] do
-#    %{game | target: switch(target)}
-#  end
-#
+  def update(%{target: target, game: %{table: %{heads: [x,x]}}} = game, {:event, %{key: key}}) when target != nil and key in @switch_target do
+    %{game | target: switch(target)}
+  end
+
+  def update(%{target: target, selected: [x,y], game: %{table: %{heads: [x,y]}}} = game, {:event, %{key: key}}) when key in @switch_target do
+    %{game | target: switch(target)}
+  end
+
+  def update(%{target: target, selected: [x,y], game: %{table: %{heads: [y,x]}}} = game, {:event, %{key: key}}) when key in @switch_target do
+    %{game | target: switch(target)}
+  end
+
   def update(%{selected: domino} = game, {:event, %{key: key}}) when domino != nil and key in @play do
     play @player, domino
     update game
