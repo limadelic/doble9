@@ -57,7 +57,7 @@ defmodule Doble9Engine.UI.Controller do
 #  def update(%{target: target, game: %{table: %{heads: [x,x]}}} = game, {:event, %{key: key}}) when target != nil, key in [@up, @down] do
 #    %{game | target: switch(target)}
 #  end
-
+#
   def update(%{selected: domino} = game, {:event, %{key: key}}) when domino != nil and key in @play do
     play @player, domino
     update game

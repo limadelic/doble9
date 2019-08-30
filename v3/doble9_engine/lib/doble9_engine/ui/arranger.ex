@@ -35,16 +35,16 @@ defmodule Doble9Engine.UI.Arranger do
     split [domino|head], dominoes, start
   end
 
+  def place(pos, axis, domino, another) when axis in @axis do
+    place pos, %{domino: domino, width: width(axis), height: height(axis), axis: axis}, another
+  end
+
   def place pos, [x,x], another do
     place pos, :y, [x,x], another
   end
 
   def place pos, [x,y], another do
     place pos, :x, [x,y],another
-  end
-
-  def place(pos, axis, domino, another) when axis in @axis do
-    place pos, %{domino: domino, width: width(axis), height: height(axis), axis: axis}, another
   end
 
   def place {:left, :head}, %{width: width} = domino, %{left: left, top: top} do

@@ -23,7 +23,7 @@ defmodule Doble9Engine.Helpers do
   def switch :tail do :head end
 
   def target nil, _ do nil end
-  def target domino, [] do nil end
+  def target _, [] do nil end
   def target([h,_], [h, _]) do :head end
   def target([h,_], [_, h]) do :tail end
   def target([_,t], [_, t]) do :tail end

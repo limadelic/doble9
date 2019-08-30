@@ -7,7 +7,7 @@ defmodule AssetsTest do
 
     test "find the nine" do
 
-      assert number(9,:xl,:x) == [
+      assert number(9,:x) == [
         " ● ● ● ",
         " ● ● ● ",
         " ● ● ● ",

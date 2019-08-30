@@ -12,6 +12,7 @@ defmodule Doble9Engine.Player do
   def pick player do GenServer.call player, :pick end
   def turn player, heads \\ [] do GenServer.cast player, {:turn, heads} end
   def play player, domino do GenServer.call player, {:play, domino}  end
+  def play player, domino, target do GenServer.call player, {:play, domino, target}  end
   def knock player do GenServer.call player, :knock end
   def count player do GenServer.call player, :count end
 
@@ -36,12 +37,16 @@ defmodule Doble9Engine.Player do
     created Game.create(game, name), game, player
   end
 
-  def handle_call {:play, domino}, _, %{name: name, game: game, dominoes: [domino]} = player do
+  def handle_call {:play, domino}, _, %{name: name, game: game, dominoes: [_|[]]} = player do
     {:reply, :ok, won(Game.win(game, name, domino), player)}
   end
 
   def handle_call {:play, domino}, _, %{name: name, game: game} = player do
     {:reply, :ok, played(Game.play(game, name, domino), domino, player)}
+  end
+
+  def handle_call {:play, domino, target}, _, %{name: name, game: game} = player do
+    {:reply, :ok, played(Game.play(game, name, domino, target), domino, player)}
   end
 
   def handle_call :knock, _, %{name: name, game: game} = player do
