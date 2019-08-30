@@ -118,14 +118,6 @@ defmodule Doble9Engine.Game do
     place game, [start], start
   end
 
-  def played %{table: %{heads: [head,_]}} = game, [head,tail], :tail do
-    played game, [tail, head]
-  end
-
-  def played %{table: %{heads: [_,head]}} = game, [head,tail], :head do
-    played game, [tail, head]
-  end
-
   def played %{table: %{dominoes: dominoes, heads: [head,table_tail]}} = game, [head,tail] do
     place game, [[tail,head]] ++ dominoes, [tail,table_tail]
   end
@@ -140,6 +132,22 @@ defmodule Doble9Engine.Game do
 
   def played %{table: %{dominoes: dominoes, heads: [tail,table_tail]}} = game, [head,tail] = domino do
     place game, [domino] ++ dominoes, [head,table_tail]
+  end
+
+#  def played %{table: %{dominoes: dominoes, heads: [head,table_tail]}} = game, [tail,head], :head do
+#    place game, [[tail,head]] ++ dominoes, [tail,table_tail]
+#  end
+#
+#  def played %{table: %{dominoes: dominoes, heads: [tail,table_tail]}} = game, [head,tail] = domino, :head do
+#    place game, [domino] ++ dominoes, [head,table_tail]
+#  end
+#
+#  def played %{table: %{dominoes: dominoes, heads: [table_head,tail]}} = game, [head,tail], :tail do
+#    place game, dominoes ++ [[tail,head]], [table_head,head]
+#  end
+#
+  def played game, domino, _ do
+    played game, domino
   end
 
   def place game, [start], _ do

@@ -2,7 +2,7 @@ defmodule GameTest do
   use ExUnit.Case
 
   alias Doble9Engine.{Player, Helpers, Game}
-  import Player, only: [login: 1, new_game: 2, play: 2, knock: 1, turn: 2]
+  import Player, only: [login: 1, new_game: 2, play: 2, play: 3, knock: 1, turn: 2]
   import Helpers, only: [the: 1, i: 1, given: 2]
   import Game, only: [new: 1]
 
@@ -63,6 +63,12 @@ defmodule GameTest do
     test "is ready to play again" do
       :timer.sleep 1
       assert the(@player).turn
+    end
+
+    test "on target head", %{game: %{table: %{heads: [h,t] = heads}}, player: %{dominoes: dominoes}} do
+      given @player, &(%{&1| dominoes: [heads|dominoes]})
+      play @player, heads, :tail
+      assert [t,h] in the(@game).table.dominoes
     end
 
   end

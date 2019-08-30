@@ -2,7 +2,7 @@ defmodule Doble9Engine.UI.Controller do
 
   import Ratatouille.Constants, only: [key: 1]
   import Enum, only: [map: 2]
-  import Doble9Engine.Player, only: [login: 1, new_game: 2, play: 2, knock: 1]
+  import Doble9Engine.Player, only: [login: 1, new_game: 2, play: 2, play: 3, knock: 1]
   import Doble9Engine.Helpers
 
   @game :calle8
@@ -69,6 +69,11 @@ defmodule Doble9Engine.UI.Controller do
 
   def update(%{selected: domino} = game, {:event, %{key: key}}) when domino != nil and key in @play do
     play @player, domino
+    update game
+  end
+
+  def update(%{selected: domino, target: target} = game, {:event, %{key: key}}) when domino != nil and key in @play do
+    play @player, domino, target
     update game
   end
 
