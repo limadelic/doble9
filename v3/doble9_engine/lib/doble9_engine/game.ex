@@ -8,7 +8,6 @@ defmodule Doble9Engine.Game do
   def create game, player do GenServer.start_link __MODULE__, {game, player}, name: game end
   def new game do GenServer.call game, :new end
   def pick game do GenServer.call game, :pick end
-  def play game, player, domino do GenServer.call game, {:play, player, domino} end
   def play game, player, domino, target do GenServer.call game, {:play, player, domino, target} end
   def win game, player, domino do GenServer.call game, {:win, player, domino} end
   def knock game, player do GenServer.call game, {:knock, player} end
@@ -48,10 +47,6 @@ defmodule Doble9Engine.Game do
 
   def handle_call :pick, _, %{table: %{dominoes: dominoes} = table} = game do
     {:reply, {:ok, take(dominoes, 10)}, %{game | table: %{table | dominoes: drop(dominoes, 10)}}}
-  end
-
-  def handle_call {:play, player, domino}, _, game do
-    {:reply, :ok, game |> played(domino) |> call_next(player)}
   end
 
   def handle_call {:play, player, domino, target}, _, game do
@@ -118,34 +113,24 @@ defmodule Doble9Engine.Game do
     place game, [start], start
   end
 
-  def played %{table: %{dominoes: dominoes, heads: [head,table_tail]}} = game, [head,tail] do
+  played game, domino, [head|_] do played game, domino, head end
+
+  def played %{table: %{dominoes: dominoes, heads: [head,table_tail]}} = game, [head,tail], :head do
     place game, [[tail,head]] ++ dominoes, [tail,table_tail]
   end
 
-  def played %{table: %{dominoes: dominoes, heads: [table_head,head]}} = game, [head,tail] = domino do
-    place game, dominoes ++ [domino], [table_head,tail]
-  end
-
-  def played %{table: %{dominoes: dominoes, heads: [table_head,tail]}} = game, [head,tail] do
-    place game, dominoes ++ [[tail,head]], [table_head,head]
-  end
-
-  def played %{table: %{dominoes: dominoes, heads: [tail,table_tail]}} = game, [head,tail] = domino do
+  def played %{table: %{dominoes: dominoes, heads: [tail,table_tail]}} = game, [head,tail] = domino, :head do
     place game, [domino] ++ dominoes, [head,table_tail]
   end
 
-#  def played %{table: %{dominoes: dominoes, heads: [head,table_tail]}} = game, [tail,head], :head do
-#    place game, [[tail,head]] ++ dominoes, [tail,table_tail]
-#  end
-#
-#  def played %{table: %{dominoes: dominoes, heads: [tail,table_tail]}} = game, [head,tail] = domino, :head do
-#    place game, [domino] ++ dominoes, [head,table_tail]
-#  end
-#
-#  def played %{table: %{dominoes: dominoes, heads: [table_head,tail]}} = game, [head,tail], :tail do
-#    place game, dominoes ++ [[tail,head]], [table_head,head]
-#  end
-#
+  def played %{table: %{dominoes: dominoes, heads: [table_head,head]}} = game, [head,tail] = domino, :tail do
+    place game, dominoes ++ [domino], [table_head,tail]
+  end
+
+  def played %{table: %{dominoes: dominoes, heads: [table_head,tail]}} = game, [head,tail], :tail do
+    place game, dominoes ++ [[tail,head]], [table_head,head]
+  end
+
   def played game, domino, _ do
     played game, domino
   end
