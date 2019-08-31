@@ -6,7 +6,6 @@ defmodule Doble9Engine.UI.Table do
   import Enum, only: [with_index: 1, map: 2]
   import Doble9Engine.UI.Assets
   import Doble9Engine.UI.Arranger
-  import Doble9Engine.Helpers
 
   @padding 32
 
@@ -17,7 +16,7 @@ defmodule Doble9Engine.UI.Table do
     start = center start, window
     head = head %{dominoes: head, pos: :left, prev: start, margins: margins(window)}
     tail = tail %{dominoes: tail, pos: :right, prev: start, margins: margins(window)}
-    target = target(target, head, tail) || target([start])
+    target = target target, start, head, tail
 
     [Domino.render start] ++
        map(head, &(Domino.render &1)) ++
@@ -25,13 +24,14 @@ defmodule Doble9Engine.UI.Table do
        [Domino.render target]
   end
 
-  def target nil do nil end
-  def target from do merge last(from), %{target: true} end
-  def target nil, _, _ do nil end
-  def target :head, head, _ do target head end
-  def target :tail, _, tail do target tail end
-  def target [:head|_], head, _ do target head end
-  def target [:tail|_], _, tail do target tail end
+  def target nil, _, _, _ do nil end
+  def target :head, start, head, _ do target start, head end
+  def target [:head,_], start, head, _ do target start, head end
+  def target :tail, start, _, tail do target start, tail end
+  def target [:tail,_], start, _, tail do target start, tail end
+  def target start, [] do target start end
+  def target _, head do target last head end
+  def target domino do merge domino, %{target: true} end
 
   def head %{dominoes: []} do [] end
 
