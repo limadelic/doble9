@@ -1,7 +1,7 @@
 defmodule Doble9Engine.UI.Controller do
 
   import Ratatouille.Constants, only: [key: 1]
-  import Enum, only: [map: 2, find: 2]
+  import Enum, only: [map: 2, find: 2, at: 3]
   import Doble9Engine.Player, only: [login: 1, new_game: 2, play: 3, knock: 1]
   import Doble9Engine.Helpers
 
@@ -27,7 +27,7 @@ defmodule Doble9Engine.UI.Controller do
 
   def update old do
     :timer.sleep 10
-    with game <- the(@game), player <- the(@player), {selected, target} <- select_target(player.turn.choices),
+    with game <- the(@game), player <- the(@player), {selected, target} <- at(player[:turn][:choices] || [], 0, {nil,nil}),
       do: %{old | game: game, player: player, playing: nil, selected: selected, target: target}
   end
 
@@ -55,7 +55,7 @@ defmodule Doble9Engine.UI.Controller do
     update game
   end
 
-  def update(%{target: [x,y], game: %{table: %{heads: [x,x]}}} = game, {_,%{key: key}}) when key in @switch_target do
+  def update(%{target: [x,y]} = game, {_,%{key: key}}) when key in @switch_target do
     %{game | target: [y,x]}
   end
 
@@ -71,12 +71,6 @@ defmodule Doble9Engine.UI.Controller do
 
   def update game, _ do game end
 
-  def dominoes choices do map choices, fn {domino,_} -> domino end end
-
   def choice choices, domino do find choices, fn {x,_} -> x == domino end end
-
-  def select_target domino, choices do choice choices, domino end
-  def select_target [first|_] do first end
-  def select_target _ do {nil, nil} end
 
 end

@@ -17,7 +17,7 @@ defmodule Doble9Engine.UI.Table do
     start = center start, window
     head = head %{dominoes: head, pos: :left, prev: start, margins: margins(window)}
     tail = tail %{dominoes: tail, pos: :right, prev: start, margins: margins(window)}
-    target = target target, head, tail
+    target = target(target, head, tail) || target([start])
 
     [Domino.render start] ++
        map(head, &(Domino.render &1)) ++
@@ -30,6 +30,8 @@ defmodule Doble9Engine.UI.Table do
   def target nil, _, _ do nil end
   def target :head, head, _ do target head end
   def target :tail, _, tail do target tail end
+  def target [:head|_], head, _ do target head end
+  def target [:tail|_], _, tail do target tail end
 
   def head %{dominoes: []} do [] end
 
