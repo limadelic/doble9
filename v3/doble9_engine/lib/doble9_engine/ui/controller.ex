@@ -27,7 +27,7 @@ defmodule Doble9Engine.UI.Controller do
 
   def update old do
     :timer.sleep 10
-    with game <- the(@game), player <- the(@player), selected <- selected(player), target <- target(selected, game.table.heads),
+    with game <- the(@game), player <- the(@player), {selected, target} <- select_target(player),
       do: %{old | game: game, player: player, playing: nil, selected: selected, target: target}
   end
 
@@ -79,7 +79,8 @@ defmodule Doble9Engine.UI.Controller do
 
   def update game, _ do game end
 
-  def selected %{turn: %{choices: [selected|_]}} do selected end
-  def selected _ do nil end
+  def select_target %{turn: %{choices: [{selected,[target|_]}|_]}} do {selected, target} end
+  def select_target %{turn: %{choices: [{selected,target}|_]}} do {selected, target} end
+  def select_target _ do {nil, nil} end
 
 end

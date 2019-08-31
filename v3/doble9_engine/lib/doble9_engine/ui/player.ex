@@ -2,13 +2,13 @@ defmodule Doble9Engine.UI.Player do
 
   alias Doble9Engine.UI.Domino
   import Map, only: [merge: 2]
-  import Enum, only: [with_index: 1]
+  import Enum, only: [with_index: 1, map: 2]
   import Doble9Engine.UI.Assets
   import Doble9Engine.UI.Arranger
 
   def render %{domino: domino, player: %{turn: %{choices: choices}}, selected: selected} = player do
     Domino.render merge Domino.from(player), %{
-      available: domino in choices,
+      available: domino in (map choices, fn {domino,_} -> domino end),
       selected: selected == domino
     }
   end
