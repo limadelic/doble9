@@ -37,8 +37,8 @@ defmodule Doble9Engine.Player do
     created Game.create(game, name), game, player
   end
 
-  def handle_call {:play, domino}, _, %{name: name, game: game, dominoes: [_|[]]} = player do
-    {:reply, :ok, won(Game.win(game, name, domino), player)}
+  def handle_call {:play, domino, target}, _, %{name: name, game: game, dominoes: [_|[]]} = player do
+    {:reply, :ok, won(Game.win(game, name, domino, target), player)}
   end
 
   def handle_call {:play, domino, target}, _, %{name: name, game: game} = player do

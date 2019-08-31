@@ -32,7 +32,7 @@ defmodule GameTest do
     end
 
     test "player could start with any domino", %{player: %{dominoes: dominoes, turn: %{choices: choices}}} do
-      assert length(dominoes) == length(i choices)
+      assert length(dominoes) == length(choices)
       Enum.map choices, fn {_,target} -> assert target == [:head, :tail] end
     end
 
@@ -41,7 +41,7 @@ defmodule GameTest do
   describe "play" do
 
     setup do
-      %{choices: [{domino, target}|_]} = the @player
+      %{turn: %{choices: [{domino, target}|_]}} = the @player
       play @player, domino, target
       %{player: the(@player), game: the(@game), domino: domino}
     end
@@ -50,12 +50,13 @@ defmodule GameTest do
       assert domino == table.start
     end
 
-    test "played domino", %{player: player, domino: domino, game: %{table: table}} = _ do
+    test "played domino", %{player: player, domino: domino, game: %{table: table}} do
       assert player.played == domino
       assert domino in table.dominoes
     end
 
-    test "the other players played", %{game: %{players: [_|players]}} = _ do
+    test "the other players played", %{game: %{players: [_|players]}} do
+      :timer.sleep 1
       for other <- players do
         assert the(other).played || the(other).knocked
       end
@@ -64,12 +65,6 @@ defmodule GameTest do
     test "is ready to play again" do
       :timer.sleep 1
       assert the(@player).turn
-    end
-
-    test "on target head", %{game: %{table: %{heads: [h,t] = heads}}, player: %{dominoes: dominoes}} do
-      given @player, &(%{&1| dominoes: [heads|dominoes]})
-      play @player, heads, :tail
-      assert [t,h] in the(@game).table.dominoes
     end
 
   end
@@ -186,7 +181,7 @@ defmodule GameTest do
     end
 
     test "player could start with any domino", %{player: %{dominoes: dominoes, turn: %{choices: choices}}} = _ do
-      assert dominoes == choices
+      assert length(dominoes) == length(choices)
     end
 
   end

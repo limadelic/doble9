@@ -9,7 +9,7 @@ defmodule Doble9Engine.Game do
   def new game do GenServer.call game, :new end
   def pick game do GenServer.call game, :pick end
   def play game, player, domino, target do GenServer.call game, {:play, player, domino, target} end
-  def win game, player, domino do GenServer.call game, {:win, player, domino} end
+  def win game, player, domino, target do GenServer.call game, {:win, player, domino, target} end
   def knock game, player do GenServer.call game, {:knock, player} end
 
   def init {game, player} do
@@ -53,8 +53,8 @@ defmodule Doble9Engine.Game do
     {:reply, :ok, game |> played(domino, target) |> call_next(player)}
   end
 
-  def handle_call {:win, player, domino}, _, game do
-    {:reply, :ok, game |> played(domino) |> won(player)}
+  def handle_call {:win, player, domino, target}, _, game do
+    {:reply, :ok, game |> played(domino, target) |> won(player)}
   end
 
   def handle_call {:knock, _}, _, %{knocks: 3} = game do
