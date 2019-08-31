@@ -1,7 +1,7 @@
 defmodule Doble9Engine.UI.Controller do
 
   import Ratatouille.Constants, only: [key: 1]
-  import Enum, only: [map: 2, find: 2, at: 3]
+  import Enum, only: [find: 2, at: 3]
   import Doble9Engine.Player, only: [login: 1, new_game: 2, play: 3, knock: 1]
   import Doble9Engine.Helpers
 
@@ -31,12 +31,12 @@ defmodule Doble9Engine.UI.Controller do
       do: %{old | game: game, player: player, playing: nil, selected: selected, target: target}
   end
 
-  def update %{selected: selected, player: %{turn: %{choices: choices}}, game: %{table: table}} = game, {_, %{key: @right}} do
+  def update %{selected: selected, player: %{turn: %{choices: choices}}} = game, {_, %{key: @right}} do
     {selected, target} = next choices, choice(choices, selected)
     %{game | selected: selected, target: target}
   end
 
-  def update %{selected: selected, player: %{turn: %{choices: choices}}, game: %{table: table}} = game, {_, %{key: @left}} do
+  def update %{selected: selected, player: %{turn: %{choices: choices}}} = game, {_, %{key: @left}} do
     {selected, target} = prev choices, choice(choices, selected)
     %{game | selected: selected, target: target}
   end

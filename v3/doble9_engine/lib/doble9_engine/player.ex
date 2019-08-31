@@ -1,10 +1,9 @@
 defmodule Doble9Engine.Player do
-  alias Doble9Engine.Game
+  alias Doble9Engine.{Game, Target}
   use GenServer
   import List, only: [flatten: 1]
   import Enum, only: [filter: 2, sum: 1, map: 2]
   import Map, only: [merge: 2]
-  import Doble9Engine.Helpers
 
   def login player do GenServer.start_link __MODULE__, %{name: player}, name: player end
   def start_bot bot, game do GenServer.start_link __MODULE__, %{name: bot, bot: true, game: game}, name: bot end
@@ -106,7 +105,7 @@ defmodule Doble9Engine.Player do
 
   def choices dominoes, heads do
     dominoes
-    |> map(&({&1, target(&1, heads)}))
+    |> map(&({&1, Target.for(&1, heads)}))
     |> filter(fn {_, target} -> target != nil end)
   end
 
