@@ -113,7 +113,7 @@ defmodule Doble9Engine.Game do
     place game, [start], start
   end
 
-  played game, domino, [head|_] do played game, domino, head end
+  def played game, domino, [head|_] do played game, domino, head end
 
   def played %{table: %{dominoes: dominoes, heads: [head,table_tail]}} = game, [head,tail], :head do
     place game, [[tail,head]] ++ dominoes, [tail,table_tail]

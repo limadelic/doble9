@@ -2,8 +2,8 @@ defmodule GameTest do
   use ExUnit.Case
 
   alias Doble9Engine.{Player, Helpers, Game}
-  import Player, only: [login: 1, new_game: 2, play: 2, play: 3, knock: 1, turn: 2]
-  import Helpers, only: [the: 1, i: 1, given: 2]
+  import Player, only: [login: 1, new_game: 2, play: 3, knock: 1, turn: 2]
+  import Helpers
   import Game, only: [new: 1]
 
   @game :calle8
@@ -12,6 +12,7 @@ defmodule GameTest do
   setup do
     login @player
     new_game @player, @game
+    :timer.sleep 10
   end
 
   describe "single player game" do
@@ -20,19 +21,20 @@ defmodule GameTest do
       %{player: the(@player), game: the(@game)}
     end
 
-    test "player picked 10 dominoes", %{player: %{dominoes: dominoes}} = _ do
+    test "player picked 10 dominoes", %{player: %{dominoes: dominoes}} do
       assert length(dominoes) == 10
     end
 
-    test "there r 4 players ready", %{game: %{players: players}} = _ do
+    test "there r 4 players ready", %{game: %{players: players}} do
       assert length(players) == 4
       for player <- players do
         assert length(the(player).dominoes) == 10
       end
     end
 
-    test "player could start with any domino", %{player: %{dominoes: dominoes, turn: %{choices: choices}}} = _ do
-      assert dominoes == choices
+    test "player could start with any domino", %{player: %{dominoes: dominoes, turn: %{choices: choices}}} do
+      assert length(dominoes) == length(i choices)
+      Enum.map choices, fn {_,target} -> assert target == [:head, :tail] end
     end
 
   end
@@ -40,8 +42,8 @@ defmodule GameTest do
   describe "play" do
 
     setup do
-      %{dominoes: [domino|_]} = the @player
-      play @player, domino
+      %{choices: [{domino, target}|_]} = the @player
+      play @player, domino, target
       %{player: the(@player), game: the(@game), domino: domino}
     end
 
@@ -108,7 +110,7 @@ defmodule GameTest do
         dominoes: [[9,9]]
       }})
       given @player, &(%{&1| dominoes: [[9,8]]})
-      play @player, [9,8]
+      play @player, [9,8], :tail
     end
 
     test "its done" do

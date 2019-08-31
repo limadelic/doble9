@@ -2,7 +2,7 @@ defmodule Doble9Engine.UI.Controller do
 
   import Ratatouille.Constants, only: [key: 1]
   import Enum, only: [map: 2]
-  import Doble9Engine.Player, only: [login: 1, new_game: 2, play: 2, play: 3, knock: 1]
+  import Doble9Engine.Player, only: [login: 1, new_game: 2, play: 3, knock: 1]
   import Doble9Engine.Helpers
 
   @game :calle8
@@ -46,8 +46,8 @@ defmodule Doble9Engine.UI.Controller do
   end
 
   def update(%{playing: head} = game, {_, %{ch: ch}}) when ch in @numbers do
-    play @player, [head, ch - 48]
-    update game
+#    play @player, [head, ch - 48]
+#    update game
   end
 
   def update(%{selected: nil} = game, {_, %{key: key}}) when key in @knock do
@@ -68,8 +68,8 @@ defmodule Doble9Engine.UI.Controller do
   end
 
   def update(%{selected: domino} = game, {:event, %{key: key}}) when domino != nil and key in @play do
-    play @player, domino
-    update game
+#    play @player, domino
+#    update game
   end
 
   def update(%{selected: domino, target: target} = game, {:event, %{key: key}}) when domino != nil and key in @play do
