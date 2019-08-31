@@ -12,7 +12,6 @@ defmodule GameTest do
   setup do
     login @player
     new_game @player, @game
-    :timer.sleep 10
   end
 
   describe "single player game" do

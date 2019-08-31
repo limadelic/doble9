@@ -82,7 +82,7 @@ defmodule Doble9Engine.Player do
   end
 
   def picked({:ok, dominoes}, %{turn: turn} = player) when turn != nil do
-    %{player | dominoes: dominoes, turn: %{turn | choices: dominoes}}
+    %{player | dominoes: dominoes, turn: %{turn | choices: choices(dominoes,[])}}
   end
   def picked {:ok, dominoes}, player do
     %{player | dominoes: dominoes}
@@ -107,7 +107,7 @@ defmodule Doble9Engine.Player do
   def choices dominoes, heads do
     dominoes
     |> map(&({&1, target(&1, heads)}))
-    |> filter(fn {_, target} -> target == nil end)
+    |> filter(fn {_, target} -> target != nil end)
   end
 
 end
