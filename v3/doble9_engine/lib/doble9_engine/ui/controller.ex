@@ -1,7 +1,8 @@
 defmodule Doble9Engine.UI.Controller do
 
+  alias Doble9Engine.Target
   import Ratatouille.Constants, only: [key: 1]
-  import Enum, only: [find: 2, at: 3]
+  import Enum, only: [find: 2, filter: 2, at: 3]
   import Doble9Engine.Player, only: [login: 1, new_game: 2, play: 3, knock: 1]
   import Doble9Engine.Helpers
 
@@ -15,7 +16,7 @@ defmodule Doble9Engine.UI.Controller do
   @right key(:arrow_right)
   @space key(:space)
   @enter key(:enter)
-  @play [@space, @up]
+  @play [@space, @up, @enter]
   @knock [@space, @enter]
   @switch_target [@up, @down]
 
@@ -41,14 +42,10 @@ defmodule Doble9Engine.UI.Controller do
     %{game | selected: selected, target: target}
   end
 
-#  def update(%{playing: nil} = game, {_, %{ch: ch}}) when ch in @numbers do
-#    %{game | playing: ch - 48}
-#  end
-#
-#  def update(%{playing: head} = game, {_,%{ch: ch}}) when ch in @numbers do
-#    play @player, [head, ch - 48]
-#    update game
-#  end
+  def update(%{player: %{turn: %{choices: choices}}} = game, {_,%{ch: ch}}) when ch in @numbers do
+    number = ch - 48
+    entered number, choice(choices, number), game
+  end
 
   def update(%{selected: nil} = game, {_,%{key: key}}) when key in @knock do
     knock @player
@@ -71,6 +68,16 @@ defmodule Doble9Engine.UI.Controller do
 
   def update game, _ do game end
 
-  def choice choices, domino do find choices, fn {x,_} -> x == domino end end
+  def choice choices, [_,_]=domino do find choices, fn {x,_} -> x == domino end end
+  def choice choices, number do filter choices, fn {domino,_} -> number in domino end end
+
+  def entered _, [], game do game end
+  def entered number, [{domino,_}], %{game: %{table: %{heads: heads}}} = game do
+    play @player, domino, Target.for([number,number], heads)
+    update game
+  end
+  def entered number, [{selected,target}|_], game do
+    %{game | playing: number, selected: selected, target: target}
+  end
 
 end
