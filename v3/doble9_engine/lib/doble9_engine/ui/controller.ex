@@ -72,8 +72,8 @@ defmodule Doble9Engine.UI.Controller do
   def choice choices, number do filter choices, fn {domino,_} -> number in domino end end
 
   def entered _, [], game do game end
-  def entered number, [{domino,_}], %{game: %{table: %{heads: heads}}} = game do
-    play @player, domino, Target.for([number,number], heads)
+  def entered number, [{domino,target}], %{game: %{table: %{heads: heads}}} = game do
+    play @player, domino, Target.for([number,number], heads) || target
     update game
   end
   def entered number, [{selected,target}|_], game do
