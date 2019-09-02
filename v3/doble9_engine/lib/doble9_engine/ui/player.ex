@@ -39,11 +39,11 @@ defmodule Doble9Engine.UI.Player do
   end
 
   def render %{at: :left} = player do
-    render merge player, %{axis: :y, left: 0, label_at: [:top, :left]}
+    render merge player, %{axis: :y, left: 0, label_at: {:top, :left}}
   end
 
   def render %{at: :right, window: %{width: width}} = player do
-    render merge player, %{axis: :y, left: width - width(:x), label_at: [:top, :right]}
+    render merge player, %{axis: :y, left: width - width(:x), label_at: {:top, :right}}
   end
 
   def render %{at: :bottom, window: %{height: height}} = player do

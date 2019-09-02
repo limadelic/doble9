@@ -103,6 +103,4 @@ defmodule Doble9Engine.UI.Arranger do
     merge domino, %{left: left + width, top: top + ref_height - height}
   end
 
-  def char_at glyph, x, y do String.at(Enum.at(glyph, y), x) end
-
 end
