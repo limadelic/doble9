@@ -1,9 +1,9 @@
 defmodule Doble9Engine.UI.Controller do
 
-  alias Doble9Engine.Target
+  alias Doble9Engine.{Player, Target}
   import Ratatouille.Constants, only: [key: 1]
   import Enum, only: [find: 2, filter: 2, at: 3]
-  import Doble9Engine.Player, only: [login: 1, new_game: 2, play: 3, knock: 1]
+  import Doble9Engine.Player, only: [login: 1, new_game: 2, knock: 1]
   import Doble9Engine.Helpers
 
   @game :calle8
@@ -57,13 +57,11 @@ defmodule Doble9Engine.UI.Controller do
   end
 
   def update(%{selected: domino, target: [target|_]} = game, {_,%{key: key}}) when domino != nil and key in @play do
-    play @player, domino, target
-    update game
+    play domino, target, game
   end
 
-  def update(%{selected: domino, target: target} = game, {:event, %{key: key}}) when domino != nil and key in @play do
-    play @player, domino, target
-    update game
+  def update(%{selected: domino, target: target} = game, {_, %{key: key}}) when domino != nil and key in @play do
+    play domino, target, game
   end
 
   def update game, _ do game end
@@ -73,11 +71,20 @@ defmodule Doble9Engine.UI.Controller do
 
   def entered _, [], game do game end
   def entered number, [{domino,target}], %{game: %{table: %{heads: heads}}} = game do
-    play @player, domino, Target.for([number,number], heads) || target
-    update game
+    play domino, Target.select(number,heads,target), game
+  end
+  def entered(tail, choices, %{playing: head, game: %{table: %{heads: heads}}} = game) when head != nil do
+    (choice(choices, head) != [])
+    && play([head,tail], Target.select(head,heads,[]), game)
+    || entered(tail, choices, %{game | playing: nil})
   end
   def entered number, [{selected,target}|_], game do
     %{game | playing: number, selected: selected, target: target}
+  end
+
+  def play domino, target, game do
+    Player.play @player, domino, target
+    update game
   end
 
 end

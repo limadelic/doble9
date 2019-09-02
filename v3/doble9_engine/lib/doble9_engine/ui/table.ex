@@ -14,7 +14,7 @@ defmodule Doble9Engine.UI.Table do
     start = center start, window
     head = head %{dominoes: head, pos: :left, prev: start, margins: margins(window)}
     tail = tail %{dominoes: tail, pos: :right, prev: start, margins: margins(window)}
-    target = Target.of target, start, head, tail
+    target = Target.find target, start, head, tail
 
     [Domino.render start] ++
        map(head, &(Domino.render &1)) ++

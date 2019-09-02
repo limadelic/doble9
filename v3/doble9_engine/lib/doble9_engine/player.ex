@@ -105,7 +105,7 @@ defmodule Doble9Engine.Player do
 
   def choices dominoes, heads do
     dominoes
-    |> map(&({&1, Target.for(&1, heads)}))
+    |> map(&({&1, Target.select(&1, heads)}))
     |> filter(fn {_, target} -> target != nil end)
   end
 
