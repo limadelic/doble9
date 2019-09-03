@@ -3,7 +3,7 @@ defmodule Doble9Engine.UI.Label do
   import Ratatouille.View
   import Doble9Engine.UI.Assets, only: [width: 1, height: 1, char: 1, char_at: 3]
 
-  @dy div(height(:y), 2) - div(height(:char), 2) + 1
+  @dy div(height(:y), 2) - div(height(:char), 2)
 
   def render %{text: text} = label do
     glyphs = text |> String.upcase |> String.to_charlist |> Enum.map(&(char &1))
@@ -12,15 +12,11 @@ defmodule Doble9Engine.UI.Label do
   end
 
   def render_at %{at: :left, left: left, top: top, width: width} = label do
-    render_glyphs Map.merge label, %{left: left - width - 2, top: top + @dy}
+    render_glyphs Map.merge label, %{left: left - width - 2, top: top}
   end
 
-  def render_at %{at: {:top, :left}, left: left, top: top} = label do
-    render_glyphs Map.merge label, %{left: left, top: top - @dy - 1}
-  end
-
-  def render_at %{at: {:top, :right}, left: left, top: top, width: width} = label do
-    render_glyphs Map.merge label, %{left: left + width(:x) - width, top: top - @dy - 1}
+  def render_at %{at: :top, left: left, top: top, width: width} = label do
+    render_glyphs Map.merge label, %{left: left, top: top - @dy - 2}
   end
 
   def render_glyphs %{glyphs: [glyph], top: top, left: left} do
