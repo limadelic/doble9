@@ -1,10 +1,9 @@
 defmodule Doble9Engine.UI.Player do
 
-  alias Doble9Engine.UI.Domino
+  alias Doble9Engine.UI.{Domino, Label}
   import Map, only: [merge: 2]
   import Enum, only: [with_index: 1, map: 2]
   import Doble9Engine.UI.Assets
-  import Doble9Engine.UI.Arranger
 
   def render %{domino: domino, player: %{turn: %{choices: choices}}, selected: selected} = player do
     Domino.render merge Domino.from(player), %{
@@ -19,18 +18,18 @@ defmodule Doble9Engine.UI.Player do
 
   def render %{axis: axis, label_at: label_at, player: %{name: name, dominoes: dominoes}, show: show, top: top, left: left, dx: dx, dy: dy} = player do
     [
-      Label.render(%{text: player, at: label_at, left: left, top: top}),
+      Label.render(%{text: String.slice("#{name}",0..2), at: label_at, left: left, top: top}),
       for {domino, i} <- with_index dominoes do
         render merge player, %{domino: domino, axis: other(axis), left: left + i * dx, top: top + i * dy}
       end
     ]
   end
 
-  def render %{axis: :x, player: %{name: name, dominoes: dominoes}, window: %{width: width}} = player do
+  def render %{axis: :x, player: %{dominoes: dominoes}, window: %{width: width}} = player do
     render merge player, %{dy: 0, dx: width(:y), left: div(width - (width(:y) * length(dominoes)), 2)}
   end
 
-  def render %{axis: :y, player: %{dominoes: dominoes}, window: %{height: height, width: width}, left: left} = player do
+  def render %{axis: :y, player: %{dominoes: dominoes}, window: %{height: height}} = player do
     render merge player, %{dx: 0, dy: height(:x), top: top = div(height - (height(:x) * length(dominoes)), 2)}
   end
 

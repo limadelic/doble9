@@ -1,42 +1,42 @@
 defmodule Doble9Engine.UI.Label do
 
-  alias Ratatouille.View
+  import Ratatouille.View
   import Doble9Engine.UI.Assets, only: [width: 1, height: 1, char: 1, char_at: 3]
 
   @dy div(height(:y), 2) - div(height(:char), 2) + 1
 
   def render %{text: text} = label do
-    glyphs = text |> String.to_charlist |> Enum.map(&(char &1))
+    glyphs = text |> String.upcase |> String.to_charlist |> Enum.map(&(char &1))
     width = glyphs |> Enum.map(&(width &1)) |> Enum.reduce(0, &(&1 + &2))
-    render Map.merge label, %{glyphs: glyphs, witdh: width}
+    render_at Map.merge label, %{glyphs: glyphs, width: width}
   end
 
-  def render %{at: :left, left: left, top: top, width: width} = label do
-    render Map.merge label, %{left: left - width, top: top + @dy}
+  def render_at %{at: :left, left: left, top: top, width: width} = label do
+    render_glyphs Map.merge label, %{left: left - width - 2, top: top + @dy}
   end
 
-  def render %{at: {:top, :left}, left: left, top: top} = label do
-    render Map.merge label, %{left: left, top: top - @dy}
+  def render_at %{at: {:top, :left}, left: left, top: top} = label do
+    render_glyphs Map.merge label, %{left: left, top: top - @dy - 1}
   end
 
-  def render %{at: {:top, :right}, left: left, top: top, width: width} = label do
-    render Map.merge label, %{left: left + width(:x) - width, top: top - @dy}
+  def render_at %{at: {:top, :right}, left: left, top: top, width: width} = label do
+    render_glyphs Map.merge label, %{left: left + width(:x) - width, top: top - @dy - 1}
   end
 
-  def render %{glyphs: [glyph], top: top, left: left} do
-    [render(%{glyph: glyph, top: top, left: left})]
+  def render_glyphs %{glyphs: [glyph], top: top, left: left} do
+    [render_glyph(%{glyph: glyph, top: top, left: left})]
   end
 
-  def render %{glyphs: [glyph|glyphs], top: top, left: left} = label do
+  def render_glyphs %{glyphs: [glyph|glyphs], top: top, left: left} = label do
     [
-      render(%{glyph: glyph, top: top, left: left})|
-      render(%{label | glyphs: glyphs, left: left + width(glyph)})
+      render_glyph(%{glyph: glyph, top: top, left: left})|
+      render_glyphs(%{label | glyphs: glyphs, left: left + width(glyph)})
     ]
   end
 
-  def render %{glyph: glyph, top: top, left: left} do
+  def render_glyph %{glyph: glyph, top: top, left: left} do
     for x <- 0..width(glyph) - 1, y <- 0..height(glyph) - 1 do
-      View.canvas_cell %{char: char_at(glyph, x, y), x: left + x, y: top + y}
+      canvas_cell %{char: char_at(glyph, x, y), x: left + x, y: top + y}
     end
   end
 

@@ -18,6 +18,9 @@ defmodule Doble9Engine.UI.Assets do
   def char(number) when number in ?0..?9 do
     numbers() |> Enum.map(&(Enum.at &1, number - ?0))
   end
+  def char _ do [] end
+
+
   def number n, axis do
     numbers(axis) |> Enum.map(&(Enum.at &1, n))
   end
