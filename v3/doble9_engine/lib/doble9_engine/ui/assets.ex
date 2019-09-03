@@ -8,7 +8,7 @@ defmodule Doble9Engine.UI.Assets do
   def width(axis) when axis in @axis do width frame axis  end
   def width glyph do glyph |> hd |> String.length end
 
-  def height :char do height char :m, ?A end
+  def height :char do height char :l, ?A end
   def height(axis) when axis in @axis do height frame axis end
   def height glyph do length glyph end
 
@@ -32,6 +32,14 @@ defmodule Doble9Engine.UI.Assets do
     ["┌─┐","┌┐ ","┌─┐","┌─┐","┌─┐","┌─┐","┌─┐","┬ ┬","┬","  ┬","┬┌ ","┬  ","┌┬┐","┌┐┬","┌─┐","┌─┐","┌─┐","┌┐ ","┌─┐","┌┬┐","┬ ┬","┬ ┬","┬ ┬","┌┬┐","┬ ┬","┌─┐"],
     ["├─┤","├┴┐","│  ","│ │","├─ ","├─ ","├─┐","├─┤","│","  │","├┴┐","│  ","│││","│││","│ │","├─┘","│ │","├┴┐","└─┐"," │ ","│ │","│┌┘","│││"," │ ","└┬┘","┌─┘"],
     ["┴ ┴","└─┘","└─┘","└─┘","└─┘","┴  ","└─┘","┴ ┴","┴","└─┘","┴ └","└─┘","┴ ┴","┴└┘","└─┘","┴  ","└─┼","┴ └","└─┘"," ┴ ","└─┘","└┘ ","└┴┘","└┴┘"," ┴ ","└─┘"],
+  ]
+  end
+
+  def numbers :m do
+  [
+    ["┌─┐","┌┐","┌─┐","┌─┐","┬ ┬","┌─┐","┌─┐","┌─┐","┌─┐","┌─┐"],
+    ["│ │"," │","┌─┘"," ─┤","└─┤","└─┐","├─┐","  │","├─┤","└─┤"],
+    ["└─┘"," ┴","└─┘","└─┘","  ┴","└─┘","└─┘","  ┴","└─┘","└─┘"],
   ]
   end
 

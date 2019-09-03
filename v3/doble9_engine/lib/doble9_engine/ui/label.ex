@@ -6,7 +6,7 @@ defmodule Doble9Engine.UI.Label do
   @dy div(height(:y), 2) - div(height(:char), 2)
 
   def render %{text: text} = label do
-    glyphs = "#{text}" |> String.upcase |> String.to_charlist |> Enum.map(&(char :m, &1))
+    glyphs = "#{text}" |> String.slice(0..2) |> String.upcase |> String.to_charlist |> Enum.map(&(char :l, &1))
     width = glyphs |> Enum.map(&(width &1)) |> Enum.reduce(0, &(&1 + &2))
     render_at Map.merge label, %{glyphs: glyphs, width: width}
   end
