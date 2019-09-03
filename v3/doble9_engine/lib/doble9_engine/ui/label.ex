@@ -1,12 +1,12 @@
 defmodule Doble9Engine.UI.Label do
 
   import Ratatouille.View
-  import Doble9Engine.UI.Assets, only: [width: 1, height: 1, char: 1, char_at: 3]
+  import Doble9Engine.UI.Assets, only: [width: 1, height: 1, char: 2, char_at: 3]
 
   @dy div(height(:y), 2) - div(height(:char), 2)
 
   def render %{text: text} = label do
-    glyphs = text |> String.upcase |> String.to_charlist |> Enum.map(&(char &1))
+    glyphs = "#{text}" |> String.upcase |> String.to_charlist |> Enum.map(&(char :m, &1))
     width = glyphs |> Enum.map(&(width &1)) |> Enum.reduce(0, &(&1 + &2))
     render_at Map.merge label, %{glyphs: glyphs, width: width}
   end

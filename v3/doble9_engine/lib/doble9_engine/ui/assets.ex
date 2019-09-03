@@ -8,12 +8,12 @@ defmodule Doble9Engine.UI.Assets do
   def width(axis) when axis in @axis do width frame axis  end
   def width glyph do glyph |> hd |> String.length end
 
-  def height :char do height char ?A end
+  def height :char do height char :m, ?A end
   def height(axis) when axis in @axis do height frame axis end
   def height glyph do length glyph end
 
-  def char(letter) when letter in ?A..?Z do
-    letters() |> Enum.map(&(Enum.at &1, letter - ?A))
+  def char(size, letter) when letter in ?A..?Z do
+    letters(size) |> Enum.map(&(Enum.at &1, letter - ?A))
   end
   def char(number) when number in ?0..?9 do
     numbers() |> Enum.map(&(Enum.at &1, number - ?0))
@@ -27,7 +27,15 @@ defmodule Doble9Engine.UI.Assets do
 
   def char_at glyph, x, y do String.at(Enum.at(glyph, y), x) end
 
-  def letters do
+  def letters :m do
+  [
+    ["┌─┐","┌┐ ","┌─┐","┌─┐","┌─┐","┌─┐","┌─┐","┬ ┬","┬","  ┬","┬┌ ","┬  ","┌┬┐","┌┐┬","┌─┐","┌─┐","┌─┐","┌┐ ","┌─┐","┌┬┐","┬ ┬","┬ ┬","┬ ┬","┌┬┐","┬ ┬","┌─┐"],
+    ["├─┤","├┴┐","│  ","│ │","├─ ","├─ ","├─┐","├─┤","│","  │","├┴┐","│  ","│││","│││","│ │","├─┘","│ │","├┴┐","└─┐"," │ ","│ │","│┌┘","│││"," │ ","└┬┘","┌─┘"],
+    ["┴ ┴","└─┘","└─┘","└─┘","└─┘","┴  ","└─┘","┴ ┴","┴","└─┘","┴ └","└─┘","┴ ┴","┴└┘","└─┘","┴  ","└─┼","┴ └","└─┘"," ┴ ","└─┘","└┘ ","└┴┘","└┴┘"," ┴ ","└─┘"],
+  ]
+  end
+
+  def letters :l do
   [
     ["┌───┐","┌───┐","┌───┐","┌───┐","┌───┐","┌───┐","┌───┐","┌─┐┌─┐","┌───┐","┌───┐","┌─┬─┐","┌─┐  ","┌──┬──┐","┌──┬─┐","┌───┐","┌───┐","┌───┐ ","┌───┐","┌───┐","┌───┐","┌─┬─┐","┌─┬─┐","┌─┬─┬─┐","┌─┬─┐","┌─┬─┐","┌───┐"],
     ["│ ● │","│ ● │","│ ┌─┘","│ │ │","│ ──┤","│ ──┤","│ ──┤","│ └┘ │","└┐ ┌┘","└┐ ┌┘","│  ┌┘","│ │  ","│     │","│    │","│ │ │","│ ● │","│ │ │ ","│ ● │","│ ──┤","└┐ ┌┘","│ │ │","│ │ │","│ │ │ │","└┐ ┌┘","└┐ ┌┘","├── │"],

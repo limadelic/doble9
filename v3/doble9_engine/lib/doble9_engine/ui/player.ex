@@ -18,7 +18,7 @@ defmodule Doble9Engine.UI.Player do
 
   def render %{axis: axis, label_at: label_at, player: %{name: name, dominoes: dominoes}, show: show, top: top, left: left, dx: dx, dy: dy} = player do
     [
-      Label.render(%{text: String.slice("#{name}",0..2), at: label_at, left: left, top: top}),
+      Label.render(%{text: name, at: label_at, left: left, top: top}),
       for {domino, i} <- with_index dominoes do
         render merge player, %{domino: domino, axis: other(axis), left: left + i * dx, top: top + i * dy}
       end
