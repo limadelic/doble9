@@ -16,7 +16,7 @@ defmodule Doble9Engine.UI.Controller do
   @right key(:arrow_right)
   @space key(:space)
   @enter key(:enter)
-  @play [@space, @up, @enter]
+  @play [@space, @enter]
   @knock [@space, @enter]
   @switch_target [@up, @down]
 

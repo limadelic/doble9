@@ -4,7 +4,6 @@ defmodule Doble9Engine.UI.Domino do
 
   import Map, only: [merge: 2]
   import Doble9Engine.UI.Assets
-  import Doble9Engine.UI.Arranger
 
   def render nil do end
 
