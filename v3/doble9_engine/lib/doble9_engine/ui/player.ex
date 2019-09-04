@@ -45,15 +45,21 @@ defmodule Doble9Engine.UI.Player do
     render_player merge player, %{label_at: :top, dx: 0, dy: height(:x), top: div(height - (height(:x) * length(dominoes)), 2)}
   end
 
+  def render_name %{finished: %{winner: name}, label_at: label_at, axis: axis, player: %{name: name, dominoes: dominoes}, top: top, left: left, } do
+    {width, height} = size dominoes, axis
+    Label.render %{text: "#{name}" |> String.slice(0..2), selected: true, at: label_at, ref: %{left: left, top: top, width: width, height: height}}
+  end
+
   def render_name %{label_at: label_at, axis: axis, player: %{name: name, dominoes: dominoes}, top: top, left: left, } do
     {width, height} = size dominoes, axis
     Label.render %{text: "#{name}" |> String.slice(0..2), at: label_at, ref: %{left: left, top: top, width: width, height: height}}
   end
 
-#  def render_count %{count_at: count_at, axis: axis, player: %{dominoes: []}, top: top, left: left} do
-#    {width, height} = size [1], axis
-#    Label.render %{text: "won", at: count_at, ref: %{left: left, top: top, width: 0, height: 0}}
-#  end
+  def render_count %{finished: %{winner: name}, count_at: count_at, axis: axis, player: %{name: name, dominoes: dominoes}, top: top, left: left} do
+    {width, height} = size dominoes, axis
+    {_,count} = Player.count name
+    Label.render %{text: count, selected: true, at: count_at, ref: %{left: left, top: top, width: width, height: height}}
+  end
 
   def render_count %{count_at: count_at, axis: axis, player: %{name: name, dominoes: dominoes}, top: top, left: left} do
     {width, height} = size dominoes, axis
@@ -67,6 +73,10 @@ defmodule Doble9Engine.UI.Player do
     end
   end
 
+  def render_domino %{finished: %{winner: name}, player: %{name: name}} = player do
+    Domino.render merge Domino.from(player), %{selected: true}
+  end
+
   def render_domino %{domino: domino, player: %{turn: %{choices: choices}}, selected: selected} = player do
     Domino.render merge Domino.from(player), %{
       available: domino in (map choices, fn {domino,_} -> domino end),
@@ -74,7 +84,7 @@ defmodule Doble9Engine.UI.Player do
     }
   end
 
-  def render_domino %{domino: _} = player do
+  def render_domino player do
     Domino.render Domino.from player
   end
 

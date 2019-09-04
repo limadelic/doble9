@@ -134,9 +134,8 @@ defmodule Doble9Engine.UI.Assets do
 
   def back :s do
     [
-      "███",
-      "███",
-      "███",
+      "██",
+      "██",
     ]
   end
 

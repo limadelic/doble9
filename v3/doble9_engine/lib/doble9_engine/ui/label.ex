@@ -25,18 +25,24 @@ defmodule Doble9Engine.UI.Label do
     render_glyphs Map.merge label, %{left: center(left, ref_width, width), top: top + ref_height}
   end
 
-  def render_glyphs %{glyphs: [glyph], top: top, left: left} do
-    [render_glyph(%{glyph: glyph, top: top, left: left})]
+  def render_glyphs %{glyphs: [glyph], top: top, left: left} = label do
+    [render_glyph(Map.merge label, %{glyph: glyph, top: top, left: left})]
   end
 
   def render_glyphs %{glyphs: [glyph|glyphs], top: top, left: left} = label do
     [
-      render_glyph(%{glyph: glyph, top: top, left: left})|
+      render_glyph(Map.merge label, %{glyph: glyph, top: top, left: left})|
       render_glyphs(%{label | glyphs: glyphs, left: left + width(glyph)})
     ]
   end
 
-  def render_glyph %{glyph: glyph, top: top, left: left} do
+  def render_glyph %{selected: true, glyph: glyph, top: top, left: left} = label do
+    for x <- 0..width(glyph) - 1, y <- 0..height(glyph) - 1 do
+      canvas_cell %{char: char_at(glyph, x, y), x: left + x, y: top + y, attributes: [:reverse]}
+    end
+  end
+
+  def render_glyph %{glyph: glyph, top: top, left: left} = label do
     for x <- 0..width(glyph) - 1, y <- 0..height(glyph) - 1 do
       canvas_cell %{char: char_at(glyph, x, y), x: left + x, y: top + y}
     end
