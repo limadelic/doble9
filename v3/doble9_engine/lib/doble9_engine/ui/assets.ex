@@ -5,6 +5,9 @@ defmodule Doble9Engine.UI.Assets do
   def other :x do :y end
   def other :y do :x end
 
+  def size dominoes, :x do {length(dominoes) * width(:y), height(:y)} end
+  def size dominoes, :y do {width(:x), length(dominoes) * height(:x)} end
+
   def width(axis) when axis in @axis do width frame axis  end
   def width glyph do glyph |> hd |> String.length end
 
@@ -15,8 +18,8 @@ defmodule Doble9Engine.UI.Assets do
   def char(size, letter) when letter in ?A..?Z do
     letters(size) |> Enum.map(&(Enum.at &1, letter - ?A))
   end
-  def char(number) when number in ?0..?9 do
-    numbers() |> Enum.map(&(Enum.at &1, number - ?0))
+  def char(size, number) when number in ?0..?9 do
+    numbers(size) |> Enum.map(&(Enum.at &1, number - ?0))
   end
   def char _ do [] end
 
@@ -52,7 +55,7 @@ defmodule Doble9Engine.UI.Assets do
   ]
   end
 
-  def numbers do
+  def numbers :l do
   [
     ["┌───┐","┌──┐ ","┌───┐","┌───┐","┌─┬─┐","┌───┐","┌───┐","┌───┐","┌───┐","┌───┐"],
     ["│ │ │","└┐ │ ","├── │","├── │","│ │ │","│ ──┤","│ ──┤","└─┐ │","│ ● │","│ ● │"],
