@@ -21,19 +21,19 @@ defmodule Doble9Engine.UI.Player do
     ]
   end
 
-  def render %{at: :top} = player do
+  def render_at :top, player do
     render_axis merge player, %{axis: :x, count_at: :right, top: 0}
   end
 
-  def render %{at: :left} = player do
+  def render_at :left, player do
     render_axis merge player, %{axis: :y, count_at: :bottom, left: 0}
   end
 
-  def render %{at: :right, window: %{width: width}} = player do
+  def render_at :right, %{window: %{width: width}} = player do
     render_axis merge player, %{axis: :y, count_at: :bottom, left: width - width(:x)}
   end
 
-  def render %{at: :bottom, window: %{height: height}} = player do
+  def render_at :bottom, %{window: %{height: height}} = player do
     render_axis merge player, %{axis: :x, count_at: :right, top: height - height(:y)}
   end
 

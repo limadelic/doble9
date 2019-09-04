@@ -132,6 +132,14 @@ defmodule Doble9Engine.UI.Assets do
     ]
   end
 
+  def back :s do
+    [
+      "███",
+      "███",
+      "███",
+    ]
+  end
+
   def back :y do
     [
       "┌───────┐",

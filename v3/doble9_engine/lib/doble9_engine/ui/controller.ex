@@ -7,7 +7,7 @@ defmodule Doble9Engine.UI.Controller do
   import Doble9Engine.Helpers
 
   @game :calle8
-  @player :mps
+  @player :you
 
   @numbers 48..57
   @up key(:arrow_up)
