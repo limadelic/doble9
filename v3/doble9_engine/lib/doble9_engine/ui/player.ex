@@ -3,10 +3,11 @@ defmodule Doble9Engine.UI.Player do
   alias Doble9Engine.Player
   alias Doble9Engine.UI.{Domino, Label}
   import Map, only: [merge: 2]
-  import Enum, only: [with_index: 1, map: 2]
+  import Enum, only: [with_index: 1, map: 2, random: 1]
   import Doble9Engine.UI.Assets
 
-  def render_player(%{finished: finished} = player) when finished != nil do
+  def render_player(%{finished: finished, player: %{name: name}} = player) when finished != nil do
+    player = merge player, %{selected: name == finished[:winner] and random([true, false])}
     [
       render_name(player),
       render_dominoes(player),
@@ -45,9 +46,9 @@ defmodule Doble9Engine.UI.Player do
     render_player merge player, %{label_at: :top, dx: 0, dy: height(:x), top: div(height - (height(:x) * length(dominoes)), 2)}
   end
 
-  def render_name %{finished: %{winner: name}, label_at: label_at, axis: axis, player: %{name: name, dominoes: dominoes}, top: top, left: left, } do
+  def render_name %{selected: selected, label_at: label_at, axis: axis, player: %{name: name, dominoes: dominoes}, top: top, left: left, } do
     {width, height} = size dominoes, axis
-    Label.render %{text: "#{name}" |> String.slice(0..2), selected: true, at: label_at, ref: %{left: left, top: top, width: width, height: height}}
+    Label.render %{text: "#{name}" |> String.slice(0..2), selected: selected, at: label_at, ref: %{left: left, top: top, width: width, height: height}}
   end
 
   def render_name %{label_at: label_at, axis: axis, player: %{name: name, dominoes: dominoes}, top: top, left: left, } do
@@ -55,10 +56,10 @@ defmodule Doble9Engine.UI.Player do
     Label.render %{text: "#{name}" |> String.slice(0..2), at: label_at, ref: %{left: left, top: top, width: width, height: height}}
   end
 
-  def render_count %{finished: %{winner: name}, count_at: count_at, axis: axis, player: %{name: name, dominoes: dominoes}, top: top, left: left} do
+  def render_count %{selected: selected, count_at: count_at, axis: axis, player: %{name: name, dominoes: dominoes}, top: top, left: left} do
     {width, height} = size dominoes, axis
     {_,count} = Player.count name
-    Label.render %{text: count, selected: true, at: count_at, ref: %{left: left, top: top, width: width, height: height}}
+    Label.render %{text: count, selected: selected, at: count_at, ref: %{left: left, top: top, width: width, height: height}}
   end
 
   def render_count %{count_at: count_at, axis: axis, player: %{name: name, dominoes: dominoes}, top: top, left: left} do
@@ -73,8 +74,8 @@ defmodule Doble9Engine.UI.Player do
     end
   end
 
-  def render_domino %{finished: %{winner: name}, player: %{name: name}} = player do
-    Domino.render merge Domino.from(player), %{selected: true}
+  def render_domino %{selected: selected, player: %{name: name}} = player do
+    Domino.render merge Domino.from(player), %{selected: selected}
   end
 
   def render_domino %{domino: domino, player: %{turn: %{choices: choices}}, selected: selected} = player do
