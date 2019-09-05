@@ -3,8 +3,20 @@ defmodule Doble9Engine.UI.Player do
   alias Doble9Engine.Player
   alias Doble9Engine.UI.{Domino, Label}
   import Map, only: [merge: 2]
-  import Enum, only: [with_index: 1, map: 2, random: 1]
+  import Enum, only: [with_index: 1, map: 2, random: 1, zip: 2]
   import Doble9Engine.UI.Assets
+  import Doble9Engine.Helpers
+
+  @positions [:bottom, :right, :top, :left]
+
+  def render_players %{game: %{players: players}} = game do
+    players |> zip(@positions) |> map(&(render_player &1, game))
+  end
+
+  def render_player {player, at}, %{game: %{finished: finished}} = game do
+    show = at == :bottom || finished != nil
+    render_at at, merge(game, %{player: the(player), show: show})
+  end
 
   def render_player(%{game: %{finished: finished}, player: %{name: name}, blink: blink} = player) when finished != nil do
     player = merge player, %{selected: name == finished[:winner] and blink}
