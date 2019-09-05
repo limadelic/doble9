@@ -1,6 +1,7 @@
 defmodule Doble9Engine.UI.Controller do
 
   alias Doble9Engine.{Player, Target}
+
   import Ratatouille.Constants, only: [key: 1]
   import Enum, only: [find: 2, filter: 2, at: 3]
   import Doble9Engine.Player, only: [login: 1, new_game: 2, knock: 1]
@@ -32,7 +33,7 @@ defmodule Doble9Engine.UI.Controller do
       do: %{old | game: game, player: player, playing: nil, selected: selected, target: target}
   end
 
-  def update %{blink: blink} = game, :tick do
+  def update %{blink: blink} = game, :blink do
     %{game | blink: !blink}
   end
 

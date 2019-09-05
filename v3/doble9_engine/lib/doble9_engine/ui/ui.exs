@@ -1,6 +1,7 @@
 defmodule Doble9Engine.UI do
   @behaviour Ratatouille.App
 
+  alias Ratatouille.Runtime.Subscription
   import Ratatouille.View
 
   alias Doble9Engine.UI.{Game, Controller}
@@ -17,6 +18,8 @@ defmodule Doble9Engine.UI do
     end
   end
 
+  def subscribe _ do Subscription.interval 100, :blink end
+
 end
 
-Ratatouille.run Doble9Engine.UI
+Ratatouille.run Doble9Engine.UI, interval: 100
