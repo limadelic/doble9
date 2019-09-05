@@ -6,8 +6,8 @@ defmodule Doble9Engine.UI.Player do
   import Enum, only: [with_index: 1, map: 2, random: 1]
   import Doble9Engine.UI.Assets
 
-  def render_player(%{finished: finished, player: %{name: name}} = player) when finished != nil do
-    player = merge player, %{selected: name == finished[:winner] and random([true, false])}
+  def render_player(%{game: %{finished: finished}, player: %{name: name}, blink: blink} = player) when finished != nil do
+    player = merge player, %{selected: name == finished[:winner] and blink}
     [
       render_name(player),
       render_dominoes(player),
@@ -74,15 +74,15 @@ defmodule Doble9Engine.UI.Player do
     end
   end
 
-  def render_domino %{selected: selected, player: %{name: name}} = player do
-    Domino.render merge Domino.from(player), %{selected: selected}
-  end
-
   def render_domino %{domino: domino, player: %{turn: %{choices: choices}}, selected: selected} = player do
     Domino.render merge Domino.from(player), %{
       available: domino in (map choices, fn {domino,_} -> domino end),
       selected: selected == domino
     }
+  end
+
+  def render_domino %{selected: selected, player: %{name: name}} = player do
+    Domino.render merge Domino.from(player), %{selected: selected}
   end
 
   def render_domino player do

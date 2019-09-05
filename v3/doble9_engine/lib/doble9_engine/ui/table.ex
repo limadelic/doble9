@@ -7,9 +7,9 @@ defmodule Doble9Engine.UI.Table do
 
   @padding 32
 
-  def render %{table: %{heads: []}} do  end
+  def render %{game: %{table: %{heads: []}}} do  end
 
-  def render %{table: %{dominoes: dominoes, start: start}, window: window, target: target} do
+  def render %{game: %{table: %{dominoes: dominoes, start: start}}, window: window, target: target} do
     {head, tail} = split dominoes, start
     start = center start, window
     head = head %{dominoes: head, pos: :left, prev: start, margins: margins(window)}
