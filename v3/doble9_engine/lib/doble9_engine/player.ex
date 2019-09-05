@@ -67,6 +67,9 @@ defmodule Doble9Engine.Player do
   def handle_info :play, %{game: game, name: name, turn: %{choices: []}} = player do
     {:noreply, knocked(Game.knock(game, name), player)}
   end
+  def handle_info :play, %{game: game, name: name, turn: %{choices: [{domino,target}|_]}, dominoes: [_|[]]} = player do
+    {:noreply, won(Game.win(game, name, domino, target), player)}
+  end
   def handle_info :play, %{game: game, name: name, turn: %{choices: [{domino,target}|_]}} = player do
     {:noreply, played(Game.play(game, name, domino, target), domino, player)}
   end
