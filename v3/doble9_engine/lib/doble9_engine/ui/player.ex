@@ -71,7 +71,8 @@ defmodule Doble9Engine.UI.Player do
   def render_count %{selected: selected, count_at: count_at, axis: axis, player: %{name: name, dominoes: dominoes}, top: top, left: left} do
     {width, height} = size dominoes, axis
     {_,count} = Player.count name
-    Label.render %{text: count, selected: selected, at: count_at, ref: %{left: left, top: top, width: width, height: height}}
+    text = length(dominoes) == 0 && "won" || count
+    Label.render %{text: text, selected: selected, at: count_at, ref: %{left: left, top: top, width: width, height: height}}
   end
 
   def render_count %{count_at: count_at, axis: axis, player: %{name: name, dominoes: dominoes}, top: top, left: left} do

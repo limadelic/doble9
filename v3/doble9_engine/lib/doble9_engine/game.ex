@@ -19,7 +19,7 @@ defmodule Doble9Engine.Game do
   end
 
   @dominoes for x <- 0..9, y <- x..9, do: [x,y]
-  @bots [:cris, :mike, :isel]
+  @bots [:mike, :cristi, :isel]
 
   def start game, player do
     %{
