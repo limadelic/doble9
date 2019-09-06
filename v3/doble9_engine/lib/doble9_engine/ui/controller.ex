@@ -1,10 +1,10 @@
 defmodule Doble9Engine.UI.Controller do
 
-  alias Doble9Engine.{Player, Target}
+  alias Doble9Engine.{Game, Player, Target}
 
   import Ratatouille.Constants, only: [key: 1]
   import Enum, only: [find: 2, filter: 2, at: 3]
-  import Doble9Engine.Player, only: [login: 1, new_game: 2, knock: 1]
+  import Doble9Engine.Player, only: [login: 1, knock: 1]
   import Doble9Engine.Helpers
 
   @game :calle8
@@ -18,12 +18,15 @@ defmodule Doble9Engine.UI.Controller do
   @space key(:space)
   @enter key(:enter)
   @play [@space, @enter]
-  @knock [@space, @enter]
   @switch_target [@up, @down]
 
   def init %{window: window} do
     login @player
-    new_game @player, @game
+    Player.new_game @player, @game
+    reset window
+  end
+
+  def reset window do
     update %{window: window, game: nil, player: nil, playing: nil, selected: nil, target: nil, blink: false}
   end
 
@@ -52,20 +55,25 @@ defmodule Doble9Engine.UI.Controller do
     entered number, choice(choices, number), game
   end
 
-  def update(%{selected: nil} = game, {_,%{key: key}}) when key in @knock do
-    knock @player
-    update game
-  end
-
   def update(%{target: [x,y]} = game, {_,%{key: key}}) when key in @switch_target do
     %{game | target: [y,x]}
   end
 
-  def update(%{selected: domino, target: [target|_]} = game, {_,%{key: key}}) when domino != nil and key in @play do
+  def update(%{game: %{finished: finished}, window: window} = game, {_,%{key: key}}) when finished != nil and key == @enter do
+    Game.new @game
+    reset window
+  end
+
+  def update(%{game: %{finished: nil}, selected: nil} = game, {_,%{key: key}}) when key in @play do
+    knock @player
+    update game
+  end
+
+  def update(%{game: %{finished: nil}, selected: domino, target: [target|_]} = game, {_,%{key: key}}) when key in @play do
     play domino, target, game
   end
 
-  def update(%{selected: domino, target: target} = game, {_, %{key: key}}) when domino != nil and key in @play do
+  def update(%{game: %{finished: nil}, selected: domino, target: target} = game, {_, %{key: key}}) when key in @play do
     play domino, target, game
   end
 
