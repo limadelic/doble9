@@ -1,6 +1,6 @@
 defmodule Doble9Engine.UI.Controller do
 
-  alias Doble9Engine.{Game, Player, Target}
+  alias Doble9Engine.{Game, Player, Target, Choose}
 
   import Ratatouille.Constants, only: [key: 1]
   import Enum, only: [find: 2, filter: 2, at: 3]
@@ -32,7 +32,7 @@ defmodule Doble9Engine.UI.Controller do
 
   def update old do
     :timer.sleep 10
-    with game <- the(@game), player <- the(@player), {selected, target} <- at(player[:turn][:choices] || [], 0, {nil,nil}),
+    with game <- the(@game), player <- the(@player), {selected, target} <- Choose.best(player[:turn][:choices]),
       do: %{old | game: game, player: player, playing: nil, selected: selected, target: target}
   end
 
