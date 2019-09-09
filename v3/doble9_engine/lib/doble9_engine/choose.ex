@@ -15,7 +15,7 @@ defmodule Doble9Engine.Choose do
   end
 
   def big_double choices do
-    choices |> sorted |> find fn {[h,t],_} -> h == t and h >= 4 end
+    choices |> sorted |> find(fn {[h,t],_} -> h == t and h >= 4 end)
   end
 
   def biggest choices do
