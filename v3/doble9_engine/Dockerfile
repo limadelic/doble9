@@ -19,4 +19,4 @@ RUN apk upgrade \
   && rm -rf /var/cache/**/*
 WORKDIR /app
 COPY --from=builder /app/_build/prod/rel/doble9/ .
-CMD ["bin/doble9"]
+CMD ["bin/doble9","foreground"]
