@@ -22,4 +22,4 @@ defmodule Doble9Engine.UI do
 
 end
 
-Ratatouille.run Doble9Engine.UI, interval: 100
+#Ratatouille.run Doble9Engine.UI, interval: 100

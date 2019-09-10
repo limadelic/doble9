@@ -5,15 +5,17 @@ defmodule Doble9Engine.Application do
 
   use Application
 
+  alias Doble9Engine.UI
+
   def start(_type, _args) do
     # List all child processes to be supervised
     rat_opts = [
-      app: Doble9Engine.UI,
-      shutdown: {:application, :doble9},
+      app: UI,
+#      shutdown: {:application, :doble9},
+      interval: 100
     ]
-
     children = [
-#      {Ratatouille.Runtime.Supervisor, runtime: rat_opts}
+      {Ratatouille.Runtime.Supervisor, runtime: rat_opts}
       # Starts a worker by calling: Doble9Engine.Worker.start_link(arg)
       # {Doble9Engine.Worker, arg}
     ]

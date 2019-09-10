@@ -22,7 +22,7 @@ defmodule Doble9Engine.MixProject do
   # Run "mix help deps" to learn about dependencies.
   defp deps do
     [
-      {:ratatouille, "~> 0.5.0"},
+      {:ratatouille, "~> 0.5"},
       {:distillery, "2.0.14"}
     ]
   end
