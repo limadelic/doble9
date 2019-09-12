@@ -5,7 +5,7 @@ defmodule Doble9Engine.Rack do
   end
 
   def count dominoes do
-    0..9
+    9..0
     |> Enum.map(&({&1, Enum.count(dominoes, fn x -> &1 in x end)}))
     |> Enum.sort(fn {_,x}, {_,y} -> x >= y end)
     |> Enum.map(fn {x,_} -> x end)
