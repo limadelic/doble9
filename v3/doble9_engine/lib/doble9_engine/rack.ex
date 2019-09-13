@@ -43,15 +43,23 @@ defmodule Doble9Engine.Rack do
   end
 
   def can_join? joined, group do
-    can_join?(:left, joined, group)
-    || can_join?(:right, joined, group)
+    [h,t] = heads joined
+    can_join?(t, Enum.reverse(joined), group)
+    || can_join?(h, joined, group)
   end
-  def can_join? :left, joined, group do
-    false
+  def can_join? number, joined, group do
+    joined
+    |> Enum.take_while(&(number in &1))
+    |> Enum.any?(&(Enum.any? group, fn x -> &1 -- x != [] end))
   end
-  def can_join? :right, joined, group do
-    false
+
+  def heads [[h,t]] do [h,t] end
+  def heads group do
+    [repeated(Enum.take group, 2),repeated(group |> Enum.reverse |> Enum.take(2))]
   end
+
+  def repeated [[h,_],[h,_]] do h end
+  def repeated [[_,t], _] do t end
 
   def join_group! joined, group do
 
