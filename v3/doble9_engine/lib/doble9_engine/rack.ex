@@ -37,7 +37,7 @@ defmodule Doble9Engine.Rack do
 
   def join_group [], group do [group] end
   def join_group [first|rest], group do
-    can_join?(first,group)
+    (number = can_join?(first,group))
     && [join_group!(first,group)|rest]
     || [first|join_group(rest,group)]
   end
