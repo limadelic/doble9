@@ -32,12 +32,29 @@ defmodule Doble9Engine.Rack do
   def join_groups [group|groups] do join_groups [group], i groups end
   def join_groups joined, [] do flatten joined end
   def join_groups joined, [group|groups] do
-    i {:many, groups}
     join_groups join_group(joined, group), groups
   end
-  def join_group joined, group do
-    i :single
-    joined ++ [group]
+
+  def join_group [], group do [group] end
+  def join_group [first|rest], group do
+    can_join?(first,group)
+    && [join_group!(first,group)|rest]
+    || [first|join_group(rest,group)]
+  end
+
+  def can_join? joined, group do
+    can_join?(:left, joined, group)
+    || can_join?(:right, joined, group)
+  end
+  def can_join? :left, joined, group do
+    false
+  end
+  def can_join? :right, joined, group do
+    false
+  end
+
+  def join_group! joined, group do
+
   end
 
   def flatten [] do [] end
