@@ -6,7 +6,8 @@ defmodule Doble9Engine.Rack do
     dominoes
     |> sort_numbers_by_count
     |> group_and_arrange_by_number
-    |> join_groups
+#    |> join_groups
+    |> flatten
   end
 
   def sort_numbers_by_count dominoes do
@@ -30,7 +31,7 @@ defmodule Doble9Engine.Rack do
   end
 
   def join_groups [group|groups] do join_groups [group], i groups end
-  def join_groups joined, [] do flatten joined end
+  def join_groups joined, [] do joined end
   def join_groups joined, [group|groups] do
     join_groups join_group(joined, group), groups
   end

@@ -1,5 +1,5 @@
 defmodule Doble9Engine.Player do
-  alias Doble9Engine.{Game, Target}
+  alias Doble9Engine.{Game, Target, Rack}
   use GenServer
   import List, only: [flatten: 1]
   import Enum, only: [filter: 2, sum: 1, map: 2]
@@ -84,10 +84,11 @@ defmodule Doble9Engine.Player do
   end
 
   def picked({:ok, dominoes}, %{turn: turn} = player) when turn != nil do
+    dominoes = Rack.sort dominoes
     %{player | dominoes: dominoes, turn: %{turn | choices: choices(dominoes,[])}}
   end
   def picked {:ok, dominoes}, player do
-    %{player | dominoes: dominoes}
+    %{player | dominoes: Rack.sort(dominoes)}
   end
 
   def knocked :ok, %{turn: %{heads: heads}} = player do
