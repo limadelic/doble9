@@ -18,4 +18,10 @@ defmodule Doble9Engine.Helpers do
     Enum.at list ++ [first], Enum.find_index(list, &(&1 == item)) + 1
   end
 
+  def swap list, left, right do
+    Enum.slice(list,0..left - 1)
+    ++ [right,left]
+    ++ Enum.slice(list,right + 1..length(list))
+  end
+
 end

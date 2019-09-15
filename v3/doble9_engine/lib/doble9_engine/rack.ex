@@ -8,6 +8,7 @@ defmodule Doble9Engine.Rack do
     |> group_and_arrange_by_number
 #    |> join_groups
     |> flatten
+    |> center_doubles
   end
 
   def sort_numbers_by_count dominoes do
@@ -68,5 +69,33 @@ defmodule Doble9Engine.Rack do
 
   def flatten [] do [] end
   def flatten [group|groups] do group ++ flatten(groups) end
+
+  def center_doubles dominoes do
+    dominoes
+    |> Enum.with_index
+    |> Enum.filter(fn {[x,y],_} -> x == y end)
+    |> Enum.reduce(dominoes, &(:center_double/2))
+  end
+
+  def center_double {domino,i}, dominoes do
+    [left_left, left, right, right_right] = dominoes_around i, dominoes
+    cond do
+      centered_double?(left, domino, right) -> dominoes
+      centered_double?(left_left,domino,left) -> swap(dominoes, i, i-1)
+      centered_double?(right,domino,right_right) -> swap(dominoes, i, i+1)
+      true -> dominoes-
+    end
+  end
+
+  def dominoes_around i, dominoes do
+    [
+      Enum.at(dominoes, i - 2) || [],
+      Enum.at(dominoes, i - 1) || [],
+      Enum.at(dominoes, i + 1) || [],
+      Enum.at(dominoes, i + 2) || []
+    ]
+  end
+
+  def centered_double? left, [x,x], right do x in left and x in right end
 
 end
