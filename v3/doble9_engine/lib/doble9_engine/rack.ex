@@ -74,7 +74,7 @@ defmodule Doble9Engine.Rack do
     dominoes
     |> Enum.with_index
     |> Enum.filter(fn {[x,y],_} -> x == y end)
-    |> Enum.reduce(dominoes, &(:center_double/2))
+    |> Enum.reduce(dominoes, &center_double/2)
   end
 
   def center_double {domino,i}, dominoes do
@@ -83,7 +83,7 @@ defmodule Doble9Engine.Rack do
       centered_double?(left, domino, right) -> dominoes
       centered_double?(left_left,domino,left) -> swap(dominoes, i, i-1)
       centered_double?(right,domino,right_right) -> swap(dominoes, i, i+1)
-      true -> dominoes-
+      true -> dominoes
     end
   end
 

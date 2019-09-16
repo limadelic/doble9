@@ -20,7 +20,7 @@ defmodule Doble9Engine.Helpers do
 
   def swap list, left, right do
     Enum.slice(list,0..left - 1)
-    ++ [right,left]
+    ++ [Enum.at(list, right),Enum.at(list, left)]
     ++ Enum.slice(list,right + 1..length(list))
   end
 
