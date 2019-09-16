@@ -3,7 +3,7 @@ defmodule Doble9Engine.UI.Controller do
   alias Doble9Engine.{Game, Player, Target, Choose}
 
   import Ratatouille.Constants, only: [key: 1]
-  import Enum, only: [find: 2, filter: 2, at: 3]
+  import Enum, only: [find: 2, filter: 2]
   import Doble9Engine.Player, only: [login: 1, knock: 1]
   import Doble9Engine.Helpers
 
@@ -59,7 +59,7 @@ defmodule Doble9Engine.UI.Controller do
     %{game | target: [y,x]}
   end
 
-  def update(%{game: %{finished: finished}, window: window} = game, {_,%{key: key}}) when finished != nil and key == @enter do
+  def update(%{game: %{finished: finished}, window: window}, {_,%{key: key}}) when finished != nil and key == @enter do
     Game.new @game
     reset window
   end

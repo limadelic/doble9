@@ -3,7 +3,7 @@ defmodule Doble9Engine.UI.Player do
   alias Doble9Engine.Player
   alias Doble9Engine.UI.{Domino, Label}
   import Map, only: [merge: 2]
-  import Enum, only: [with_index: 1, map: 2, random: 1, zip: 2]
+  import Enum, only: [with_index: 1, map: 2, zip: 2]
   import Doble9Engine.UI.Assets
   import Doble9Engine.Helpers
 
@@ -94,7 +94,7 @@ defmodule Doble9Engine.UI.Player do
     }
   end
 
-  def render_domino %{selected: selected, player: %{name: name}} = player do
+  def render_domino %{selected: selected} = player do
     Domino.render merge Domino.from(player), %{selected: selected}
   end
 
