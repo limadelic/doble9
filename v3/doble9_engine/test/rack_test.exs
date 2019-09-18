@@ -20,9 +20,9 @@ defmodule RackTest do
       assert group_and_arrange_by_number({@dominoes, @numbers_sorted_by_count}) == @grouped_and_arranged_by_number
     end
 
-    test "join groups" do
-      assert join_groups(@grouped_and_arranged_by_number) == @joined
-    end
+#    test "join groups" do
+#      assert join_groups(@grouped_and_arranged_by_number) == @joined
+#    end
 
     test "flatten groups" do
       assert flatten(@grouped_and_arranged_by_number) == @flatten

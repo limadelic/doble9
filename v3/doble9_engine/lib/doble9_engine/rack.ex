@@ -81,7 +81,7 @@ defmodule Doble9Engine.Rack do
     [left_left, left, right, right_right] = dominoes_around i, dominoes
     cond do
       centered_double?(left, domino, right) -> dominoes
-      centered_double?(left_left,domino,left) -> swap(dominoes, i, i-1)
+      centered_double?(left_left,domino,left) -> swap(dominoes, i-1, i)
       centered_double?(right,domino,right_right) -> swap(dominoes, i, i+1)
       true -> dominoes
     end

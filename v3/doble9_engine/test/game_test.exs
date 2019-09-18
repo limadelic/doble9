@@ -2,7 +2,7 @@ defmodule GameTest do
   use ExUnit.Case
 
   alias Doble9Engine.{Player, Helpers, Game}
-  import Player, only: [login: 1, new_game: 2, play: 3, knock: 1, turn: 2]
+  import Player, only: [login: 1, new_game: 2]
   import Helpers
   import Game, only: [new: 1]
 
