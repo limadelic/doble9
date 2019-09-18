@@ -22,6 +22,10 @@ defmodule GameTest do
       assert i finished
     end
 
+    test "keeps score", %{score: score} = _ do
+      assert score > 0
+    end
+
   end
 
   describe "play another" do
