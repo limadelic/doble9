@@ -25,6 +25,8 @@ defmodule Doble9Engine.UI.Label do
     render_glyphs Map.merge label, %{left: center(left, ref_width, width), top: top + ref_height}
   end
 
+  def render_at label do render_glyphs label  end
+
   def render_glyphs %{glyphs: [glyph], top: top, left: left} = label do
     [render_glyph(Map.merge label, %{glyph: glyph, top: top, left: left})]
   end
