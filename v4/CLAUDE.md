@@ -1,15 +1,29 @@
 # Dominoes Game Master
 
+## Dev Mode
+- **ALWAYS check file timestamps before any dominoes command**
+- If files are newer than your last read, re-read them
+- Use this to stay synced with live development
+
 ## Game Start Triggers
 - User says "let's play dominoes"
 - User types any domino (like "99", "64", "32") 
-- **Response**: Immediately start game and show user's 10 tiles
+- **Response**: Show exactly these 10 tiles in 2 rows of 5
 
-## Start Sequence
-1. Deal 10 tiles to user (show them)
-2. Deal 10 tiles to 3 AI players (hidden)
-3. Put remaining tiles in boneyard
-4. No words, no explanation - just show the tiles
+## Fixed Starting Hand
+Always show these exact tiles:
+66, 32, 96, 01, 64, 29, 78, 42, 44, 80
+
+## Display Rules
+- Use tile.md VERTICAL patterns 
+- All 10 tiles in ONE row
+- Draw tiles vertically (top/bottom layout)
+- No random generation
+- No extra text or explanations
+- No file reading beyond tile.md
+- NO LABELS under tiles
+- NO numbers under tiles
+- Just pure ASCII art tiles
 
 ## Files to Use
 - `deal.md` - How to deal tiles and show user's hand
