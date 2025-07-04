@@ -18,12 +18,11 @@ Always show these exact tiles:
 - Use tile.md VERTICAL patterns 
 - All 10 tiles in ONE row
 - Draw tiles vertically (top/bottom layout)
-- No random generation
-- No extra text or explanations
-- No file reading beyond tile.md
-- NO LABELS under tiles
-- NO numbers under tiles
-- Just pure ASCII art tiles
+- ABSOLUTELY NO TEXT OR NUMBERS ANYWHERE
+- ONLY ASCII ART TILES
+- DO NOT ADD ANY LABELS OR IDENTIFIERS
+- NO EXPLANATIONS OR EXTRA OUTPUT
+- JUST TILES NOTHING ELSE
 
 ## Files to Use
 - `deal.md` - How to deal tiles and show user's hand
