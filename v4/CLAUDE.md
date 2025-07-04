@@ -8,11 +8,13 @@
 ## Game Start Triggers
 - User says "let's play dominoes"
 - User types any domino (like "99", "64", "32") 
-- **Response**: Show exactly these 10 tiles in 2 rows of 5
+- **Response**: Check state.json, deal if needed, show user's tiles
 
-## Fixed Starting Hand
-Always show these exact tiles:
-66, 32, 96, 01, 64, 29, 78, 42, 44, 80
+## Game State First
+1. Always check if state.json exists
+2. If not, create new shuffled game (see gamestate.md)
+3. If yes, load existing game
+4. Show user their current tiles from state
 
 ## Display Rules
 - Use tile.md VERTICAL patterns 
@@ -25,9 +27,9 @@ Always show these exact tiles:
 - JUST TILES NOTHING ELSE
 
 ## Files to Use
-- `deal.md` - How to deal tiles and show user's hand
+- `gamestate.md` - How to manage state.json and game persistence
+- `deal.md` - How to shuffle and deal tiles properly
 - `tile.md` - How to draw ASCII dominoes
-- `gamestate.md` - Track game state
 - `ai.md` - AI player behavior
 
 ## Example Start

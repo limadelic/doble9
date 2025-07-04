@@ -5,9 +5,17 @@
 - User types any domino notation (99, 64, 32, etc.)
 
 ## What to Do
-1. Show these exact tiles: 66, 32, 96, 01, 64, 29, 78, 42, 44, 80
-2. Display them vertically in one row
-3. No text, no explanation - just show tiles
+1. Check if state.json exists
+2. If not, shuffle complete double-9 set and deal properly
+3. Show user's tiles from state (vertically in one row)
+4. No text, no explanation - just show tiles
+
+## Shuffling Process
+1. Create complete set: 00,01,02,03,04,05,06,07,08,09,11,12,13,14,15,16,17,18,19,22,23,24,25,26,27,28,29,33,34,35,36,37,38,39,44,45,46,47,48,49,55,56,57,58,59,66,67,68,69,77,78,79,88,89,99
+2. Shuffle randomly
+3. Deal 10 to user, 10 to ai1, 10 to ai2, 10 to ai3
+4. Put remaining 15 in boneyard
+5. Save to state.json
 
 ## Display Format
 Show tiles vertically in one row - no labels, no numbers, just tiles:
@@ -24,11 +32,9 @@ Show tiles vertically in one row - no labels, no numbers, just tiles:
 └───────┘ └───────┘ └───────┘ └───────┘ └───────┘ └───────┘ └───────┘ └───────┘ └───────┘ └───────┘
 ```
 
-## Fixed Tiles
-Always show: 66, 32, 96, 01, 64, 29, 78, 42, 44, 80
-
 ## Rules
-- No random generation
-- No labels or numbers
+- Each tile appears exactly once in the game
+- Proper shuffling and dealing
+- No labels or numbers on display
 - Just ASCII art tiles
-- User sees tiles immediately
+- User sees their tiles immediately
