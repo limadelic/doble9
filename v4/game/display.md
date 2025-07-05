@@ -2,8 +2,11 @@
 
 ## Instructions
 - Read user tiles from state/user.json
+- For each tile (e.g. "03"), get patterns from numbers.json:
+  - First digit = top pattern
+  - Second digit = bottom pattern
+- Build vertical domino with patterns from numbers.json
 - Write ASCII domino tiles to OUT.md file
-- Use tile.md vertical patterns
 - All tiles in one row
 - No labels or numbers
 - Just ASCII art tiles
