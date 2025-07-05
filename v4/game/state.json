@@ -1,0 +1,74 @@
+{
+  "players": {
+    "user": [
+      "38",
+      "48",
+      "88",
+      "89",
+      "47",
+      "49",
+      "12",
+      "15",
+      "02",
+      "36"
+    ],
+    "ai1": [
+      "hidden",
+      "hidden",
+      "hidden",
+      "hidden",
+      "hidden",
+      "hidden",
+      "hidden",
+      "hidden",
+      "hidden",
+      "hidden"
+    ],
+    "ai2": [
+      "hidden",
+      "hidden",
+      "hidden",
+      "hidden",
+      "hidden",
+      "hidden",
+      "hidden",
+      "hidden",
+      "hidden",
+      "hidden"
+    ],
+    "ai3": [
+      "hidden",
+      "hidden",
+      "hidden",
+      "hidden",
+      "hidden",
+      "hidden",
+      "hidden",
+      "hidden",
+      "hidden",
+      "hidden"
+    ]
+  },
+  "boneyard": [
+    "55",
+    "99",
+    "33",
+    "06",
+    "69",
+    "11",
+    "79",
+    "26",
+    "68",
+    "66",
+    "04",
+    "44",
+    "59",
+    "23",
+    "34"
+  ],
+  "table": [
+
+  ],
+  "turn": "user",
+  "game_id": "1751671913"
+}

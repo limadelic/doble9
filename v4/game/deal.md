@@ -7,8 +7,16 @@
 ## What to Do
 1. Check if state.json exists
 2. If not, shuffle complete double-9 set and deal properly
-3. Show user's tiles from state (vertically in one row)
-4. No text, no explanation - just show tiles
+3. Sort user's tiles by strength before displaying
+4. Show sorted tiles vertically in one row
+5. No text, no explanation - just show tiles
+
+## Tile Sorting Rules
+1. Group tiles by matching numbers (8s, 9s, 5s, etc.)
+2. Sort groups by size: biggest groups first
+3. Within groups, sort tiles numerically
+4. Show strongest groups first, singles last
+5. Rotate tiles so matching numbers align when possible
 
 ## Shuffling Process
 1. Create complete set: 00,01,02,03,04,05,06,07,08,09,11,12,13,14,15,16,17,18,19,22,23,24,25,26,27,28,29,33,34,35,36,37,38,39,44,45,46,47,48,49,55,56,57,58,59,66,67,68,69,77,78,79,88,89,99
