@@ -1,6 +1,5 @@
 # Start New Game
 
-- Reset state files from state0.json
-- Deal
+- Deal (copies from dominoes.js and shuffles)
 - Sort
 - Display
