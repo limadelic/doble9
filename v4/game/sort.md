@@ -25,3 +25,6 @@ Output: ["55", "05", "49", "89", "19", "77", "66", "08", "27", "13"]
 ## Invariant
 User keeps same tiles just in different order
 
+## Implementation
+Read tiles from state/user.json, sort them, write back to state/user.json
+

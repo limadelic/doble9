@@ -1,6 +1,6 @@
 # Start New Game
 
-- cp state0.json state.json
+- Reset state files from state0.json
 - Deal
 - Sort
 - Display

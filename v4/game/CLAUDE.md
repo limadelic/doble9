@@ -8,4 +8,5 @@
 
 - Follow start.md to start a game
 - You must start a game automatically
+- Treat all postconditions as todos to verify
 - So if this is your first time reading this start the game now!
