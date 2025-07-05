@@ -1,4 +1,4 @@
-# Deal Instructions
+# Deal
 
 ## Precondition
 state.json equals state0.json
@@ -10,7 +10,7 @@ state.json equals state0.json
 - Continue until each player has 10 dominoes
 - Save to state.json
 
-## Postcondition
+## Postconditions
 - Dominoes array has 15 dominoes left
 - Each player has 10 dominoes
 - No domino is duplicated
