@@ -14,7 +14,7 @@ For each of the 40 tiles to deal:
 - Remove it from dominoes array  
 - Add it to current player's array
 - Save state.json
-- Move to next player (user → ai1 → ai2 → ai3 → user...)
+- Move to next player (user → right → front → left → user...)
 
 ## 3. Show Game
 Follow display.md to show user's tiles
