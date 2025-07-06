@@ -3,7 +3,7 @@
   "version": "0.0.1",
   "description": "AI-powered dominoes game for Claude",
   "bin": {
-    "doble9": "./doble9"
+    "doble9": "doble9"
   },
   "keywords": [
     "dominoes",
