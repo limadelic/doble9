@@ -28,7 +28,7 @@ Ideally over time you will know what pieces need to b compiled based in changes
 - A bullet with and @import expands in place into the compiled TODO
 - Block bullets should still compile into a single bullet
 - A Block bullet is a single bullet that ends in : and is followed by a block
-- Do not parse nor compile the Block
+- Do not parse nor compile the Block just copy the whole bullet along with the block
 
 ## Postconditions
 
