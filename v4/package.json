@@ -1,6 +1,6 @@
 {
   "name": "doble9",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "AI-powered dominoes game for Claude",
   "bin": {
     "doble9": "doble9"
@@ -16,5 +16,8 @@
   "files": [
     "dist/",
     "doble9"
-  ]
+  ],
+  "devDependencies": {
+    "doble9": "*"
+  }
 }
