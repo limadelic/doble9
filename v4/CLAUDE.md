@@ -1,4 +1,8 @@
-# Development Claude - v4 Dominoes
+# Development Claude - Dominoes
+
+## Commands
+- compile: @compile.md
+- publish: git commit & push, increase minor v, npm publish & install
 
 ## Project Objective
 Exploring English as a programming language using Claude as the runtime environment. The dominoes game serves as a test case for developing reliable natural language "programs" with proper software engineering principles.
@@ -22,6 +26,3 @@ Exploring English as a programming language using Claude as the runtime environm
 
 ## Testing Process
 Fresh Claude instances should execute the English program correctly by following the instruction files
-
-## Commands
-- compile: @compile.md
