@@ -1,6 +1,6 @@
 {
   "name": "doble9",
-  "version": "1.0.0",
+  "version": "0.0.1",
   "description": "AI-powered dominoes game for Claude",
   "bin": {
     "doble9": "./doble9"
@@ -14,14 +14,7 @@
   "author": "limadelic",
   "license": "MIT",
   "files": [
-    "CLAUDE.md",
-    "start.md",
-    "deal.md",
-    "sort.md",
-    "display.md",
-    "players.md",
-    "numbers.json",
-    "dominoes.json",
+    "dist/**/*.*",
     "doble9"
   ]
 }
