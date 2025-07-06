@@ -1,13 +1,14 @@
 # Deal
 
-## Precondition
-dominoes.json exists with all 55 dominoes
+## Requires
+- dominoes.json
 
 ## Instructions
-Deal 10 dominoes to each player:
 
+- Deal 10 dominoes to each player:
 ```bash
 # Copy and shuffle dominoes
+mkdir -p state/
 cp dominoes.json state/dominoes.json
 DOMINOES=$(jq -r '.[]' state/dominoes.json | tr '\n' ',')
 SHUFFLED=$(DOMINOES="$DOMINOES" ruby -e "puts ENV['DOMINOES'].split(',').shuffle.join(',')")
@@ -21,6 +22,13 @@ echo "[$SHUFFLED]" | jq -r '.[40:55]' > state/dominoes.json
 ```
 
 ## Postconditions
-- dominoes.json has 15 dominoes left
-- Each player file has 10 dominoes
-- No domino is duplicated
+
+- Ensure that:
+```bash
+# Verify deal worked correctly
+[ $(jq length state/dominoes.json) -eq 15 ]
+[ $(jq length state/user.json) -eq 10 ]
+[ $(jq length state/right.json) -eq 10 ]
+[ $(jq length state/front.json) -eq 10 ]
+[ $(jq length state/left.json) -eq 10 ]
+```

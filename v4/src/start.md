@@ -6,5 +6,3 @@ It is called "dale agua"
 
 ## Instructions
 - @deal.md
-
-## Post Conditions
