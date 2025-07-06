@@ -1,6 +1,6 @@
 {
   "name": "doble9",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "description": "AI-powered dominoes game for Claude",
   "bin": {
     "doble9": "doble9"
