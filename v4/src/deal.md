@@ -1,14 +1,14 @@
 # Deal
 
 ## Precondition
-dominoes.js exists with all 55 dominoes
+dominoes.json exists with all 55 dominoes
 
 ## Instructions
 Deal 10 dominoes to each player:
 
 ```bash
 # Copy and shuffle dominoes
-cp dominoes.js state/dominoes.json
+cp dominoes.json state/dominoes.json
 DOMINOES=$(jq -r '.[]' state/dominoes.json | tr '\n' ',')
 SHUFFLED=$(DOMINOES="$DOMINOES" ruby -e "puts ENV['DOMINOES'].split(',').shuffle.join(',')")
 

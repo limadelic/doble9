@@ -15,10 +15,13 @@
   "license": "MIT",
   "files": [
     "CLAUDE.md",
-    "gamestate.md", 
+    "start.md",
     "deal.md",
-    "sorting.md",
-    "tile.md",
+    "sort.md",
+    "display.md",
+    "players.md",
+    "numbers.json",
+    "dominoes.json",
     "doble9"
   ]
 }

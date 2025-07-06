@@ -1,2 +1,5 @@
 #!/bin/bash
-claude code
+ORIGINAL_DIR=$(pwd)
+cd "$(dirname "$0")"
+claude "start a new game"
+cd "$ORIGINAL_DIR"
