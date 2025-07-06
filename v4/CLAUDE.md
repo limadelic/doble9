@@ -22,3 +22,7 @@ Exploring English as a programming language using Claude as the runtime environm
 
 ## Testing Process
 Fresh Claude instances should execute the English program correctly by following the instruction files
+
+## Compile Process
+- Copy src/CLAUDE.md to dist/CLAUDE.md
+- Process src/start.md into detailed execution plan
