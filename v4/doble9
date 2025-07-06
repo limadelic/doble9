@@ -1,5 +1,5 @@
 #!/bin/bash
 ORIGINAL_DIR=$(pwd)
-cd "$(dirname "$0")/dist"
+cd "$(dirname "$0")/../doble9/dist"
 claude "start a new game"
 cd "$ORIGINAL_DIR"
