@@ -1,25 +1,67 @@
 'use client';
 
 export default function Home() {
-  const renderHorizontalDominoes = (count) => {
-    return Array.from({length: count}, (_, i) => (
-      <div key={i} style={{
-        backgroundImage: 'url(/img/back_ver.gif)',
-        backgroundSize: 'cover',
-        backgroundRepeat: 'no-repeat',
-        marginRight: '1px',
-        width: '50px',
-        height: '100px',
-        float: 'left',
-        display: 'block'
-      }}></div>
-    ));
+  const renderHorizontalDominoes = (count, faceUp = false) => {
+    return Array.from({length: count}, (_, i) => {
+      if (faceUp) {
+        const top = Math.floor(i / 2);
+        const bottom = i % 7;
+        return (
+          <div key={i} style={{
+            marginRight: '1px',
+            width: '50px',
+            height: '100px',
+            float: 'left',
+            display: 'block',
+            position: 'relative',
+            backgroundColor: 'white',
+            border: '1px solid black'
+          }}>
+            <div style={{
+              backgroundImage: `url(/img/${top}.gif)`,
+              backgroundSize: 'contain',
+              backgroundRepeat: 'no-repeat',
+              backgroundPosition: 'center',
+              height: '48px',
+              width: '48px',
+              position: 'absolute',
+              top: '1px',
+              left: '1px'
+            }}></div>
+            <div style={{
+              backgroundImage: `url(/img/${bottom}.gif)`,
+              backgroundSize: 'contain',
+              backgroundRepeat: 'no-repeat',
+              backgroundPosition: 'center',
+              height: '48px',
+              width: '48px',
+              position: 'absolute',
+              bottom: '1px',
+              left: '1px'
+            }}></div>
+          </div>
+        );
+      } else {
+        return (
+          <div key={i} style={{
+            backgroundImage: 'url(/img/domino_back.png)',
+            backgroundSize: 'cover',
+            backgroundRepeat: 'no-repeat',
+            marginRight: '1px',
+            width: '50px',
+            height: '100px',
+            float: 'left',
+            display: 'block'
+          }}></div>
+        );
+      }
+    });
   };
 
   const renderVerticalDominoes = (count) => {
     return Array.from({length: count}, (_, i) => (
       <div key={i} style={{
-        backgroundImage: 'url(/img/back_hor.gif)',
+        backgroundImage: 'url(/img/domino_back_hor.png)',
         backgroundSize: 'cover',
         backgroundRepeat: 'no-repeat',
         marginBottom: '1px',
@@ -86,7 +128,7 @@ export default function Home() {
           width: '510px',
           padding: '10px'
         }}>
-          {renderHorizontalDominoes(10)}
+          {renderHorizontalDominoes(10, true)}
         </div>
       </div>
     </div>
