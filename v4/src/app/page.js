@@ -12,25 +12,33 @@ export default function Home() {
             width: '50px',
             height: '100px',
             float: 'left',
-            display: 'block',
+            display: 'flex',
+            flexDirection: 'column',
             backgroundSize: 'cover',
             backgroundRepeat: 'no-repeat',
             backgroundColor: 'white',
             border: '1px solid black'
           }}>
             <div style={{
-              padding: '10px',
-              width: '30px',
-              float: 'left'
+              padding: '5px',
+              width: '40px',
+              height: '45px',
+              borderBottom: '1px solid #ccc',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center'
             }}>
-              <img src={`/img/${top}.gif`} style={{maxWidth: '100%'}} />
+              <img src={`/img/${top}.gif`} style={{maxWidth: '30px', maxHeight: '30px'}} />
             </div>
             <div style={{
-              padding: '10px',
-              width: '30px',
-              float: 'left'
+              padding: '5px',
+              width: '40px',
+              height: '45px',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center'
             }}>
-              <img src={`/img/${bottom}.gif`} style={{maxWidth: '100%'}} />
+              <img src={`/img/${bottom}.gif`} style={{maxWidth: '30px', maxHeight: '30px'}} />
             </div>
           </div>
         );
@@ -118,7 +126,7 @@ export default function Home() {
       }}>
         <div style={{
           margin: 'auto',
-          width: '510px',
+          width: '530px',
           padding: '10px'
         }}>
           {renderHorizontalDominoes(10, true)}
