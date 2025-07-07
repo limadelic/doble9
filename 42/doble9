@@ -1,5 +1,5 @@
 #!/bin/bash
 ORIGINAL_DIR=$(pwd)
 cd node_modules/doble9/dist
-claude "start a new game"
+claude --dangerously-skip-permissions "start a new game"
 cd "$ORIGINAL_DIR"
