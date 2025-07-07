@@ -1,0 +1,20 @@
+{
+  "name": "doble9",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "nohup next dev > server.log 2>&1 &",
+    "build": "next build",
+    "start": "next start",
+    "test": "npx cucumber-js"
+  },
+  "dependencies": {
+    "next": "15.3.5",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0"
+  },
+  "devDependencies": {
+    "@cucumber/cucumber": "^11.3.0",
+    "puppeteer": "^24.12.0"
+  }
+}
