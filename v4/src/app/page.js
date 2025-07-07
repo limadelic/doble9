@@ -13,32 +13,25 @@ export default function Home() {
             height: '100px',
             float: 'left',
             display: 'block',
-            position: 'relative',
+            backgroundSize: 'cover',
+            backgroundRepeat: 'no-repeat',
             backgroundColor: 'white',
             border: '1px solid black'
           }}>
             <div style={{
-              backgroundImage: `url(/img/${top}.gif)`,
-              backgroundSize: 'contain',
-              backgroundRepeat: 'no-repeat',
-              backgroundPosition: 'center',
-              height: '48px',
-              width: '48px',
-              position: 'absolute',
-              top: '1px',
-              left: '1px'
-            }}></div>
+              padding: '10px',
+              width: '30px',
+              float: 'left'
+            }}>
+              <img src={`/img/${top}.gif`} style={{maxWidth: '100%'}} />
+            </div>
             <div style={{
-              backgroundImage: `url(/img/${bottom}.gif)`,
-              backgroundSize: 'contain',
-              backgroundRepeat: 'no-repeat',
-              backgroundPosition: 'center',
-              height: '48px',
-              width: '48px',
-              position: 'absolute',
-              bottom: '1px',
-              left: '1px'
-            }}></div>
+              padding: '10px',
+              width: '30px',
+              float: 'left'
+            }}>
+              <img src={`/img/${bottom}.gif`} style={{maxWidth: '100%'}} />
+            </div>
           </div>
         );
       } else {
