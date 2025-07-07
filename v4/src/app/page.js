@@ -17,7 +17,8 @@ export default function Home() {
             backgroundSize: 'cover',
             backgroundRepeat: 'no-repeat',
             backgroundColor: 'white',
-            border: '1px solid black'
+            border: '1px solid black',
+            borderRadius: '4px'
           }}>
             <div style={{
               padding: '5px',
@@ -52,7 +53,8 @@ export default function Home() {
             width: '50px',
             height: '100px',
             float: 'left',
-            display: 'block'
+            display: 'block',
+            borderRadius: '4px'
           }}></div>
         );
       }
