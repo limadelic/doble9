@@ -9,6 +9,7 @@
     "test": "npx cucumber-js"
   },
   "dependencies": {
+    "@anthropic-ai/sdk": "^0.56.0",
     "lodash": "^4.17.21",
     "next": "15.3.5",
     "react": "^19.0.0",

@@ -1,5 +1,6 @@
 import {useState, useCallback} from 'react';
 import _ from 'lodash';
+import { sortDominoes } from '../services/claude';
 
 export default function useGame() {
 
@@ -8,20 +9,25 @@ export default function useGame() {
     const dominoes = () =>
         _.chain(10)
             .times(x => _.range(x, 10)
-                .map(y => ({left: x, right: y})))
+                .map(y => [x, y]))
             .flatten()
             .shuffle()
             .value();
 
-    const players = () =>
-        _(['top', 'left', 'right', 'player'])
+    const players = async () => {
+        const playerDominoes = _(['top', 'left', 'right', 'player'])
             .zipObject(_.chunk(dominoes(), 10))
             .value();
+        
+        playerDominoes.player = await sortDominoes(playerDominoes.player);
+        
+        return playerDominoes;
+    };
 
-    const start = useCallback(() => {
+    const start = useCallback(async () => {
         setState({
             table: [],
-            players: players()
+            players: await players()
         });
     }, []);
 

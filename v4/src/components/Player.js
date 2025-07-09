@@ -9,8 +9,8 @@ export default function Player({ position, dominoes, faceUp = false }) {
       {dominoes?.map((domino, index) => (
         <Domino
           key={index}
-          leftValue={domino.left}
-          rightValue={domino.right}
+          leftValue={domino[0]}
+          rightValue={domino[1]}
           faceUp={faceUp}
           orientation={orientation}
         />
