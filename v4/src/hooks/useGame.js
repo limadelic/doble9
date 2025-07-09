@@ -1,30 +1,23 @@
-import {useState, useCallback, useEffect, useRef} from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import _ from 'lodash';
+import { arrange } from '../services/player';
 
 export default function useGame() {
-
     const [state, setState] = useState({});
-    const sortedRef = useRef(false);
 
     const dominoes = () =>
         _.chain(10)
-            .times(x => _.range(x, 10)
-                .map(y => [x, y]))
+            .times(x => _.range(x, 10).map(y => [x, y]))
             .flatten()
             .shuffle()
             .value();
 
-    const players = async () => {
-        const playerDominoes = _(['top', 'left', 'right', 'player'])
+    const players = async () => 
+        _(['top', 'left', 'right', 'player'])
             .zipObject(_.chunk(dominoes(), 10))
             .value();
-        
-        
-        return playerDominoes;
-    };
 
     const start = useCallback(async () => {
-        sortedRef.current = false;
         setState({
             table: [],
             players: await players()
@@ -32,33 +25,10 @@ export default function useGame() {
     }, []);
 
     useEffect(() => {
-        if (state.players?.player && !sortedRef.current) {
-            sortedRef.current = true;
-            const message = `Sort these dominoes: ${JSON.stringify(state.players.player)}. Return ONLY the JSON array, no other text.`;
-            
-            fetch('/api/claude', {
-                method: 'POST',
-                body: message
-            })
-            .then(res => res.text())
-            .then(sortedResponse => {
-                try {
-                    const jsonMatch = sortedResponse.match(/\[\[.*?\]\]/);
-                    const jsonStr = jsonMatch ? jsonMatch[0] : sortedResponse;
-                    const sortedDominoes = JSON.parse(jsonStr);
-                    setState(prev => ({
-                        ...prev,
-                        players: {
-                            ...prev.players,
-                            player: sortedDominoes
-                        }
-                    }));
-                } catch (e) {
-                    console.error('Sort failed:', e);
-                }
-            });
-        }
-    }, [state.players]);
+        arrange(state.players?.player).then(sorted => 
+            setState(prev => ({ ...prev, players: { ...prev.players, player: sorted } }))
+        );
+    }, [state.players?.player]);
 
-    return {...state, start};
+    return { ...state, start };
 }

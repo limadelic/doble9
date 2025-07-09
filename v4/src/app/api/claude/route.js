@@ -1,7 +1,10 @@
-import { ask } from '../../../services/claude';
+import { exec } from 'child_process';
 
 export async function POST(request) {
     const message = await request.text();
-    const response = await ask(message);
-    return new Response(response);
+    return new Promise((resolve) => {
+        exec(`echo "${message}" | claude`, (error, stdout) => {
+            resolve(new Response(error ? error.message : stdout.trim()));
+        });
+    });
 }
