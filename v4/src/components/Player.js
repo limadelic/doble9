@@ -6,7 +6,7 @@ export default function Player({ position, dominoes, faceUp = false }) {
 
   return (
     <div className={containerClass}>
-      {dominoes.map((domino, index) => (
+      {dominoes?.map((domino, index) => (
         <Domino
           key={index}
           leftValue={domino.left}
