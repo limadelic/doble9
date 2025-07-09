@@ -1,8 +1,14 @@
 import Player from './Player';
 import useGame from '../hooks/useGame';
+import { useEffect } from 'react';
 
 export default function Game() {
-  const { players } = useGame();
+  const { players, start } = useGame();
+  
+  useEffect(() => {
+    start();
+  }, [start]);
+
   return (
     <div className="game-container">
       <div className="player-area top">
