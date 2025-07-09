@@ -1,6 +1,5 @@
 import {useState, useCallback} from 'react';
 import _ from 'lodash';
-import { sortDominoes } from '../services/claude';
 
 export default function useGame() {
 
@@ -19,7 +18,6 @@ export default function useGame() {
             .zipObject(_.chunk(dominoes(), 10))
             .value();
         
-        playerDominoes.player = await sortDominoes(playerDominoes.player);
         
         return playerDominoes;
     };
