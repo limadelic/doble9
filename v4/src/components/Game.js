@@ -14,7 +14,7 @@ export default function Game() {
       <div className="player-area top">
         <Player 
           position="top" 
-          dominoes={players.top} 
+          dominoes={players?.top} 
           faceUp={false} 
         />
       </div>
@@ -25,7 +25,7 @@ export default function Game() {
             <td className="table-cell vertical">
               <Player 
                 position="left" 
-                dominoes={players.left} 
+                dominoes={players?.left} 
                 faceUp={false} 
               />
             </td>
@@ -35,7 +35,7 @@ export default function Game() {
             <td className="table-cell vertical">
               <Player 
                 position="right" 
-                dominoes={players.right} 
+                dominoes={players?.right} 
                 faceUp={false} 
               />
             </td>
@@ -43,10 +43,10 @@ export default function Game() {
         </tbody>
       </table>
       
-      <div className="player-area bottom">
+      <div className="player-area player">
         <Player 
-          position="bottom" 
-          dominoes={players.bottom} 
+          position="player" 
+          dominoes={players?.player} 
           faceUp={true} 
         />
       </div>
