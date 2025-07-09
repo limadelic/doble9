@@ -1,9 +1,10 @@
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useState } from 'react';
 import _ from 'lodash';
 import { arrange } from '../services/player';
 
 export default function useGame() {
     const [state, setState] = useState({});
+    const [arranging, setArranging] = useState(false);
 
     const dominoes = () =>
         _.chain(10)
@@ -18,17 +19,18 @@ export default function useGame() {
             .value();
 
     const start = useCallback(async () => {
+        const dominoes = await players();
         setState({
             table: [],
-            players: await players()
+            players: dominoes
+        });
+        
+        setArranging(true);
+        arrange(dominoes.player).then(sorted => {
+            setState(prev => ({ ...prev, players: { ...prev.players, player: sorted } }));
+            setArranging(false);
         });
     }, []);
 
-    useEffect(() => {
-        arrange(state.players?.player).then(sorted => 
-            setState(prev => ({ ...prev, players: { ...prev.players, player: sorted } }))
-        );
-    }, [state.players?.player]);
-
-    return { ...state, start };
+    return { ...state, start, arranging };
 }
