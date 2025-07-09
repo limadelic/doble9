@@ -1,5 +1,3 @@
-'use client';
-
 export default function Home() {
   const renderHorizontalDominoes = (count, faceUp = false) => {
     return Array.from({length: count}, (_, i) => {
@@ -7,55 +5,18 @@ export default function Home() {
         const top = Math.floor(i / 2);
         const bottom = i % 7;
         return (
-          <div key={i} style={{
-            marginRight: '1px',
-            width: '50px',
-            height: '100px',
-            float: 'left',
-            display: 'flex',
-            flexDirection: 'column',
-            backgroundSize: 'cover',
-            backgroundRepeat: 'no-repeat',
-            backgroundColor: 'white',
-            border: '1px solid black',
-            borderRadius: '4px'
-          }}>
-            <div style={{
-              padding: '5px',
-              width: '40px',
-              height: '45px',
-              borderBottom: '1px solid #ccc',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center'
-            }}>
-              <img src={`/img/${top}.gif`} style={{maxWidth: '30px', maxHeight: '30px'}} />
+          <div key={i} className="domino horizontal face-up">
+            <div className="domino-half top">
+              <img src={`/img/${top}.gif`} />
             </div>
-            <div style={{
-              padding: '5px',
-              width: '40px',
-              height: '45px',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center'
-            }}>
-              <img src={`/img/${bottom}.gif`} style={{maxWidth: '30px', maxHeight: '30px'}} />
+            <div className="domino-half">
+              <img src={`/img/${bottom}.gif`} />
             </div>
           </div>
         );
       } else {
         return (
-          <div key={i} style={{
-            backgroundImage: 'url(/img/domino_back.png)',
-            backgroundSize: 'cover',
-            backgroundRepeat: 'no-repeat',
-            marginRight: '1px',
-            width: '50px',
-            height: '100px',
-            float: 'left',
-            display: 'block',
-            borderRadius: '4px'
-          }}></div>
+          <div key={i} className="domino horizontal face-down"></div>
         );
       }
     });
@@ -63,74 +24,38 @@ export default function Home() {
 
   const renderVerticalDominoes = (count) => {
     return Array.from({length: count}, (_, i) => (
-      <div key={i} style={{
-        backgroundImage: 'url(/img/domino_back_hor.png)',
-        backgroundSize: 'cover',
-        backgroundRepeat: 'no-repeat',
-        marginBottom: '1px',
-        height: '50px',
-        width: '100px',
-        display: 'block'
-      }}></div>
+      <div key={i} className="domino vertical face-down"></div>
     ));
   };
 
   return (
-    <div style={{height: '100vh', position: 'relative'}}>
-      <div style={{
-        position: 'fixed',
-        top: '0',
-        width: '100%',
-        zIndex: 10
-      }}>
-        <div style={{
-          margin: 'auto',
-          width: '510px',
-          padding: '10px'
-        }}>
+    <div className="game-container">
+      <div className="player-area top">
+        <div className="dominoes-container horizontal">
           {renderHorizontalDominoes(10)}
         </div>
       </div>
       
-      <table style={{width: '100%', height: '100%', borderCollapse: 'collapse', margin: 0, padding: 0}}>
+      <table className="game-table">
         <tr>
-          <td style={{width: '100px', verticalAlign: 'middle'}}>
-            <div style={{
-              margin: 'auto',
-              height: '510px',
-              width: '100px',
-              padding: '10px'
-            }}>
+          <td className="table-cell vertical">
+            <div className="dominoes-container vertical">
               {renderVerticalDominoes(10)}
             </div>
           </td>
-          <td style={{width: 'auto', textAlign: 'center', verticalAlign: 'middle'}}>
-            <div style={{padding: '20px', minHeight: '300px'}}></div>
+          <td className="table-cell main">
+            <div className="table-center"></div>
           </td>
-          <td style={{width: '100px', verticalAlign: 'middle'}}>
-            <div style={{
-              margin: 'auto',
-              height: '510px',
-              width: '100px',
-              padding: '10px'
-            }}>
+          <td className="table-cell vertical">
+            <div className="dominoes-container vertical">
               {renderVerticalDominoes(10)}
             </div>
           </td>
         </tr>
       </table>
       
-      <div style={{
-        position: 'fixed',
-        bottom: '0',
-        width: '100%',
-        zIndex: 10
-      }}>
-        <div style={{
-          margin: 'auto',
-          width: '530px',
-          padding: '10px'
-        }}>
+      <div className="player-area bottom">
+        <div className="dominoes-container">
           {renderHorizontalDominoes(10, true)}
         </div>
       </div>

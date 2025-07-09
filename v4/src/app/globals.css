@@ -1,0 +1,120 @@
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  background: url(/img/table.jpg) repeat;
+  color: black;
+}
+
+.game-container {
+  height: 100vh;
+  position: relative;
+}
+
+.player-area {
+  position: fixed;
+  width: 100%;
+  z-index: 10;
+}
+
+.player-area.top {
+  top: 0;
+}
+
+.player-area.bottom {
+  bottom: 0;
+}
+
+.dominoes-container {
+  margin: auto;
+  width: 530px;
+  padding: 10px;
+  display: flex;
+  flex-direction: row;
+}
+
+.dominoes-container.horizontal {
+  width: 510px;
+}
+
+.dominoes-container.vertical {
+  height: 510px;
+  width: 100px;
+  flex-direction: column;
+}
+
+.domino {
+  background-size: cover;
+  background-repeat: no-repeat;
+  margin-right: 1px;
+  border-radius: 4px;
+}
+
+.domino.horizontal {
+  width: 50px;
+  height: 100px;
+}
+
+.domino.horizontal.face-up {
+  display: flex;
+  flex-direction: column;
+  background-color: white;
+  border: 1px solid black;
+}
+
+.domino.horizontal.face-down {
+  background-image: url(/img/domino_back.png);
+}
+
+.domino.vertical {
+  width: 100px;
+  height: 50px;
+  margin-bottom: 1px;
+  margin-right: 0;
+}
+
+.domino.vertical.face-down {
+  background-image: url(/img/domino_back_hor.png);
+}
+
+.domino-half {
+  padding: 5px;
+  width: 40px;
+  height: 45px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.domino-half.top {
+  border-bottom: 1px solid #ccc;
+}
+
+.domino-half img {
+  max-width: 30px;
+  max-height: 30px;
+}
+
+.game-table {
+  width: 100%;
+  height: 100%;
+  border-collapse: collapse;
+  margin: 0;
+  padding: 0;
+}
+
+.table-cell.vertical {
+  width: 100px;
+  vertical-align: middle;
+}
+
+.table-cell.main {
+  width: auto;
+  text-align: center;
+  vertical-align: middle;
+}
+
+.table-center {
+  padding: 20px;
+  min-height: 300px;
+}

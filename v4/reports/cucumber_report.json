@@ -1,0 +1,79 @@
+[
+  {
+    "description": "  As a user\n  I want to see the DOBLE9 application\n  So that I can start playing dominoes",
+    "elements": [
+      {
+        "description": "",
+        "id": "doble9-app-display;homepage-displays-doble9",
+        "keyword": "Scenario",
+        "line": 6,
+        "name": "Homepage displays DOBLE9",
+        "steps": [
+          {
+            "keyword": "Before",
+            "hidden": true,
+            "result": {
+              "status": "passed",
+              "duration": 718606000
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 7,
+            "name": "I open the DOBLE9 app",
+            "match": {
+              "location": "features/step_definitions/doble9_steps.js:4"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 729850917
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "When ",
+            "line": 8,
+            "name": "the page loads",
+            "match": {
+              "location": "features/step_definitions/doble9_steps.js:8"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 17245083
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Then ",
+            "line": 9,
+            "name": "I should see \"DOBLE9\" displayed on the page",
+            "match": {
+              "location": "features/step_definitions/doble9_steps.js:12"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 4550166
+            }
+          },
+          {
+            "keyword": "After",
+            "hidden": true,
+            "result": {
+              "status": "passed",
+              "duration": 86767959
+            }
+          }
+        ],
+        "tags": [],
+        "type": "scenario"
+      }
+    ],
+    "id": "doble9-app-display",
+    "line": 1,
+    "keyword": "Feature",
+    "name": "DOBLE9 App Display",
+    "tags": [],
+    "uri": "features/doble9.feature"
+  }
+]
