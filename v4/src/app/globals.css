@@ -27,7 +27,7 @@ html, body {
 
 .dominoes-container {
   margin: auto;
-  width: 530px;
+  width: 510px;
   padding: 10px;
   display: flex;
   flex-direction: row;
@@ -35,6 +35,7 @@ html, body {
 
 .dominoes-container.horizontal {
   width: 510px;
+  margin: auto;
 }
 
 .dominoes-container.vertical {
@@ -60,10 +61,13 @@ html, body {
   flex-direction: column;
   background-color: white;
   border: 1px solid black;
+  box-sizing: border-box;
 }
 
 .domino.horizontal.face-down {
   background-image: url(/img/domino_back.png);
+  border: 1px solid #8B4513;
+  box-sizing: border-box;
 }
 
 .domino.vertical {
@@ -80,7 +84,7 @@ html, body {
 .domino-half {
   padding: 5px;
   width: 40px;
-  height: 45px;
+  height: 40px;
   display: flex;
   align-items: center;
   justify-content: center;
